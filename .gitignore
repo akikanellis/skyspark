@@ -1,7 +1,4 @@
-/data
 /build.xml
-/data/ANTICOR_2_1000000.txt
-/data/CORREL_2_100000.txt
 /lib
 /nbproject/project.xml
 /nbproject/build-impl.xml
