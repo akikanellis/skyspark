@@ -1,5 +1,6 @@
-package com.github.dkanellis.skyspark.api.algorithms;
+package com.github.dkanellis.skyspark.api.algorithms.factories;
 
+import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.SkylineAlgorithm;
 import com.github.dkanellis.skyspark.api.algorithms.wrappers.SparkContextWrapper;
 
 /**
@@ -9,4 +10,5 @@ import com.github.dkanellis.skyspark.api.algorithms.wrappers.SparkContextWrapper
 public abstract class AbstractSkylineAlgorithmFactory {
 
     public abstract SkylineAlgorithm getBlockNestedLoop(SparkContextWrapper sparkContext);
+    public abstract SkylineAlgorithm getSortFilterSkyline(SparkContextWrapper sparkContext);
 }
