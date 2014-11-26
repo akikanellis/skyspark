@@ -9,18 +9,18 @@ import scala.Tuple2;
  */
 public class FlagPointPairProducer implements Serializable {
 
-    private final Point medianPoint;
+    private final Point2DAdvanced medianPoint;
 
-    public FlagPointPairProducer(Point medianPoint) {
+    public FlagPointPairProducer(Point2DAdvanced medianPoint) {
         this.medianPoint = medianPoint;
     }
 
-    public Tuple2<PointFlag, Point> getFlagPointPair(Point point) {
+    public Tuple2<PointFlag, Point2DAdvanced> getFlagPointPair(Point2DAdvanced point) {
         PointFlag flag = calculateFlag(point);
         return new Tuple2<>(flag, point);
     }
 
-    private PointFlag calculateFlag(Point point) {
+    private PointFlag calculateFlag(Point2DAdvanced point) {
         double x = point.getX();
         double y = point.getY();
         double medianX = medianPoint.getX();

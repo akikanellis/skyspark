@@ -25,15 +25,12 @@ public class PointFlag implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (obj == null || obj.getClass() != this.getClass()) {
+    public boolean equals(Object o) {
+        if (!(o instanceof PointFlag)) {
             return false;
         }
 
-        PointFlag other = (PointFlag) obj;
+        PointFlag other = (PointFlag) o;
         return xBit == other.getXBit() && yBit == other.getYBit();
     }
 

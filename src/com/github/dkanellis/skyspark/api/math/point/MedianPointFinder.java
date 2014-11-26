@@ -8,21 +8,21 @@ import org.apache.spark.api.java.JavaRDD;
  */
 public class MedianPointFinder {
 
-    public static Point findMedianPoint(JavaRDD<Point> points) {
-        Point biggestPointByXDimension = points.reduce((a, b) -> getBiggestPointByXDimension(a, b));
-        Point biggestPointByYDimension = points.reduce((a, b) -> getBiggestPointByYDimension(a, b));
+    public static Point2DAdvanced findMedianPoint(JavaRDD<Point2DAdvanced> points) {
+        Point2DAdvanced biggestPointByXDimension = points.reduce((a, b) -> getBiggestPointByXDimension(a, b));
+        Point2DAdvanced biggestPointByYDimension = points.reduce((a, b) -> getBiggestPointByYDimension(a, b));
 
         double xDimensionMedian = biggestPointByXDimension.getX() / 2.0;
         double yDimensionMedian = biggestPointByYDimension.getY() / 2.0;
 
-        return new Point(xDimensionMedian, yDimensionMedian);
+        return new Point2DAdvanced(xDimensionMedian, yDimensionMedian);
     }
 
-    private static Point getBiggestPointByXDimension(Point first, Point second) {
+    private static Point2DAdvanced getBiggestPointByXDimension(Point2DAdvanced first, Point2DAdvanced second) {
         return first.getX() > second.getX() ? first : second;
     }
 
-    private static Point getBiggestPointByYDimension(Point first, Point second) {
+    private static Point2DAdvanced getBiggestPointByYDimension(Point2DAdvanced first, Point2DAdvanced second) {
         return first.getY() > second.getY() ? first : second;
     }
 }

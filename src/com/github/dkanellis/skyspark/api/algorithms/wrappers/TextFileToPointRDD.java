@@ -1,6 +1,6 @@
 package com.github.dkanellis.skyspark.api.algorithms.wrappers;
 
-import com.github.dkanellis.skyspark.api.math.point.Point;
+import com.github.dkanellis.skyspark.api.math.point.Point2DAdvanced;
 import org.apache.spark.api.java.JavaRDD;
 
 /**
@@ -15,13 +15,13 @@ public class TextFileToPointRDD {
         this.sparkContext = sparkContext;
     }
 
-    public JavaRDD<Point> getPointRDDFromTextFile(String filePath, String delimiter) {
+    public JavaRDD<Point2DAdvanced> getPointRDDFromTextFile(String filePath, String delimiter) {
         JavaRDD<String> lines = sparkContext.textFile(filePath);
-        JavaRDD<Point> points = convertToPoints(lines, delimiter);
+        JavaRDD<Point2DAdvanced> points = convertToPoints(lines, delimiter);
         return points;
     }
 
-    private JavaRDD<Point> convertToPoints(JavaRDD<String> lines, String delimiter) {
-        return lines.map(line -> new Point(line, delimiter));
+    private JavaRDD<Point2DAdvanced> convertToPoints(JavaRDD<String> lines, String delimiter) {
+        return lines.map(line -> Point2DAdvanced.fromTextLine(line, delimiter));
     }
 }
