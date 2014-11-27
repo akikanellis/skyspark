@@ -1,32 +1,37 @@
-package com.github.dkanellis.skyspark.api.algorithms.sparkimplementations;
+package com.github.dkanellis.skyspark.api.algorithms.templates;
 
-import com.github.dkanellis.skyspark.api.algorithms.wrappers.*;
-import com.github.dkanellis.skyspark.api.math.point.*;
+import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.SkylineAlgorithm;
+import com.github.dkanellis.skyspark.api.algorithms.wrappers.SparkContextWrapper;
+import com.github.dkanellis.skyspark.api.algorithms.wrappers.TextFileToPointRDD;
+import com.github.dkanellis.skyspark.api.math.point.FlagPointPairProducer;
+import com.github.dkanellis.skyspark.api.math.point.MedianPointFinder;
+import com.github.dkanellis.skyspark.api.math.point.Point2DAdvanced;
+import com.github.dkanellis.skyspark.api.math.point.PointFlag;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import org.apache.spark.api.java.*;
+import org.apache.spark.api.java.JavaPairRDD;
+import org.apache.spark.api.java.JavaRDD;
 import scala.Tuple2;
 
 /**
  *
  * @author Dimitris Kanellis
  */
-public class SparkBootNestedLoop implements SkylineAlgorithm, Serializable {
+public abstract class BlockNestedLoopTemplate implements SkylineAlgorithm, Serializable {
 
     private final transient TextFileToPointRDD txtToPoints;
     private FlagPointPairProducer flagPointPairProducer;
 
-    public SparkBootNestedLoop(SparkContextWrapper sparkContext) {
+    public BlockNestedLoopTemplate(SparkContextWrapper sparkContext) {
         this.txtToPoints = new TextFileToPointRDD(sparkContext);
     }
 
     @Override
-    public List<Point2DAdvanced> getSkylinePoints(String filePath) {
+    public final List<Point2DAdvanced> getSkylinePoints(String filePath) {
         JavaRDD<Point2DAdvanced> points = txtToPoints.getPointRDDFromTextFile(filePath, " ");
-
-        createFlagPointPairProducer(points);
+        flagPointPairProducer = createFlagPointPairProducer(points);
 
         JavaPairRDD<PointFlag, Iterable<Point2DAdvanced>> localSkylinePointsByFlag = divide(points);
         JavaRDD<Point2DAdvanced> skylinePoints = merge(localSkylinePointsByFlag);
@@ -34,9 +39,9 @@ public class SparkBootNestedLoop implements SkylineAlgorithm, Serializable {
         return skylinePoints.collect();
     }
 
-    private void createFlagPointPairProducer(JavaRDD<Point2DAdvanced> points) {
+    private FlagPointPairProducer createFlagPointPairProducer(JavaRDD<Point2DAdvanced> points) {
         Point2DAdvanced medianPoint = MedianPointFinder.findMedianPoint(points);
-        this.flagPointPairProducer = new FlagPointPairProducer(medianPoint);
+        return new FlagPointPairProducer(medianPoint);
     }
 
     private JavaPairRDD<PointFlag, Iterable<Point2DAdvanced>> divide(JavaRDD<Point2DAdvanced> points) {
@@ -68,16 +73,21 @@ public class SparkBootNestedLoop implements SkylineAlgorithm, Serializable {
         localSkylines.add(candidateSkylinePoint);
     }
 
-    private JavaRDD<Point2DAdvanced> merge(JavaPairRDD<PointFlag, Iterable<Point2DAdvanced>> localSkylinesGroupedByFlag) {
+    protected JavaRDD<Point2DAdvanced> merge(
+            JavaPairRDD<PointFlag, Iterable<Point2DAdvanced>> localSkylinesGroupedByFlag) {
+
         JavaPairRDD<PointFlag, Point2DAdvanced> ungroupedLocalSkylines
                 = localSkylinesGroupedByFlag.flatMapValues(point -> point);
-        
-        JavaRDD<List<Tuple2<PointFlag, Point2DAdvanced>>> groupedByTheSameId = groupByTheSameId(ungroupedLocalSkylines);
+        JavaPairRDD<PointFlag, Point2DAdvanced> sortedLocalSkylines = sortRDD(ungroupedLocalSkylines);
+
+        JavaRDD<List<Tuple2<PointFlag, Point2DAdvanced>>> groupedByTheSameId = groupByTheSameId(sortedLocalSkylines);
         JavaRDD<Point2DAdvanced> globalSkylinePoints
                 = groupedByTheSameId.flatMap(singleList -> getGlobalSkylineWithBNLAndPrecomparisson(singleList));
 
         return globalSkylinePoints;
     }
+
+    protected abstract JavaPairRDD<PointFlag, Point2DAdvanced> sortRDD(JavaPairRDD<PointFlag, Point2DAdvanced> flagPointPairs);
 
     private JavaRDD<List<Tuple2<PointFlag, Point2DAdvanced>>> groupByTheSameId(JavaPairRDD<PointFlag, Point2DAdvanced> ungroupedLocalSkylines) {
         JavaPairRDD<PointFlag, Point2DAdvanced> mergedInOnePartition = ungroupedLocalSkylines.coalesce(1);
@@ -88,27 +98,22 @@ public class SparkBootNestedLoop implements SkylineAlgorithm, Serializable {
     private List<Point2DAdvanced> getGlobalSkylineWithBNLAndPrecomparisson(List<Tuple2<PointFlag, Point2DAdvanced>> flagPointPairs) {
         List<Point2DAdvanced> globalSkylines = new ArrayList<>();
         for (Tuple2<PointFlag, Point2DAdvanced> flagPointPair : flagPointPairs) {
-            globalAddDiscardOrDominate(globalSkylines, flagPointPair);
+            PointFlag flag = flagPointPair._1;
+            if (!passesPreComparisson(flag)) {
+                continue;
+            }
+
+            Point2DAdvanced point = flagPointPair._2;
+            globalAddDiscardOrDominate(globalSkylines, point);
         }
         return globalSkylines;
     }
 
-    private void globalAddDiscardOrDominate(List<Point2DAdvanced> globalSkylines, Tuple2<PointFlag, Point2DAdvanced> flagPointPair) {
-        PointFlag dominatedSubspace = new PointFlag(1, 1);
-        PointFlag pointFlag = flagPointPair._1;
-        if (pointFlag.equals(dominatedSubspace)) {
-            return;
-        }
-
-        Point2DAdvanced candidateGlobalSkylinePoint = flagPointPair._2;
-        for (Iterator it = globalSkylines.iterator(); it.hasNext();) {
-            Point2DAdvanced pointToCheckAgainst = (Point2DAdvanced) it.next();
-            if (pointToCheckAgainst.dominates(candidateGlobalSkylinePoint)) {
-                return;
-            } else if (candidateGlobalSkylinePoint.dominates(pointToCheckAgainst)) {
-                it.remove();
-            }
-        }
-        globalSkylines.add(candidateGlobalSkylinePoint);
+    private boolean passesPreComparisson(PointFlag flagToCheck) {
+        PointFlag rejectedFlag = new PointFlag(1, 1);
+        return !flagToCheck.equals(rejectedFlag);
     }
+
+    protected abstract void globalAddDiscardOrDominate(
+            List<Point2DAdvanced> globalSkylines, Point2DAdvanced candidateGlobalSkylinePoint);
 }
