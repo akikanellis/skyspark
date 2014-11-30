@@ -1,22 +1,24 @@
 package com.github.dkanellis.skyspark.api.math.point;
 
 import com.github.dkanellis.skyspark.api.algorithms.wrappers.SparkContextWrapper;
-import com.github.dkanellis.skyspark.api.testcategories.SmallInputTest;
+import com.github.dkanellis.skyspark.api.testcategories.BasicTest;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.spark.api.java.JavaRDD;
 import org.junit.AfterClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 /**
  *
  * @author Dimitris Kanellis
  */
-@Category(SmallInputTest.class)
+@Category(BasicTest.class)
 public class PointUtilsTest {
     
     private static SparkContextWrapper sparkContext;

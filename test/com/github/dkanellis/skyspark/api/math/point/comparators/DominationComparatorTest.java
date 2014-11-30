@@ -1,16 +1,16 @@
 package com.github.dkanellis.skyspark.api.math.point.comparators;
 
-import com.github.dkanellis.skyspark.api.testcategories.SmallInputTest;
+import com.github.dkanellis.skyspark.api.testcategories.BasicTest;
 import java.awt.geom.Point2D;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.experimental.categories.Category;
 
 /**
  *
  * @author Dimitris Kanellis
  */
-@Category(SmallInputTest.class)
+@Category(BasicTest.class)
 public class DominationComparatorTest {
     /**
      * Test of compare method, of class DominationComparator.

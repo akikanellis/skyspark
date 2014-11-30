@@ -1,6 +1,6 @@
 package com.github.dkanellis.skyspark.api.algorithms.sparkimplementations;
 
-import com.github.dkanellis.skyspark.api.math.point.Point2DAdvanced;
+import java.awt.geom.Point2D;
 import java.util.List;
 
 /**
@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface SkylineAlgorithm {
 
-    public List<Point2DAdvanced> getSkylinePoints(String filepath);
+    public List<Point2D> getSkylinePoints(String filepath);
 }

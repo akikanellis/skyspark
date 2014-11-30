@@ -1,6 +1,6 @@
 package com.github.dkanellis.skyspark.api.math.point.comparators;
 
-import com.github.dkanellis.skyspark.api.math.point.Point2DAdvanced;
+import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.Comparator;
 
@@ -8,10 +8,10 @@ import java.util.Comparator;
  *
  * @author Dimitris Kanellis
  */
-public class DominationComparator implements Comparator<Point2DAdvanced>, Serializable {
+public class DominationComparator implements Comparator<Point2D>, Serializable {
 
     @Override
-    public int compare(Point2DAdvanced p, Point2DAdvanced q) {
+    public int compare(Point2D p, Point2D q) {
         double sumP = p.getX() + p.getY();
         double sumQ = q.getX() + q.getY();
 

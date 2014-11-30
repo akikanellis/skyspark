@@ -2,9 +2,10 @@ package com.github.dkanellis.skyspark.api.algorithms.sparkimplementations;
 
 import com.github.dkanellis.skyspark.api.algorithms.templates.BlockNestedLoopTemplate;
 import com.github.dkanellis.skyspark.api.algorithms.wrappers.SparkContextWrapper;
-import com.github.dkanellis.skyspark.api.math.point.*;
+import com.github.dkanellis.skyspark.api.math.point.PointFlag;
+import com.github.dkanellis.skyspark.api.math.point.PointUtils;
 import com.github.dkanellis.skyspark.api.math.point.comparators.DominationComparator;
-import java.util.ArrayList;
+import java.awt.geom.Point2D;
 import java.util.List;
 import org.apache.spark.api.java.JavaPairRDD;
 
@@ -19,27 +20,27 @@ public class SortFilterSkyline extends BlockNestedLoopTemplate {
     }
 
     @Override
-    protected JavaPairRDD<PointFlag, Point2DAdvanced> sortRDD(
-            JavaPairRDD<PointFlag, Point2DAdvanced> flagPointPairs) {
+    protected JavaPairRDD<PointFlag, Point2D> sortRDD(
+            JavaPairRDD<PointFlag, Point2D> flagPointPairs) {
 
-        JavaPairRDD<Point2DAdvanced, PointFlag> swapped = flagPointPairs.mapToPair(fp -> fp.swap());
-        JavaPairRDD<Point2DAdvanced, PointFlag> sorted = swapped.sortByKey(new DominationComparator());
-        JavaPairRDD<PointFlag, Point2DAdvanced> unswapped = sorted.mapToPair(fp -> fp.swap());
+        JavaPairRDD<Point2D, PointFlag> swapped = flagPointPairs.mapToPair(fp -> fp.swap());
+        JavaPairRDD<Point2D, PointFlag> sorted = swapped.sortByKey(new DominationComparator());
+        JavaPairRDD<PointFlag, Point2D> unswapped = sorted.mapToPair(fp -> fp.swap());
         return unswapped;
     }
 
     @Override
     protected void globalAddDiscardOrDominate(
-            List<Point2DAdvanced> globalSkylines, Point2DAdvanced candidateGlobalSkylinePoint) {
+            List<Point2D> globalSkylines, Point2D candidateGlobalSkylinePoint) {
 
         if (!isDominatedBySkylines(globalSkylines, candidateGlobalSkylinePoint)) {
             globalSkylines.add(candidateGlobalSkylinePoint);
         }
     }
 
-    private boolean isDominatedBySkylines(List<Point2DAdvanced> skylines, Point2DAdvanced candidateSkylinePoint) {
-        for (Point2DAdvanced skyline : skylines) {
-            if (skyline.dominates(candidateSkylinePoint)) {
+    private boolean isDominatedBySkylines(List<Point2D> skylines, Point2D candidateSkylinePoint) {
+        for (Point2D skyline : skylines) {
+            if (PointUtils.dominates(skyline, candidateSkylinePoint)) {
                 return true;
             }
         }

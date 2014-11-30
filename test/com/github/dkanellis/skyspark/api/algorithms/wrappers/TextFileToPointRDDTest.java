@@ -1,18 +1,21 @@
 package com.github.dkanellis.skyspark.api.algorithms.wrappers;
 
+import com.github.dkanellis.skyspark.api.testcategories.BasicTest;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.spark.api.java.JavaRDD;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.experimental.categories.Category;
 
 /**
  *
  * @author Dimitris Kanellis
  */
+@Category(BasicTest.class)
 public class TextFileToPointRDDTest {
 
     private static SparkContextWrapper sparkContext;
