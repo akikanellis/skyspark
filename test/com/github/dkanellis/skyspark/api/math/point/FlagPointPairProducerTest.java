@@ -1,10 +1,10 @@
 package com.github.dkanellis.skyspark.api.math.point;
 
-import com.github.dkanellis.skyspark.api.testcategories.SmallInputTest;
+import com.github.dkanellis.skyspark.api.testcategories.BasicTest;
 import java.awt.geom.Point2D;
+import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.experimental.categories.Category;
 import scala.Tuple2;
 
@@ -12,7 +12,7 @@ import scala.Tuple2;
  *
  * @author Dimitris Kanellis
  */
-@Category(SmallInputTest.class)
+@Category(BasicTest.class)
 public class FlagPointPairProducerTest {
     private static Point2D medianPoint;
     private static FlagPointPairProducer producer;

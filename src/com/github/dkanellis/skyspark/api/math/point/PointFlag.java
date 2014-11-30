@@ -37,14 +37,14 @@ public class PointFlag implements Serializable {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 59 * hash + this.xBit;
-        hash = 59 * hash + this.yBit;
+        hash = 59 * hash + xBit;
+        hash = 59 * hash + yBit;
         return hash;
     }
 
     @Override
     public String toString() {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         buffer.append('[').append(xBit).append(yBit).append(']');
         return buffer.toString();
     }

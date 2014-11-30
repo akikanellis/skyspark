@@ -1,5 +1,6 @@
 package com.github.dkanellis.skyspark.api.math.point;
 
+import java.awt.geom.Point2D;
 import java.io.Serializable;
 import scala.Tuple2;
 
@@ -9,18 +10,18 @@ import scala.Tuple2;
  */
 public class FlagPointPairProducer implements Serializable {
 
-    private final Point2DAdvanced medianPoint;
+    private final Point2D medianPoint;
 
-    public FlagPointPairProducer(Point2DAdvanced medianPoint) {
+    public FlagPointPairProducer(Point2D medianPoint) {
         this.medianPoint = medianPoint;
     }
 
-    public Tuple2<PointFlag, Point2DAdvanced> getFlagPointPair(Point2DAdvanced point) {
+    public Tuple2<PointFlag, Point2D> getFlagPointPair(Point2D point) {
         PointFlag flag = calculateFlag(point);
         return new Tuple2<>(flag, point);
     }
 
-    private PointFlag calculateFlag(Point2DAdvanced point) {
+    private PointFlag calculateFlag(Point2D point) {
         double x = point.getX();
         double y = point.getY();
         double medianX = medianPoint.getX();

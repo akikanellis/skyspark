@@ -1,23 +1,24 @@
 package com.github.dkanellis.skyspark.api.algorithms.sparkimplementations;
 
-import com.github.dkanellis.skyspark.api.algorithms.factories.SkylineAlgorithmFactory;
 import com.github.dkanellis.skyspark.api.algorithms.wrappers.SparkContextWrapper;
-import com.github.dkanellis.skyspark.api.math.point.FlagPointPairProducer;
 import com.github.dkanellis.skyspark.api.math.point.PointFlag;
+import com.github.dkanellis.skyspark.api.testcategories.BasicTest;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.junit.AfterClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import scala.Tuple2;
 
 /**
  *
  * @author Dimitris Kanellis
  */
+@Category(BasicTest.class)
 public class BlockNestedLoopTest {
 
     private static SparkContextWrapper sparkContext;

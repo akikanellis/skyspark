@@ -1,11 +1,13 @@
 package com.github.dkanellis.skyspark.api.algorithms.sparkimplementations;
 
 import com.github.dkanellis.skyspark.api.algorithms.templates.BlockNestedLoopTemplate;
-import com.github.dkanellis.skyspark.api.algorithms.wrappers.*;
-import com.github.dkanellis.skyspark.api.math.point.*;
+import com.github.dkanellis.skyspark.api.algorithms.wrappers.SparkContextWrapper;
+import com.github.dkanellis.skyspark.api.math.point.PointFlag;
+import com.github.dkanellis.skyspark.api.math.point.PointUtils;
+import java.awt.geom.Point2D;
 import java.util.Iterator;
 import java.util.List;
-import org.apache.spark.api.java.*;
+import org.apache.spark.api.java.JavaPairRDD;
 
 /**
  *
@@ -18,17 +20,17 @@ public class BlockNestedLoop extends BlockNestedLoopTemplate {
     }
 
     @Override
-    protected JavaPairRDD<PointFlag, Point2DAdvanced> sortRDD(JavaPairRDD<PointFlag, Point2DAdvanced> flagPointPairs) {
+    protected JavaPairRDD<PointFlag, Point2D> sortRDD(JavaPairRDD<PointFlag, Point2D> flagPointPairs) {
         return flagPointPairs;
     }
 
     @Override
-    protected void globalAddDiscardOrDominate(List<Point2DAdvanced> globalSkylines, Point2DAdvanced candidateGlobalSkylinePoint) {
+    protected void globalAddDiscardOrDominate(List<Point2D> globalSkylines, Point2D candidateGlobalSkylinePoint) {
         for (Iterator it = globalSkylines.iterator(); it.hasNext();) {
-            Point2DAdvanced skyline = (Point2DAdvanced) it.next();
-            if (skyline.dominates(candidateGlobalSkylinePoint)) {
+            Point2D skyline = (Point2D) it.next();
+            if (PointUtils.dominates(skyline, candidateGlobalSkylinePoint)) {
                 return;
-            } else if (candidateGlobalSkylinePoint.dominates(skyline)) {
+            } else if (PointUtils.dominates(candidateGlobalSkylinePoint, skyline)) {
                 it.remove();
             }
         }
