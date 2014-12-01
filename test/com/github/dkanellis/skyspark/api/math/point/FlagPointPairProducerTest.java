@@ -1,12 +1,12 @@
 package com.github.dkanellis.skyspark.api.math.point;
 
-import com.github.dkanellis.skyspark.api.testcategories.BasicTest;
 import java.awt.geom.Point2D;
 import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import scala.Tuple2;
+import testcategories.BasicTest;
 
 /**
  *
