@@ -1,10 +1,10 @@
 package com.github.dkanellis.skyspark.api.math.point;
 
-import com.github.dkanellis.skyspark.api.testcategories.BasicTest;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import testcategories.BasicTest;
 
 /**
  *

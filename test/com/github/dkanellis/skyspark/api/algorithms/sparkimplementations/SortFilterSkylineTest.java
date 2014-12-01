@@ -2,17 +2,17 @@ package com.github.dkanellis.skyspark.api.algorithms.sparkimplementations;
 
 import com.github.dkanellis.skyspark.api.algorithms.wrappers.SparkContextWrapper;
 import com.github.dkanellis.skyspark.api.math.point.PointFlag;
-import com.github.dkanellis.skyspark.api.testcategories.BasicTest;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.spark.api.java.JavaPairRDD;
-import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import scala.Tuple2;
+import suites.BasicTestSuite;
+import testcategories.BasicTest;
 
 /**
  *
@@ -28,12 +28,11 @@ public class SortFilterSkylineTest {
 
     @BeforeClass
     public static void setUpClass() {
-        sparkContext = new SparkContextWrapper("SrotFilterSkylineTest", "local");
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-        sparkContext.stop();
+        if (BasicTestSuite.sparkContext == null) {
+            sparkContext = new SparkContextWrapper("SortFilterSkylineTest", "local");
+        } else {
+            sparkContext = BasicTestSuite.sparkContext;
+        }
     }
 
     @Test

@@ -1,6 +1,5 @@
 package com.github.dkanellis.skyspark.api.algorithms.wrappers;
 
-import com.github.dkanellis.skyspark.api.testcategories.BasicTest;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +9,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import suites.BasicTestSuite;
+import testcategories.BasicTest;
 
 /**
  *
@@ -25,7 +26,11 @@ public class TextFileToPointRDDTest {
 
     @BeforeClass
     public static void setUpClass() {
-        sparkContext = new SparkContextWrapper("TextFileToPointRDDTest", "local");
+        if (BasicTestSuite.sparkContext == null) {
+            sparkContext = new SparkContextWrapper("TextFileToPointRDDTest", "local");
+        } else {
+            sparkContext = BasicTestSuite.sparkContext;
+        }
     }
 
     @AfterClass
