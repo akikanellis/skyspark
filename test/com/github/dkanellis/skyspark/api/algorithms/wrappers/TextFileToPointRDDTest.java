@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import suites.BasicTestSuite;
+import suites.basic.BasicTestSuite;
 import testcategories.BasicTest;
 
 /**
@@ -40,7 +40,7 @@ public class TextFileToPointRDDTest {
     @Test
     public void testGetPointRDDFromTextFile() {
         System.out.println("getPointRDDFromTextFile");
-        String filePath = "data/datasets/UNIFORM_2_10.txt";
+        String filePath = "data/datasets/other/UNIFORM_2_10.txt";
         String delimiter = " ";
         TextFileToPointRDD instance = new TextFileToPointRDD(sparkContext);
         
