@@ -11,7 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import scala.Tuple2;
-import suites.BasicTestSuite;
+import suites.basic.BasicTestSuite;
 import testcategories.BasicTest;
 
 /**
