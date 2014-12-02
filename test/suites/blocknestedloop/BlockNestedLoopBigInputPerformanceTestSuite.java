@@ -4,8 +4,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import performance.blocknestedloop.AbstractPerformanceTest;
-import performance.blocknestedloop.BlockNestedLoopPerformanceTest;
+import performance.AbstractPerformanceTest;
+import performance.BlockNestedLoopPerformanceTest;
 
 /**
  *
