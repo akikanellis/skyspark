@@ -20,7 +20,10 @@ public class BlockNestedLoopMediumInputPerformanceTestSuite {
 
     @BeforeClass
     public static void setUpClass() {
-        AbstractPerformanceTest.init(DATASETS_FOLDER, EXPECTED_RESULTS_FOLDER, "BlockNestedLoopMediumInputPerformanceTestSuite");
+        AbstractPerformanceTest.init(
+                DATASETS_FOLDER,
+                EXPECTED_RESULTS_FOLDER,
+                "BlockNestedLoopMediumInputPerformanceTestSuite");
     }
 
     @AfterClass
