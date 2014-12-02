@@ -13,12 +13,12 @@ import java.util.List;
  * @author Dimitris Kanellis
  */
 public abstract class AbstractPerformanceTest {
+    private static final int TIMES_TO_RUN = 1;
 
     private static SparkContextWrapper sparkContext;
     private static List<File> inputFiles;
     private static List<File> expectedResults;
     private static SkylineAlgorithmFactory algorithmFactory;
-    private static int timesToRun;
     
     private static List<PerformanceResult> performanceResults;
 
@@ -28,7 +28,6 @@ public abstract class AbstractPerformanceTest {
         expectedResults = getListOfFilesFromFolder(expectedResultsFolder);
         sparkContext = new SparkContextWrapper(appName, "local[4]");
         algorithmFactory = new SkylineAlgorithmFactory();
-        timesToRun = 10;
         performanceResults = new ArrayList<>();
     }
 
@@ -72,7 +71,7 @@ public abstract class AbstractPerformanceTest {
     }
 
     public static int getTimesToRun() {
-        return timesToRun;
+        return TIMES_TO_RUN;
     }
 
     public static List<PerformanceResult> getPerformanceResults() {
