@@ -14,7 +14,7 @@ Algorithms
 
 Getting started
 ========
-Go to the [examples directory]() to see how easy it easy to use the API.
+Go to the [examples directory](src/com/github/dkanellis/skyspark/examples) to see how easy it easy to use the API.
 
 Third-party libraries
 ========
