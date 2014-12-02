@@ -1,4 +1,4 @@
-package performance.blocknestedloop;
+package performance;
 
 import com.github.dkanellis.skyspark.api.algorithms.factories.SkylineAlgorithmFactory;
 import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.SkylineAlgorithm;
@@ -20,7 +20,7 @@ import org.junit.Test;
  *
  * @author Dimitris Kanellis
  */
-public class SortFilterSkylinePerformanceTest {
+public class BlockNestedLoopPerformanceTest {
 
     private static SparkContextWrapper sparkContext;
     private static SkylineAlgorithmFactory algorithmFactory;
@@ -30,7 +30,7 @@ public class SortFilterSkylinePerformanceTest {
 
     private static List<PerformanceResult> results;
 
-    public SortFilterSkylinePerformanceTest() {
+    public BlockNestedLoopPerformanceTest() {
     }
 
     @BeforeClass
@@ -42,7 +42,7 @@ public class SortFilterSkylinePerformanceTest {
         timesToRun = AbstractPerformanceTest.getTimesToRun();
         results = new ArrayList<>();
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
         AbstractPerformanceTest.addAllPerformanceResults(results);
@@ -94,9 +94,9 @@ public class SortFilterSkylinePerformanceTest {
     private PerformanceResult getTotalRuntime(File inputFile, File expResultFile) {
         String inputFilePath = inputFile.getAbsolutePath();
         List<Point2D> expResult = getPointsFromFile(expResultFile);
-        SkylineAlgorithm bnl = algorithmFactory.getSortFilterSkyline(sparkContext);
+        SkylineAlgorithm bnl = algorithmFactory.getBlockNestedLoop(sparkContext);
         
-        PerformanceResult performanceResult = new PerformanceResult("Sort Filter Skyline", inputFile);
+        PerformanceResult performanceResult = new PerformanceResult("Block Nested Loop", inputFile);
         for (int i = 0; i < timesToRun; i++) {
             long startTime = System.currentTimeMillis();
             List<Point2D> result = bnl.getSkylinePoints(inputFilePath);

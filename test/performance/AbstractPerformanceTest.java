@@ -1,4 +1,4 @@
-package performance.blocknestedloop;
+package performance;
 
 import com.github.dkanellis.skyspark.api.algorithms.factories.SkylineAlgorithmFactory;
 import com.github.dkanellis.skyspark.api.algorithms.wrappers.SparkContextWrapper;
