@@ -1,7 +1,3 @@
-/build.xml
-/lib
-/nbproject/project.xml
-/nbproject/build-impl.xml
-/manifest.mf
-/nbproject/project.properties
-/nbproject/genfiles.properties
+SkySpark.iml
+.idea
+out
