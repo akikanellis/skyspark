@@ -6,6 +6,7 @@ import com.github.dkanellis.skyspark.api.math.point.PointFlag;
 import com.github.dkanellis.skyspark.api.math.point.PointUtils;
 import com.github.dkanellis.skyspark.api.math.point.comparators.DominationComparator;
 import org.apache.spark.api.java.JavaPairRDD;
+import scala.Tuple2;
 
 import java.awt.geom.Point2D;
 import java.util.List;
@@ -23,10 +24,9 @@ public class SortFilterSkyline extends BlockNestedLoopTemplate {
     protected JavaPairRDD<PointFlag, Point2D> sortRDD(
             JavaPairRDD<PointFlag, Point2D> flagPointPairs) {
 
-        JavaPairRDD<Point2D, PointFlag> swapped = flagPointPairs.mapToPair(fp -> fp.swap());
+        JavaPairRDD<Point2D, PointFlag> swapped = flagPointPairs.mapToPair(Tuple2::swap);
         JavaPairRDD<Point2D, PointFlag> sorted = swapped.sortByKey(new DominationComparator());
-        JavaPairRDD<PointFlag, Point2D> unswapped = sorted.mapToPair(fp -> fp.swap());
-        return unswapped;
+        return sorted.mapToPair(Tuple2::swap); // unswapped
     }
 
     @Override
