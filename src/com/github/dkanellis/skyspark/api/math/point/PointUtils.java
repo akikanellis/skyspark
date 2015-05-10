@@ -27,8 +27,8 @@ public class PointUtils {
     }
 
     public static Point2D getMedianPointFromRDD(JavaRDD<Point2D> points) {
-        Point2D biggestPointByXDimension = points.reduce((a, b) -> getBiggestPointByXDimension(a, b));
-        Point2D biggestPointByYDimension = points.reduce((a, b) -> getBiggestPointByYDimension(a, b));
+        Point2D biggestPointByXDimension = points.reduce(PointUtils::getBiggestPointByXDimension);
+        Point2D biggestPointByYDimension = points.reduce(PointUtils::getBiggestPointByYDimension);
 
         double xDimensionMedian = biggestPointByXDimension.getX() / 2.0;
         double yDimensionMedian = biggestPointByYDimension.getY() / 2.0;

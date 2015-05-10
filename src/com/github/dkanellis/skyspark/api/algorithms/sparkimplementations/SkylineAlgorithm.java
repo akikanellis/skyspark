@@ -8,5 +8,5 @@ import java.util.List;
  */
 public interface SkylineAlgorithm {
 
-    public List<Point2D> getSkylinePoints(String filepath);
+    List<Point2D> getSkylinePoints(String filepath);
 }
