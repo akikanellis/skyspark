@@ -5,12 +5,12 @@ import com.github.dkanellis.skyspark.api.algorithms.wrappers.SparkContextWrapper
 import com.github.dkanellis.skyspark.api.math.point.PointFlag;
 import com.github.dkanellis.skyspark.api.math.point.PointUtils;
 import com.github.dkanellis.skyspark.api.math.point.comparators.DominationComparator;
-import java.awt.geom.Point2D;
-import java.util.List;
 import org.apache.spark.api.java.JavaPairRDD;
 
+import java.awt.geom.Point2D;
+import java.util.List;
+
 /**
- *
  * @author Dimitris Kanellis
  */
 public class SortFilterSkyline extends BlockNestedLoopTemplate {

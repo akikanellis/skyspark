@@ -4,13 +4,13 @@ import com.github.dkanellis.skyspark.api.algorithms.templates.BlockNestedLoopTem
 import com.github.dkanellis.skyspark.api.algorithms.wrappers.SparkContextWrapper;
 import com.github.dkanellis.skyspark.api.math.point.PointFlag;
 import com.github.dkanellis.skyspark.api.math.point.PointUtils;
+import org.apache.spark.api.java.JavaPairRDD;
+
 import java.awt.geom.Point2D;
 import java.util.Iterator;
 import java.util.List;
-import org.apache.spark.api.java.JavaPairRDD;
 
 /**
- *
  * @author Dimitris Kanellis
  */
 public class BlockNestedLoop extends BlockNestedLoopTemplate {
@@ -26,7 +26,7 @@ public class BlockNestedLoop extends BlockNestedLoopTemplate {
 
     @Override
     protected void globalAddDiscardOrDominate(List<Point2D> globalSkylines, Point2D candidateGlobalSkylinePoint) {
-        for (Iterator it = globalSkylines.iterator(); it.hasNext();) {
+        for (Iterator it = globalSkylines.iterator(); it.hasNext(); ) {
             Point2D skyline = (Point2D) it.next();
             if (PointUtils.dominates(skyline, candidateGlobalSkylinePoint)) {
                 return;

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Dimitris Kanellis
  */
 public class PerformanceResult {

@@ -1,11 +1,11 @@
 package com.github.dkanellis.skyspark.api.algorithms.wrappers;
 
 import com.github.dkanellis.skyspark.api.math.point.PointUtils;
-import java.awt.geom.Point2D;
 import org.apache.spark.api.java.JavaRDD;
 
+import java.awt.geom.Point2D;
+
 /**
- *
  * @author Dimitris Kanellis
  */
 public class TextFileToPointRDD {

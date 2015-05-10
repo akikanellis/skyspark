@@ -1,10 +1,10 @@
 package com.github.dkanellis.skyspark.api.math.point;
 
-import java.awt.geom.Point2D;
 import org.apache.spark.api.java.JavaRDD;
 
+import java.awt.geom.Point2D;
+
 /**
- *
  * @author Dimitris Kanellis
  */
 public class PointUtils {
@@ -25,7 +25,7 @@ public class PointUtils {
         double y = java.lang.Double.parseDouble(lineArray[1]);
         return new Point2D.Double(x, y);
     }
-    
+
     public static Point2D getMedianPointFromRDD(JavaRDD<Point2D> points) {
         Point2D biggestPointByXDimension = points.reduce((a, b) -> getBiggestPointByXDimension(a, b));
         Point2D biggestPointByYDimension = points.reduce((a, b) -> getBiggestPointByYDimension(a, b));

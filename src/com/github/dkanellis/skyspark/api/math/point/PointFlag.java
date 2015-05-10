@@ -3,7 +3,6 @@ package com.github.dkanellis.skyspark.api.math.point;
 import java.io.Serializable;
 
 /**
- *
  * @author Dimitris Kanellis
  */
 public class PointFlag implements Serializable {

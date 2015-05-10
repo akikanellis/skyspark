@@ -3,11 +3,11 @@ package com.github.dkanellis.skyspark.examples;
 import com.github.dkanellis.skyspark.api.algorithms.factories.SkylineAlgorithmFactory;
 import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.SkylineAlgorithm;
 import com.github.dkanellis.skyspark.api.algorithms.wrappers.SparkContextWrapper;
+
 import java.awt.geom.Point2D;
 import java.util.List;
 
 /**
- *
  * @author Dimitris Kanellis
  */
 public class BlockNestedLoopExample {
@@ -23,7 +23,7 @@ public class BlockNestedLoopExample {
     private final static String CORRELATED_SMALL = DATASETS_SMALL + "CORREL_2_10000.txt";
     private final static String CORRELATED_MEDIUM = DATASETS_MEDIUM + "CORREL_2_100000.txt";
     private final static String CORRELATED_BIG = DATASETS_BIG + "CORREL_2_1000000.txt";
-    
+
     private final static String UNIFORM_SMALL = DATASETS_SMALL + "UNIFORM_2_10000.txt";
     private final static String UNIFORM_MEDIUM = DATASETS_MEDIUM + "UNIFORM_2_100000.txt";
     private final static String UNIFORM_BIG = DATASETS_BIG + "UNIFORM_2_1000000.txt";
@@ -32,8 +32,8 @@ public class BlockNestedLoopExample {
         SparkContextWrapper sparkContext = new SparkContextWrapper("Block-Nested Loop example", "local[4]");
         SkylineAlgorithmFactory algoritmFactory = new SkylineAlgorithmFactory();
         SkylineAlgorithm blockNestedLoop = algoritmFactory.getBlockNestedLoop(sparkContext);
-        
-        List<Point2D> skylines = blockNestedLoop.getSkylinePoints(UNIFORM_SMALL);              
+
+        List<Point2D> skylines = blockNestedLoop.getSkylinePoints(UNIFORM_SMALL);
         print(skylines);
     }
 

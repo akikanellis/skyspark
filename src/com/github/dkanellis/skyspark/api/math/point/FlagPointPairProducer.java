@@ -1,11 +1,11 @@
 package com.github.dkanellis.skyspark.api.math.point;
 
-import java.awt.geom.Point2D;
-import java.io.Serializable;
 import scala.Tuple2;
 
+import java.awt.geom.Point2D;
+import java.io.Serializable;
+
 /**
- *
  * @author Dimitris Kanellis
  */
 public class FlagPointPairProducer implements Serializable {

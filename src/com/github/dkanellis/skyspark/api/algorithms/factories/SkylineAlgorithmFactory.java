@@ -7,7 +7,6 @@ import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.SortFil
 import com.github.dkanellis.skyspark.api.algorithms.wrappers.SparkContextWrapper;
 
 /**
- *
  * @author Dimitris Kanellis
  */
 public class SkylineAlgorithmFactory extends AbstractSkylineAlgorithmFactory {
