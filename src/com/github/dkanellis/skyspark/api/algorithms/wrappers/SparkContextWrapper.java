@@ -13,13 +13,12 @@ import java.util.List;
  */
 public class SparkContextWrapper {
 
-    private final SparkConf sparkConf;
     private final JavaSparkContext sparkContext;
 
     public SparkContextWrapper(String appName, String master) {
-        this.sparkConf = new SparkConf();
-        this.sparkConf.setAppName(appName);
-        this.sparkConf.setMaster(master);
+        SparkConf sparkConf = new SparkConf();
+        sparkConf.setAppName(appName);
+        sparkConf.setMaster("local[4]");
 
         this.sparkContext = new JavaSparkContext(sparkConf);
     }
