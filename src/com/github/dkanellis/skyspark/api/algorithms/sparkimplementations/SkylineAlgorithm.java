@@ -4,7 +4,6 @@ import java.awt.geom.Point2D;
 import java.util.List;
 
 /**
- *
  * @author Dimitris Kanellis
  */
 public interface SkylineAlgorithm {

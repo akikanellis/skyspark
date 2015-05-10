@@ -6,17 +6,17 @@ import com.github.dkanellis.skyspark.api.algorithms.wrappers.TextFileToPointRDD;
 import com.github.dkanellis.skyspark.api.math.point.FlagPointPairProducer;
 import com.github.dkanellis.skyspark.api.math.point.PointFlag;
 import com.github.dkanellis.skyspark.api.math.point.PointUtils;
+import org.apache.spark.api.java.JavaPairRDD;
+import org.apache.spark.api.java.JavaRDD;
+import scala.Tuple2;
+
 import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import org.apache.spark.api.java.JavaPairRDD;
-import org.apache.spark.api.java.JavaRDD;
-import scala.Tuple2;
 
 /**
- *
  * @author Dimitris Kanellis
  */
 public abstract class BlockNestedLoopTemplate implements SkylineAlgorithm, Serializable {
@@ -48,7 +48,7 @@ public abstract class BlockNestedLoopTemplate implements SkylineAlgorithm, Seria
         JavaPairRDD<PointFlag, Point2D> flagPointPairs = points.mapToPair(p -> flagPointPairProducer.getFlagPointPair(p));
         JavaPairRDD<PointFlag, Iterable<Point2D>> pointsGroupedByFlag = flagPointPairs.groupByKey();
         JavaPairRDD<PointFlag, Iterable<Point2D>> flagsWithLocalSkylines
-                = pointsGroupedByFlag.mapToPair(fp -> new Tuple2(fp._1, getLocalSkylinesWithBNL(fp._2)));
+                = pointsGroupedByFlag.mapToPair(fp -> new Tuple2(fp._1(), getLocalSkylinesWithBNL(fp._2())));
 
         return flagsWithLocalSkylines;
     }
@@ -62,7 +62,7 @@ public abstract class BlockNestedLoopTemplate implements SkylineAlgorithm, Seria
     }
 
     private void localAddDiscardOrDominate(List<Point2D> localSkylines, Point2D candidateSkylinePoint) {
-        for (Iterator it = localSkylines.iterator(); it.hasNext();) {
+        for (Iterator it = localSkylines.iterator(); it.hasNext(); ) {
             Point2D pointToCheckAgainst = (Point2D) it.next();
             if (PointUtils.dominates(pointToCheckAgainst, candidateSkylinePoint)) {
                 return;
@@ -98,12 +98,12 @@ public abstract class BlockNestedLoopTemplate implements SkylineAlgorithm, Seria
     private List<Point2D> getGlobalSkylineWithBNLAndPrecomparisson(List<Tuple2<PointFlag, Point2D>> flagPointPairs) {
         List<Point2D> globalSkylines = new ArrayList<>();
         for (Tuple2<PointFlag, Point2D> flagPointPair : flagPointPairs) {
-            PointFlag flag = flagPointPair._1;
+            PointFlag flag = flagPointPair._1();
             if (!passesPreComparisson(flag)) {
                 continue;
             }
 
-            Point2D point = flagPointPair._2;
+            Point2D point = flagPointPair._2();
             globalAddDiscardOrDominate(globalSkylines, point);
         }
         return globalSkylines;
