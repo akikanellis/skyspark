@@ -14,11 +14,11 @@ Algorithms
 
 Getting started
 ========
-Go to the [examples directory](src/com/github/dkanellis/skyspark/examples) to see how easy it is to use the API.
+Go to the [examples directory](src/main/java/com/github/dkanellis/skyspark/examples) to see how easy it is to use the API.
 
 Third-party libraries
 ========
- * [Apache Spark 1.1.0](https://spark.apache.org/)
+ * [Apache Spark 2.10-1.3.1](https://spark.apache.org/)
 
 License
 ========
