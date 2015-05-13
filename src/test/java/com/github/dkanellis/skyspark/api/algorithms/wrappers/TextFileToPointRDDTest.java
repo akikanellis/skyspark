@@ -1,22 +1,20 @@
 package com.github.dkanellis.skyspark.api.algorithms.wrappers;
 
-import java.awt.geom.Point2D;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.github.dkanellis.skyspark.api.algorithms.wrappers.SparkContextWrapper;
-import com.github.dkanellis.skyspark.api.algorithms.wrappers.TextFileToPointRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.junit.AfterClass;
-import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import suites.basic.BasicTestSuite;
 import testcategories.BasicTest;
 
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+
 /**
- *
  * @author Dimitris Kanellis
  */
 @Category(BasicTest.class)
@@ -46,10 +44,10 @@ public class TextFileToPointRDDTest {
         String filePath = "data/datasets/other/UNIFORM_2_10.txt";
         String delimiter = " ";
         TextFileToPointRDD instance = new TextFileToPointRDD(sparkContext);
-        
+
         JavaRDD<Point2D> expResult = getExpectedRDD();
         JavaRDD<Point2D> result = instance.getPointRDDFromTextFile(filePath, delimiter);
-        
+
         assertEquals(expResult.collect(), result.collect());
     }
 

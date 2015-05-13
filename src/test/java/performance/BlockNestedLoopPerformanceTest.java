@@ -5,19 +5,20 @@ import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.Skyline
 import com.github.dkanellis.skyspark.api.algorithms.wrappers.SparkContextWrapper;
 import com.github.dkanellis.skyspark.api.algorithms.wrappers.TextFileToPointRDD;
 import com.github.dkanellis.skyspark.performance.PerformanceResult;
+import org.apache.spark.api.java.JavaRDD;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.spark.api.java.JavaRDD;
-import org.junit.AfterClass;
+
 import static org.junit.Assert.assertTrue;
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 /**
- *
  * @author Dimitris Kanellis
  */
 public class BlockNestedLoopPerformanceTest {
@@ -95,7 +96,7 @@ public class BlockNestedLoopPerformanceTest {
         String inputFilePath = inputFile.getAbsolutePath();
         List<Point2D> expResult = getPointsFromFile(expResultFile);
         SkylineAlgorithm bnl = algorithmFactory.getBlockNestedLoop(sparkContext);
-        
+
         PerformanceResult performanceResult = new PerformanceResult("Block Nested Loop", inputFile);
         for (int i = 0; i < timesToRun; i++) {
             long startTime = System.currentTimeMillis();
