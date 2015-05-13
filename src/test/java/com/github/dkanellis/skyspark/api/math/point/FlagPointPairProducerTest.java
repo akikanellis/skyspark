@@ -1,25 +1,23 @@
 package com.github.dkanellis.skyspark.api.math.point;
 
-import java.awt.geom.Point2D;
-import static org.junit.Assert.assertEquals;
-
-import com.github.dkanellis.skyspark.api.math.point.FlagPointPairProducer;
-import com.github.dkanellis.skyspark.api.math.point.PointFlag;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import scala.Tuple2;
 import testcategories.BasicTest;
 
+import java.awt.geom.Point2D;
+
+import static org.junit.Assert.assertEquals;
+
 /**
- *
  * @author Dimitris Kanellis
  */
 @Category(BasicTest.class)
 public class FlagPointPairProducerTest {
     private static Point2D medianPoint;
     private static FlagPointPairProducer producer;
-    
+
     @BeforeClass
     public static void setUpClass() {
         medianPoint = new Point2D.Double(5, 5);
@@ -34,10 +32,10 @@ public class FlagPointPairProducerTest {
         System.out.println("getFlagPointPair");
         PointFlag expFlag = new PointFlag(1, 1);
         Point2D expPoint = new Point2D.Double(4610.505826490165, 3570.466435170513);
-        
+
         Tuple2<PointFlag, Point2D> expResult = new Tuple2<>(expFlag, expPoint);
         Tuple2<PointFlag, Point2D> result = producer.getFlagPointPair(expPoint);
         assertEquals(expResult, result);
     }
-    
+
 }

@@ -8,7 +8,6 @@ import performance.AbstractPerformanceTest;
 import performance.BlockNestedLoopPerformanceTest;
 
 /**
- *
  * @author Dimitris Kanellis
  */
 @RunWith(Suite.class)

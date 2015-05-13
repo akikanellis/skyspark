@@ -17,18 +17,17 @@ import org.junit.runners.Suite;
 import testcategories.BasicTest;
 
 /**
- *
  * @author Dimitris Kanellis
  */
 @RunWith(Categories.class)
 @IncludeCategory(BasicTest.class)
 @Suite.SuiteClasses({
-    BlockNestedLoopTest.class, SortFilterSkylineTest.class,
-    TextFileToPointRDDTest.class, DominationComparatorTest.class,
-    FlagPointPairProducerTest.class, PointFlagTest.class,
-    PointUtils.class})
+        BlockNestedLoopTest.class, SortFilterSkylineTest.class,
+        TextFileToPointRDDTest.class, DominationComparatorTest.class,
+        FlagPointPairProducerTest.class, PointFlagTest.class,
+        PointUtils.class})
 public class BasicTestSuite {
-    
+
     public static SparkContextWrapper sparkContext;
 
     @BeforeClass

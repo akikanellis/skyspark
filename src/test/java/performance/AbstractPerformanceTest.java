@@ -3,13 +3,13 @@ package performance;
 import com.github.dkanellis.skyspark.api.algorithms.factories.SkylineAlgorithmFactory;
 import com.github.dkanellis.skyspark.api.algorithms.wrappers.SparkContextWrapper;
 import com.github.dkanellis.skyspark.performance.PerformanceResult;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- *
  * @author Dimitris Kanellis
  */
 public abstract class AbstractPerformanceTest {
@@ -19,11 +19,11 @@ public abstract class AbstractPerformanceTest {
     private static List<File> inputFiles;
     private static List<File> expectedResults;
     private static SkylineAlgorithmFactory algorithmFactory;
-    
+
     private static List<PerformanceResult> performanceResults;
 
     public static void init(String datasetFolder, String expectedResultsFolder,
-            String appName) {
+                            String appName) {
         inputFiles = getListOfFilesFromFolder(datasetFolder);
         expectedResults = getListOfFilesFromFolder(expectedResultsFolder);
         sparkContext = new SparkContextWrapper(appName, "local[4]");
@@ -39,16 +39,16 @@ public abstract class AbstractPerformanceTest {
     public static void addPerformanceResult(PerformanceResult result) {
         performanceResults.add(result);
     }
-    
+
     public static void addAllPerformanceResults(List<PerformanceResult> results) {
         performanceResults.addAll(results);
     }
-    
-    public static void stopSparkContext(){
+
+    public static void stopSparkContext() {
         sparkContext.stop();
     }
-    
-    public static void printResults(){
+
+    public static void printResults() {
         for (PerformanceResult performanceResult : performanceResults) {
             System.out.println(performanceResult);
         }

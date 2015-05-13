@@ -9,7 +9,6 @@ import performance.BlockNestedLoopPerformanceTest;
 import performance.SortFilterSkylinePerformanceTest;
 
 /**
- *
  * @author Dimitris Kanellis
  */
 @RunWith(Suite.class)

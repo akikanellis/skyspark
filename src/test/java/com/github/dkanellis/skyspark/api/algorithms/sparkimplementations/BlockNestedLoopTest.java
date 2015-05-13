@@ -1,13 +1,8 @@
 package com.github.dkanellis.skyspark.api.algorithms.sparkimplementations;
 
-import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.BlockNestedLoop;
 import com.github.dkanellis.skyspark.api.algorithms.wrappers.SparkContextWrapper;
 import com.github.dkanellis.skyspark.api.math.point.PointFlag;
-import java.awt.geom.Point2D;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.spark.api.java.JavaPairRDD;
-import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -15,8 +10,13 @@ import scala.Tuple2;
 import suites.basic.BasicTestSuite;
 import testcategories.BasicTest;
 
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+
 /**
- *
  * @author Dimitris Kanellis
  */
 @Category(BasicTest.class)
@@ -105,7 +105,7 @@ public class BlockNestedLoopTest {
 
         assertEquals(result, expResult);
     }
-    
+
     @Test
     public void shouldBeAddedInTheSkylineListAndRemoveAll() {
         System.out.println("globalAddDiscardOrDominate - add and remove");

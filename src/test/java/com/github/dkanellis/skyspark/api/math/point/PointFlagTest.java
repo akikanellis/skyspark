@@ -1,15 +1,13 @@
 package com.github.dkanellis.skyspark.api.math.point;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import com.github.dkanellis.skyspark.api.math.point.PointFlag;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import testcategories.BasicTest;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 /**
- *
  * @author Dimitris Kanellis
  */
 @Category(BasicTest.class)
