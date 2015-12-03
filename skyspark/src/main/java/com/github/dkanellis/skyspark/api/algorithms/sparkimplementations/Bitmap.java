@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @author Dimitris Kanellis
  */
-public class Bitmap implements SkylineAlgorithm {
+public class Bitmap implements com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.SkylineAlgorithm {
 
     private final transient TextFileToPointRDD txtToPoints;
     private FlagPointPairProducer flagPointPairProducer;
