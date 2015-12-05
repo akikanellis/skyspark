@@ -1,6 +1,5 @@
 package performance;
 
-import com.github.dkanellis.skyspark.api.algorithms.factories.SkylineAlgorithmFactory;
 import com.github.dkanellis.skyspark.api.algorithms.wrappers.SparkContextWrapper;
 import com.github.dkanellis.skyspark.performance.PerformanceResult;
 
@@ -18,7 +17,6 @@ public abstract class AbstractPerformanceTest {
     private static SparkContextWrapper sparkContext;
     private static List<File> inputFiles;
     private static List<File> expectedResults;
-    private static SkylineAlgorithmFactory algorithmFactory;
 
     private static List<PerformanceResult> performanceResults;
 
@@ -27,7 +25,6 @@ public abstract class AbstractPerformanceTest {
         inputFiles = getListOfFilesFromFolder(datasetFolder);
         expectedResults = getListOfFilesFromFolder(expectedResultsFolder);
         sparkContext = new SparkContextWrapper(appName, "local[4]");
-        algorithmFactory = new SkylineAlgorithmFactory();
         performanceResults = new ArrayList<>();
     }
 
@@ -64,10 +61,6 @@ public abstract class AbstractPerformanceTest {
 
     public static SparkContextWrapper getSparkContext() {
         return sparkContext;
-    }
-
-    public static SkylineAlgorithmFactory getAlgorithmFactory() {
-        return algorithmFactory;
     }
 
     public static int getTimesToRun() {
