@@ -1,7 +1,7 @@
 package performance;
 
-import com.github.dkanellis.skyspark.api.algorithms.factories.SkylineAlgorithmFactory;
 import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.SkylineAlgorithm;
+import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.SortFilterSkyline;
 import com.github.dkanellis.skyspark.api.algorithms.wrappers.SparkContextWrapper;
 import com.github.dkanellis.skyspark.api.algorithms.wrappers.TextFileToPointRDD;
 import com.github.dkanellis.skyspark.performance.PerformanceResult;
@@ -24,7 +24,6 @@ import static org.junit.Assert.assertTrue;
 public class SortFilterSkylinePerformanceTest {
 
     private static SparkContextWrapper sparkContext;
-    private static SkylineAlgorithmFactory algorithmFactory;
     private static List<File> inputFiles;
     private static List<File> expectedResultsFiles;
     private static int timesToRun;
@@ -37,7 +36,6 @@ public class SortFilterSkylinePerformanceTest {
     @BeforeClass
     public static void setUpClass() {
         sparkContext = AbstractPerformanceTest.getSparkContext();
-        algorithmFactory = AbstractPerformanceTest.getAlgorithmFactory();
         inputFiles = AbstractPerformanceTest.getInputFiles();
         expectedResultsFiles = AbstractPerformanceTest.getExpectedResultsFiles();
         timesToRun = AbstractPerformanceTest.getTimesToRun();
@@ -95,7 +93,7 @@ public class SortFilterSkylinePerformanceTest {
     private PerformanceResult getTotalRuntime(File inputFile, File expResultFile) {
         String inputFilePath = inputFile.getAbsolutePath();
         List<Point2D> expResult = getPointsFromFile(expResultFile);
-        SkylineAlgorithm bnl = algorithmFactory.getSortFilterSkyline(sparkContext);
+        SkylineAlgorithm bnl = new SortFilterSkyline(sparkContext);
 
         PerformanceResult performanceResult = new PerformanceResult("Sort Filter Skyline", inputFile);
         for (int i = 0; i < timesToRun; i++) {
