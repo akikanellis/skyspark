@@ -16,9 +16,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * @author Dimitris Kanellis
- */
 public abstract class BlockNestedLoopTemplate implements SkylineAlgorithm, Serializable {
 
     private final transient TextFileToPointRDD txtToPoints;
@@ -48,12 +45,12 @@ public abstract class BlockNestedLoopTemplate implements SkylineAlgorithm, Seria
         JavaPairRDD<PointFlag, Point2D> flagPointPairs = points.mapToPair(p -> flagPointPairProducer.getFlagPointPair(p));
         JavaPairRDD<PointFlag, Iterable<Point2D>> pointsGroupedByFlag = flagPointPairs.groupByKey();
         JavaPairRDD<PointFlag, Iterable<Point2D>> flagsWithLocalSkylines
-                = pointsGroupedByFlag.mapToPair(fp -> new Tuple2(fp._1(), getLocalSkylinesWithBNL(fp._2())));
+                = pointsGroupedByFlag.mapToPair(fp -> new Tuple2(fp._1(), getLocalSkylinesWithBnl(fp._2())));
 
         return flagsWithLocalSkylines;
     }
 
-    private Iterable<Point2D> getLocalSkylinesWithBNL(Iterable<Point2D> pointIterable) {
+    private Iterable<Point2D> getLocalSkylinesWithBnl(Iterable<Point2D> pointIterable) {
         List<Point2D> localSkylines = new ArrayList<>();
         for (Point2D point : pointIterable) {
             localAddDiscardOrDominate(localSkylines, point);
@@ -61,7 +58,7 @@ public abstract class BlockNestedLoopTemplate implements SkylineAlgorithm, Seria
         return localSkylines;
     }
 
-    private void localAddDiscardOrDominate(List<Point2D> localSkylines, Point2D candidateSkylinePoint) {
+    protected void localAddDiscardOrDominate(List<Point2D> localSkylines, Point2D candidateSkylinePoint) {
         for (Iterator it = localSkylines.iterator(); it.hasNext(); ) {
             Point2D pointToCheckAgainst = (Point2D) it.next();
             if (PointUtils.dominates(pointToCheckAgainst, candidateSkylinePoint)) {
@@ -73,11 +70,8 @@ public abstract class BlockNestedLoopTemplate implements SkylineAlgorithm, Seria
         localSkylines.add(candidateSkylinePoint);
     }
 
-    protected JavaRDD<Point2D> merge(
-            JavaPairRDD<PointFlag, Iterable<Point2D>> localSkylinesGroupedByFlag) {
-
-        JavaPairRDD<PointFlag, Point2D> ungroupedLocalSkylines
-                = localSkylinesGroupedByFlag.flatMapValues(point -> point);
+    protected JavaRDD<Point2D> merge(JavaPairRDD<PointFlag, Iterable<Point2D>> localSkylinesGroupedByFlag) {
+        JavaPairRDD<PointFlag, Point2D> ungroupedLocalSkylines = localSkylinesGroupedByFlag.flatMapValues(point -> point);
         JavaPairRDD<PointFlag, Point2D> sortedLocalSkylines = sortRDD(ungroupedLocalSkylines);
 
         JavaRDD<List<Tuple2<PointFlag, Point2D>>> groupedByTheSameId = groupByTheSameId(sortedLocalSkylines);
