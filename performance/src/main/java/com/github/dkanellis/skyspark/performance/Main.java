@@ -43,12 +43,12 @@ public class Main {
             skylineAlgorithm.getSkylinePoints(points);
             stopwatch.stop();
 
-            writeResultToFile(skylineAlgorithm.toString(), stopwatch.elapsedMillis());
+            writeResultToFile(skylineAlgorithm.toString(), stopwatch.elapsedMillis(), filePath);
             stopwatch.reset();
         }
     }
 
-    private static void writeResultToFile(String algorithmName, long elapsedMillis) {
+    private static void writeResultToFile(String algorithmName, long elapsedMillis, String filePath) {
 
     }
 }
