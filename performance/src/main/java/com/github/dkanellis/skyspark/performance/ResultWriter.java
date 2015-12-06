@@ -1,5 +1,7 @@
 package com.github.dkanellis.skyspark.performance;
 
+import javax.validation.constraints.NotNull;
+
 public interface ResultWriter {
-    void writeResult(String algorithmName, final long elapsedMillis, String dataType, final int dataSize);
+    void writeResult(@NotNull Result result);
 }

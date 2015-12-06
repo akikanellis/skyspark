@@ -10,7 +10,7 @@ public abstract class AbstractPerformanceTest {
 //    private static List<File> inputFiles;
 //    private static List<File> expectedResults;
 //
-//    private static List<PerformanceResult> performanceResults;
+//    private static List<Result> performanceResults;
 //
 //    public static void init(String datasetFolder, String expectedResultsFolder,
 //                            String appName) {
@@ -25,11 +25,11 @@ public abstract class AbstractPerformanceTest {
 //        return Arrays.asList(folder.listFiles());
 //    }
 //
-//    public static void addPerformanceResult(PerformanceResult result) {
+//    public static void addPerformanceResult(Result result) {
 //        performanceResults.add(result);
 //    }
 //
-//    public static void addAllPerformanceResults(List<PerformanceResult> results) {
+//    public static void addAllPerformanceResults(List<Result> results) {
 //        performanceResults.addAll(results);
 //    }
 //
@@ -38,7 +38,7 @@ public abstract class AbstractPerformanceTest {
 //    }
 //
 //    public static void printResults() {
-//        for (PerformanceResult performanceResult : performanceResults) {
+//        for (Result performanceResult : performanceResults) {
 //            System.out.println(performanceResult);
 //        }
 //    }
@@ -59,7 +59,7 @@ public abstract class AbstractPerformanceTest {
 //        return TIMES_TO_RUN;
 //    }
 //
-//    public static List<PerformanceResult> getPerformanceResults() {
+//    public static List<Result> getPerformanceResults() {
 //        return performanceResults;
 //    }
 }

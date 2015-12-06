@@ -5,6 +5,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
+import javax.validation.constraints.NotNull;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,12 +25,12 @@ public class XmlResultWriter implements ResultWriter {
     }
 
     @Override
-    public void writeResult(String algorithmName, final long elapsedMillis, String dataType, final int dataSize) {
+    public void writeResult(@NotNull Result result) {
         Row row = resultSheet.createRow(resultSheet.getLastRowNum() + 1);
-        row.createCell(0).setCellValue(algorithmName);
-        row.createCell(1).setCellValue(dataType);
-        row.createCell(2).setCellValue(dataSize);
-        row.createCell(3).setCellValue(elapsedMillis);
+        row.createCell(0).setCellValue(result.getAlgorithmName());
+        row.createCell(1).setCellValue(result.getDataType());
+        row.createCell(2).setCellValue(result.getDataSize());
+        row.createCell(3).setCellValue(result.getElapsedTime());
 
         writeToFile();
     }
