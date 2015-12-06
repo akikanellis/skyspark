@@ -4,6 +4,8 @@ import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.Skyline
 import com.github.dkanellis.skyspark.api.algorithms.wrappers.SparkContextWrapper;
 import com.github.dkanellis.skyspark.api.algorithms.wrappers.TextFileToPointRDD;
 import com.github.dkanellis.skyspark.performance.parsing.Settings;
+import com.github.dkanellis.skyspark.performance.result.ResultWriter;
+import com.github.dkanellis.skyspark.performance.result.XmlResultWriter;
 import com.google.common.base.Stopwatch;
 import org.apache.spark.api.java.JavaRDD;
 

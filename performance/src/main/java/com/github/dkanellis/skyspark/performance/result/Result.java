@@ -1,4 +1,4 @@
-package com.github.dkanellis.skyspark.performance;
+package com.github.dkanellis.skyspark.performance.result;
 
 import javax.validation.constraints.NotNull;
 

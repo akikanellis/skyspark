@@ -1,4 +1,4 @@
-package com.github.dkanellis.skyspark.performance;
+package com.github.dkanellis.skyspark.performance.result;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
