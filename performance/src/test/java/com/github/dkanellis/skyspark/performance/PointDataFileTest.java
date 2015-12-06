@@ -1,5 +1,6 @@
 package com.github.dkanellis.skyspark.performance;
 
+import com.github.dkanellis.skyspark.performance.result.PointDataFile;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
