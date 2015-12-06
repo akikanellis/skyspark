@@ -10,9 +10,9 @@ import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.SortFil
 
 public class SkylineAlgorithmConverter implements IStringConverter<SkylineAlgorithm> {
 
-    public static final String ALIAS_BLOCK_NESTED_LOOP = "bnl";
-    public static final String ALIAS_SORT_FILTER_SKYLINE = "sfs";
-    public static final String ALIAS_BITMAP = "bitmap";
+    static final String ALIAS_BLOCK_NESTED_LOOP = "bnl";
+    static final String ALIAS_SORT_FILTER_SKYLINE = "sfs";
+    static final String ALIAS_BITMAP = "bitmap";
 
     @Override
     public SkylineAlgorithm convert(String value) {
