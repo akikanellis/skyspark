@@ -15,9 +15,7 @@ public class OutputFileValidator implements IParameterValidator {
     public void validate(String name, String value) throws ParameterException {
         File file = new File(value);
         String fileExtension = Files.getFileExtension(value);
-        if (file.exists()) {
-            throw new ParameterException("File does not exist: " + file);
-        } else if (!(fileExtension.equals(EXTENSION_TEXT_FILE) || fileExtension.equals(EXTENSION_EXCEL))) {
+        if (!(fileExtension.equals(EXTENSION_TEXT_FILE) || fileExtension.equals(EXTENSION_EXCEL))) {
             throw new ParameterException("File is of wrong type: " + fileExtension);
         }
     }

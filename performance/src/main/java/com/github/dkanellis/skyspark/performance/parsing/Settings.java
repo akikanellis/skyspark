@@ -16,11 +16,11 @@ public class Settings {
             validateWith = PointDataFileValidator.class, converter = PointDataFileConverter.class)
     private List<PointDataFile> filepaths;
     @Parameter(names = {"-t", "-times"}, description = "How many times to run per algorithm and file combination",
-            required = true, validateWith = BiggerThanZeroIntegerValidator.class)
-    private Integer times;
+            validateWith = BiggerThanZeroIntegerValidator.class)
+    private Integer times = 10;
     @Parameter(names = {"-o", "-output"}, description = "The output file with the results, can only be .txt or .xls",
             validateWith = OutputFileValidator.class)
-    private String outputPath;
+    private String outputPath = String.valueOf(System.currentTimeMillis()) + ".xls";
     @Parameter(names = "--help", help = true)
     private boolean help;
 
