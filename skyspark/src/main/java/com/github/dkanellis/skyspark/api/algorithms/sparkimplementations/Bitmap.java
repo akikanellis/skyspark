@@ -17,4 +17,9 @@ public class Bitmap implements SkylineAlgorithm {
     public List<Point2D> getSkylinePoints(JavaRDD<Point2D> points) {
         throw new UnsupportedOperationException("Bitmap is not supported yet.");
     }
+
+    @Override
+    public String toString() {
+        return "Bitmap";
+    }
 }

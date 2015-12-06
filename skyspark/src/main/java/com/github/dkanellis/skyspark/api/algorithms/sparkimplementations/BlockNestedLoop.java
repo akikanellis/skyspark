@@ -22,4 +22,9 @@ public class BlockNestedLoop extends BlockNestedLoopTemplate {
         localAddDiscardOrDominate(globalSkylines, candidateGlobalSkylinePoint);
     }
 
+    @Override
+    public String toString() {
+        return "BlockNestedLoop";
+    }
+
 }

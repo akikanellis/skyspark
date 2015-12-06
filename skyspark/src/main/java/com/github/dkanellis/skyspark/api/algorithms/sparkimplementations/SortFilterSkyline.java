@@ -41,4 +41,9 @@ public class SortFilterSkyline extends BlockNestedLoopTemplate {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "SortFilterSkyline";
+    }
 }
