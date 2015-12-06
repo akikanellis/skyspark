@@ -14,6 +14,7 @@ public class Main {
     private static Stopwatch stopwatch;
     private static TextFileToPointRDD textFileToPointRDD;
     private static Settings settings;
+    private static ResultWriter resultWriter;
 
     public static void main(String[] args) {
         settings = Settings.fromArgs(args);
@@ -21,8 +22,9 @@ public class Main {
             return;
         }
 
-        stopwatch = new Stopwatch();
+        stopwatch = Stopwatch.createUnstarted();
         textFileToPointRDD = new TextFileToPointRDD(new SparkContextWrapper("perf test", "local[4]"));
+        resultWriter = new XmlResultWriter(settings.getOutputPath());
 
         for (SkylineAlgorithm skylineAlgorithm : settings.getAlgorithms()) {
             executeAlgorithm(skylineAlgorithm);

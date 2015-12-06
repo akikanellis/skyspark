@@ -17,6 +17,9 @@ public class Settings {
     @Parameter(names = {"-t", "-times"}, description = "How many times to run per algorithm and file combination",
             required = true, validateWith = BiggerThanZeroIntegerValidator.class)
     private Integer times;
+    @Parameter(names = {"-o", "-output"}, description = "The output file with the results, can only be .txt or .xls",
+            validateWith = OutputFileValidator.class)
+    private String outputPath;
     @Parameter(names = "--help", help = true)
     private boolean help;
 
@@ -44,9 +47,11 @@ public class Settings {
         return times;
     }
 
+    public String getOutputPath() {
+        return outputPath;
+    }
+
     public boolean isHelp() {
         return help;
     }
-
-
 }
