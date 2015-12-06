@@ -41,7 +41,7 @@ public class BlockNestedLoopTest {
         System.out.println("sortRDD");
         List<Tuple2<PointFlag, Point2D>> flagPointPairs = getFlagPointPairs();
         JavaPairRDD<PointFlag, Point2D> flagPointRdd = sparkContext.parallelizePairs(flagPointPairs);
-        BlockNestedLoop instance = new BlockNestedLoop(sparkContext);
+        BlockNestedLoop instance = new BlockNestedLoop();
 
         JavaPairRDD<PointFlag, Point2D> expResult = flagPointRdd;
         JavaPairRDD<PointFlag, Point2D> result = instance.sortRDD(flagPointRdd);
@@ -65,7 +65,7 @@ public class BlockNestedLoopTest {
         System.out.println("globalAddDiscardOrDominate - added");
         List<Point2D> globalSkylines = getGlobalSkylines();
         Point2D candidateGlobalSkylinePoint = new Point2D.Double(7594.778386003634, 2038.5448103420463);
-        BlockNestedLoop instance = new BlockNestedLoop(sparkContext);
+        BlockNestedLoop instance = new BlockNestedLoop();
 
         List<Point2D> expResult = getGlobalSkylines();
         expResult.add(candidateGlobalSkylinePoint);
@@ -80,7 +80,7 @@ public class BlockNestedLoopTest {
         System.out.println("globalAddDiscardOrDominate - not added");
         List<Point2D> globalSkylines = getGlobalSkylines();
         Point2D candidateGlobalSkylinePoint = new Point2D.Double(5300.723604353442, 6586.544252547646);
-        BlockNestedLoop instance = new BlockNestedLoop(sparkContext);
+        BlockNestedLoop instance = new BlockNestedLoop();
 
         List<Point2D> expResult = getGlobalSkylines();
         instance.globalAddDiscardOrDominate(globalSkylines, candidateGlobalSkylinePoint);
@@ -95,7 +95,7 @@ public class BlockNestedLoopTest {
         List<Point2D> globalSkylines = getGlobalSkylines();
         Point2D pointToBeRemoved = new Point2D.Double(5413.326818883628, 4253.422322942394);
         Point2D candidateGlobalSkylinePoint = new Point2D.Double(5400.723604353442, 4100.426522944594);
-        BlockNestedLoop instance = new BlockNestedLoop(sparkContext);
+        BlockNestedLoop instance = new BlockNestedLoop();
 
         List<Point2D> expResult = getGlobalSkylines();
         expResult.remove(pointToBeRemoved);
@@ -111,7 +111,7 @@ public class BlockNestedLoopTest {
         System.out.println("globalAddDiscardOrDominate - add and remove");
         List<Point2D> globalSkylines = getGlobalSkylines();
         Point2D candidateGlobalSkylinePoint = new Point2D.Double(100.723604353442, 200.426522944594);
-        BlockNestedLoop instance = new BlockNestedLoop(sparkContext);
+        BlockNestedLoop instance = new BlockNestedLoop();
 
         List<Point2D> expResult = new ArrayList<>();
         expResult.add(candidateGlobalSkylinePoint);
