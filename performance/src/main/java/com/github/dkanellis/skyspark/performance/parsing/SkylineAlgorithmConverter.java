@@ -1,6 +1,7 @@
 package com.github.dkanellis.skyspark.performance.parsing;
 
 import com.beust.jcommander.IStringConverter;
+import com.beust.jcommander.ParameterException;
 import com.github.dkanellis.skyspark.api.algorithms.Preconditions;
 import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.Bitmap;
 import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.BlockNestedLoop;
@@ -21,7 +22,7 @@ public class SkylineAlgorithmConverter implements IStringConverter<SkylineAlgori
             case "bitmap":
                 return new Bitmap();
             default:
-                throw new IllegalArgumentException("Wrong algorithm value: " + value);
+                throw new ParameterException("Wrong algorithm value: " + value);
         }
     }
 }
