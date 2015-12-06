@@ -9,17 +9,22 @@ import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.Skyline
 import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.SortFilterSkyline;
 
 public class SkylineAlgorithmConverter implements IStringConverter<SkylineAlgorithm> {
+
+    public static final String ALIAS_BLOCK_NESTED_LOOP = "bnl";
+    public static final String ALIAS_SORT_FILTER_SKYLINE = "sfs";
+    public static final String ALIAS_BITMAP = "bitmap";
+
     @Override
     public SkylineAlgorithm convert(String value) {
         Preconditions.checkNotEmpty(value);
         value = value.toLowerCase();
 
         switch (value) {
-            case "bnl":
+            case ALIAS_BLOCK_NESTED_LOOP:
                 return new BlockNestedLoop();
-            case "sfs":
+            case ALIAS_SORT_FILTER_SKYLINE:
                 return new SortFilterSkyline();
-            case "bitmap":
+            case ALIAS_BITMAP:
                 return new Bitmap();
             default:
                 throw new ParameterException("Wrong algorithm value: " + value);
