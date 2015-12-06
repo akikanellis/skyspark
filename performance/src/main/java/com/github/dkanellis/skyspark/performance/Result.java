@@ -3,19 +3,23 @@ package com.github.dkanellis.skyspark.performance;
 import javax.validation.constraints.NotNull;
 
 import static com.github.dkanellis.skyspark.api.algorithms.Preconditions.checkNotEmpty;
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * @author Dimitris Kanellis
  */
-public class PerformanceResult {
+public class Result {
 
     private final String algorithmName;
     private final PointDataFile pointDataFile;
+    private final long elapsedTime;
 
-    public PerformanceResult(@NotNull String algorithmName, @NotNull PointDataFile pointDataFile) {
+    public Result(@NotNull String algorithmName, @NotNull PointDataFile pointDataFile, final long elapsedTime) {
         this.algorithmName = checkNotEmpty(algorithmName);
         this.pointDataFile = checkNotNull(pointDataFile);
+        checkArgument(elapsedTime > 0);
+        this.elapsedTime = elapsedTime;
     }
 
     public String getAlgorithmName() {
@@ -28,5 +32,9 @@ public class PerformanceResult {
 
     public int getDataSize() {
         return pointDataFile.getDataSize();
+    }
+
+    public long getElapsedTime() {
+        return elapsedTime;
     }
 }

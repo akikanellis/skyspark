@@ -10,7 +10,7 @@ public class SortFilterSkylinePerformanceTest {
 //    private static List<File> expectedResultsFiles;
 //    private static int timesToRun;
 //
-//    private static List<PerformanceResult> results;
+//    private static List<Result> results;
 //
 //    public SortFilterSkylinePerformanceTest() {
 //    }
@@ -34,7 +34,7 @@ public class SortFilterSkylinePerformanceTest {
 //        File inputFile = getFileContainingKeyword(inputFiles, "uniform");
 //        File expResultFile = getFileContainingKeyword(expectedResultsFiles, "uniform");
 //
-//        PerformanceResult finalResult = getTotalRuntime(inputFile, expResultFile);
+//        Result finalResult = getTotalRuntime(inputFile, expResultFile);
 //        results.add(finalResult);
 //    }
 //
@@ -43,7 +43,7 @@ public class SortFilterSkylinePerformanceTest {
 //        File inputFile = getFileContainingKeyword(inputFiles, "correl");
 //        File expResultFile = getFileContainingKeyword(expectedResultsFiles, "correl");
 //
-//        PerformanceResult finalResult = getTotalRuntime(inputFile, expResultFile);
+//        Result finalResult = getTotalRuntime(inputFile, expResultFile);
 //        results.add(finalResult);
 //    }
 //
@@ -52,7 +52,7 @@ public class SortFilterSkylinePerformanceTest {
 //        File inputFile = getFileContainingKeyword(inputFiles, "anticor");
 //        File expResultFile = getFileContainingKeyword(expectedResultsFiles, "anticor");
 //
-//        PerformanceResult finalResult = getTotalRuntime(inputFile, expResultFile);
+//        Result finalResult = getTotalRuntime(inputFile, expResultFile);
 //        results.add(finalResult);
 //    }
 //
@@ -72,12 +72,12 @@ public class SortFilterSkylinePerformanceTest {
 //        return inputFiles.get(0).getParent();
 //    }
 //
-//    private PerformanceResult getTotalRuntime(File inputFile, File expResultFile) {
+//    private Result getTotalRuntime(File inputFile, File expResultFile) {
 //        String inputFilePath = inputFile.getAbsolutePath();
 //        List<Point2D> expResult = getPointsFromFile(expResultFile);
 //        SkylineAlgorithm bnl = new SortFilterSkyline(sparkContext);
 //
-//        PerformanceResult performanceResult = new PerformanceResult("Sort Filter Skyline", inputFile);
+//        Result performanceResult = new Result("Sort Filter Skyline", inputFile);
 //        for (int i = 0; i < timesToRun; i++) {
 //            long startTime = System.currentTimeMillis();
 //            List<Point2D> result = bnl.getSkylinePoints(inputFilePath);
