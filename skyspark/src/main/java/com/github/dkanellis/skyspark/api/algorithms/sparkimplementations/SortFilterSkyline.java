@@ -1,7 +1,6 @@
 package com.github.dkanellis.skyspark.api.algorithms.sparkimplementations;
 
 import com.github.dkanellis.skyspark.api.algorithms.templates.BlockNestedLoopTemplate;
-import com.github.dkanellis.skyspark.api.algorithms.wrappers.SparkContextWrapper;
 import com.github.dkanellis.skyspark.api.math.point.PointFlag;
 import com.github.dkanellis.skyspark.api.math.point.PointUtils;
 import com.github.dkanellis.skyspark.api.math.point.comparators.DominationComparator;
@@ -14,10 +13,6 @@ import java.util.List;
  * @author Dimitris Kanellis
  */
 public class SortFilterSkyline extends BlockNestedLoopTemplate {
-
-    public SortFilterSkyline(SparkContextWrapper sparkContext) {
-        super(sparkContext);
-    }
 
     @Override
     protected JavaPairRDD<PointFlag, Point2D> sortRDD(

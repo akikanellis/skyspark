@@ -42,7 +42,7 @@ public class SortFilterSkylineTest {
         List<Tuple2<PointFlag, Point2D>> unsortedFlagPointPairs = getUnsortedFlagPointPairs();
         JavaPairRDD<PointFlag, Point2D> unsortedFlagPointRdd = sparkContext.parallelizePairs(unsortedFlagPointPairs);
         List<Tuple2<PointFlag, Point2D>> sortedFlagPointPairsByTotals = getSortedFlagPointPairsByTotals();
-        SortFilterSkyline instance = new SortFilterSkyline(sparkContext);
+        SortFilterSkyline instance = new SortFilterSkyline();
 
         JavaPairRDD<PointFlag, Point2D> expResult = sparkContext.parallelizePairs(sortedFlagPointPairsByTotals);
         JavaPairRDD<PointFlag, Point2D> result = instance.sortRDD(unsortedFlagPointRdd);
@@ -82,7 +82,7 @@ public class SortFilterSkylineTest {
         System.out.println("globalAddDiscardOrDominate - added");
         List<Point2D> globalSkylines = getSortedGlobalSkylines();
         Point2D candidateGlobalSkylinePoint = new Point2D.Double(7594.778386003634, 2200.5448103420463);
-        SortFilterSkyline instance = new SortFilterSkyline(sparkContext);
+        SortFilterSkyline instance = new SortFilterSkyline();
 
         List<Point2D> expResult = getSortedGlobalSkylines();
         expResult.add(candidateGlobalSkylinePoint);
@@ -97,7 +97,7 @@ public class SortFilterSkylineTest {
         System.out.println("globalAddDiscardOrDominate - not added");
         List<Point2D> globalSkylines = getSortedGlobalSkylines();
         Point2D candidateGlobalSkylinePoint = new Point2D.Double(5300.723604353442, 6586.544252547646);
-        BlockNestedLoop instance = new BlockNestedLoop(sparkContext);
+        BlockNestedLoop instance = new BlockNestedLoop();
 
         List<Point2D> expResult = getSortedGlobalSkylines();
         instance.globalAddDiscardOrDominate(globalSkylines, candidateGlobalSkylinePoint);
