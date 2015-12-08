@@ -12,6 +12,7 @@ import com.google.common.base.Stopwatch;
 import org.apache.spark.api.java.JavaRDD;
 
 import java.awt.geom.Point2D;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
@@ -20,6 +21,7 @@ public class Main {
     private static TextFileToPointRDD textFileToPointRDD;
     private static Settings settings;
     private static ResultWriter resultWriter;
+    private static List<Point2D> skylines;
 
     public static void main(String[] args) {
         settings = Settings.fromArgs(args);
@@ -47,10 +49,11 @@ public class Main {
             JavaRDD<Point2D> points = textFileToPointRDD.getPointRDDFromTextFile(pointDataFile.getFilePath(), " ");
 
             stopwatch.start();
-            skylineAlgorithm.getSkylinePoints(points);
+            skylines = skylineAlgorithm.getSkylinePoints(points);
             stopwatch.stop();
 
-            Result result = new Result(skylineAlgorithm.toString(), pointDataFile, stopwatch.elapsed(TimeUnit.MILLISECONDS));
+            Result result = new Result(skylineAlgorithm.toString(), pointDataFile,
+                    stopwatch.elapsed(TimeUnit.NANOSECONDS), skylines.size());
             resultWriter.writeResult(result);
 
             stopwatch.reset();
