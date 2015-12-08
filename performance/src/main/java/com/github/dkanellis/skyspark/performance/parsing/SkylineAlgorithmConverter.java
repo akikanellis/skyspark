@@ -2,11 +2,11 @@ package com.github.dkanellis.skyspark.performance.parsing;
 
 import com.beust.jcommander.IStringConverter;
 import com.beust.jcommander.ParameterException;
-import com.github.dkanellis.skyspark.api.algorithms.Preconditions;
-import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.Bitmap;
-import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.BlockNestedLoop;
-import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.SkylineAlgorithm;
-import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.SortFilterSkyline;
+import com.github.dkanellis.skyspark.api.algorithms.SkylineAlgorithm;
+import com.github.dkanellis.skyspark.api.algorithms.bitmap.Bitmap;
+import com.github.dkanellis.skyspark.api.algorithms.bnl.BlockNestedLoop;
+import com.github.dkanellis.skyspark.api.algorithms.sfs.SortFilterSkyline;
+import com.github.dkanellis.skyspark.api.utils.Preconditions;
 
 public class SkylineAlgorithmConverter implements IStringConverter<SkylineAlgorithm> {
 

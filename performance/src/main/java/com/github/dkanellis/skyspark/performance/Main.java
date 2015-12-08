@@ -1,8 +1,8 @@
 package com.github.dkanellis.skyspark.performance;
 
-import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.SkylineAlgorithm;
-import com.github.dkanellis.skyspark.api.algorithms.wrappers.SparkContextWrapper;
-import com.github.dkanellis.skyspark.api.algorithms.wrappers.TextFileToPointRDD;
+import com.github.dkanellis.skyspark.api.algorithms.SkylineAlgorithm;
+import com.github.dkanellis.skyspark.api.helpers.SparkContextWrapper;
+import com.github.dkanellis.skyspark.api.helpers.TextFileToPointRDD;
 import com.github.dkanellis.skyspark.performance.parsing.Settings;
 import com.github.dkanellis.skyspark.performance.result.PointDataFile;
 import com.github.dkanellis.skyspark.performance.result.Result;
@@ -12,6 +12,7 @@ import com.google.common.base.Stopwatch;
 import org.apache.spark.api.java.JavaRDD;
 
 import java.awt.geom.Point2D;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
@@ -20,6 +21,7 @@ public class Main {
     private static TextFileToPointRDD textFileToPointRDD;
     private static Settings settings;
     private static ResultWriter resultWriter;
+    private static List<Point2D> skylines;
 
     public static void main(String[] args) {
         settings = Settings.fromArgs(args);
@@ -31,9 +33,7 @@ public class Main {
         textFileToPointRDD = new TextFileToPointRDD(new SparkContextWrapper("perf test", "local[4]"));
         resultWriter = new XmlResultWriter(settings.getOutputPath());
 
-        for (SkylineAlgorithm skylineAlgorithm : settings.getAlgorithms()) {
-            executeAlgorithm(skylineAlgorithm);
-        }
+        settings.getAlgorithms().forEach(Main::executeAlgorithm);
     }
 
     private static void executeAlgorithm(SkylineAlgorithm skylineAlgorithm) {
@@ -47,10 +47,11 @@ public class Main {
             JavaRDD<Point2D> points = textFileToPointRDD.getPointRDDFromTextFile(pointDataFile.getFilePath(), " ");
 
             stopwatch.start();
-            skylineAlgorithm.getSkylinePoints(points);
+            skylines = skylineAlgorithm.getSkylinePoints(points);
             stopwatch.stop();
 
-            Result result = new Result(skylineAlgorithm.toString(), pointDataFile, stopwatch.elapsed(TimeUnit.MILLISECONDS));
+            Result result = new Result(skylineAlgorithm.toString(), pointDataFile,
+                    stopwatch.elapsed(TimeUnit.NANOSECONDS), skylines.size());
             resultWriter.writeResult(result);
 
             stopwatch.reset();

@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import static com.github.dkanellis.skyspark.api.algorithms.Preconditions.checkNotEmpty;
+import static com.github.dkanellis.skyspark.api.utils.Preconditions.checkNotEmpty;
 
 public class XmlResultWriter implements ResultWriter {
 
@@ -22,6 +22,12 @@ public class XmlResultWriter implements ResultWriter {
         this.outputFilePath = checkNotEmpty(outputFilePath);
         workbook = new HSSFWorkbook();
         resultSheet = workbook.createSheet("Results");
+        Row row = resultSheet.createRow(resultSheet.getLastRowNum());
+        row.createCell(0).setCellValue("Algorithm");
+        row.createCell(1).setCellValue("Data Type");
+        row.createCell(2).setCellValue("Data Size");
+        row.createCell(3).setCellValue("Number of Skylines");
+        row.createCell(4).setCellValue("Elapsed Time (ns)");
     }
 
     @Override
@@ -30,7 +36,8 @@ public class XmlResultWriter implements ResultWriter {
         row.createCell(0).setCellValue(result.getAlgorithmName());
         row.createCell(1).setCellValue(result.getDataType());
         row.createCell(2).setCellValue(result.getDataSize());
-        row.createCell(3).setCellValue(result.getElapsedTime());
+        row.createCell(3).setCellValue(result.getNumberOfSkylines());
+        row.createCell(4).setCellValue(result.getElapsedTime());
 
         writeToFile();
     }

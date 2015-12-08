@@ -2,7 +2,7 @@ package com.github.dkanellis.skyspark.performance.result;
 
 import javax.validation.constraints.NotNull;
 
-import static com.github.dkanellis.skyspark.api.algorithms.Preconditions.checkNotEmpty;
+import static com.github.dkanellis.skyspark.api.utils.Preconditions.checkNotEmpty;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -14,11 +14,15 @@ public class Result {
     private final String algorithmName;
     private final PointDataFile pointDataFile;
     private final long elapsedTime;
+    private final int numberOfSkylines;
 
-    public Result(@NotNull String algorithmName, @NotNull PointDataFile pointDataFile, final long elapsedTime) {
+    public Result(@NotNull String algorithmName, @NotNull PointDataFile pointDataFile,
+                  final long elapsedTime, final int numberOfSkylines) {
+        checkArgument(numberOfSkylines > 0);
+        checkArgument(elapsedTime > 0);
         this.algorithmName = checkNotEmpty(algorithmName);
         this.pointDataFile = checkNotNull(pointDataFile);
-        checkArgument(elapsedTime > 0);
+        this.numberOfSkylines = numberOfSkylines;
         this.elapsedTime = elapsedTime;
     }
 
@@ -32,6 +36,10 @@ public class Result {
 
     public int getDataSize() {
         return pointDataFile.getDataSize();
+    }
+
+    public int getNumberOfSkylines() {
+        return numberOfSkylines;
     }
 
     public long getElapsedTime() {
