@@ -2,7 +2,7 @@ package com.github.dkanellis.skyspark.performance.result;
 
 import javax.validation.constraints.NotNull;
 
-import static com.github.dkanellis.skyspark.api.algorithms.Preconditions.checkNotEmpty;
+import static com.github.dkanellis.skyspark.api.utils.Preconditions.checkNotEmpty;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.io.Files.getNameWithoutExtension;
 

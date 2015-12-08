@@ -1,0 +1,61 @@
+package com.github.dkanellis.skyspark.api.utils.point;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import com.github.dkanellis.skyspark.api.testUtils.categories.types.UnitTests;
+
+import java.awt.geom.Point2D;
+
+import static org.junit.Assert.assertTrue;
+
+@Category(UnitTests.class)
+public class DominationComparatorTest {
+
+    private DominationComparator comparator;
+
+    @Before
+    public void setUp() {
+        comparator = new DominationComparator();
+    }
+
+    @Test
+    public void equals() {
+        Point2D first = new Point2D.Double(634.423, 542.11);
+        Point2D second = new Point2D.Double(634.423, 542.11);
+
+        final int result = comparator.compare(first, second);
+
+        assertTrue(result == 0);
+    }
+
+    @Test
+    public void lessThan() {
+        Point2D first = new Point2D.Double(502.345, 349.12);
+        Point2D second = new Point2D.Double(634.423, 542.11);
+
+        final int result = comparator.compare(first, second);
+
+        assertTrue(result <= -1);
+    }
+
+    @Test
+    public void greaterThan() {
+        Point2D first = new Point2D.Double(634.423, 542.11);
+        Point2D second = new Point2D.Double(502.345, 349.12);
+
+        final int result = comparator.compare(first, second);
+
+        assertTrue(result >= 1);
+    }
+
+    @Test
+    public void equalsReversed() {
+        Point2D first = new Point2D.Double(634.423, 542.11);
+        Point2D second = new Point2D.Double(542.11, 634.423);
+
+        final int result = comparator.compare(first, second);
+
+        assertTrue(result == 0);
+    }
+}

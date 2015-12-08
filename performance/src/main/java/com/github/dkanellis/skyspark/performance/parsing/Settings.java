@@ -2,9 +2,11 @@ package com.github.dkanellis.skyspark.performance.parsing;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
-import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.SkylineAlgorithm;
+import com.github.dkanellis.skyspark.api.algorithms.SkylineAlgorithm;
 import com.github.dkanellis.skyspark.performance.result.PointDataFile;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Settings {
@@ -20,7 +22,7 @@ public class Settings {
     private Integer times = 10;
     @Parameter(names = {"-o", "-output"}, description = "The output file with the results, can only be .txt or .xls",
             validateWith = OutputFileValidator.class)
-    private String outputPath = String.valueOf(System.currentTimeMillis()) + ".xls";
+    private String outputPath = "Results of " + String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("uuuu-mm-dd--HH-mm-ss"))) + ".xls";
     @Parameter(names = "--help", help = true)
     private boolean help;
 
