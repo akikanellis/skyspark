@@ -1,10 +1,10 @@
 package com.github.dkanellis.skyspark.performance.parsing;
 
 import com.beust.jcommander.ParameterException;
-import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.Bitmap;
-import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.BlockNestedLoop;
-import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.SkylineAlgorithm;
-import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.SortFilterSkyline;
+import com.github.dkanellis.skyspark.api.algorithms.SkylineAlgorithm;
+import com.github.dkanellis.skyspark.api.algorithms.bitmap.Bitmap;
+import com.github.dkanellis.skyspark.api.algorithms.bnl.BlockNestedLoop;
+import com.github.dkanellis.skyspark.api.algorithms.sfs.SortFilterSkyline;
 import org.junit.Before;
 import org.junit.Test;
 
