@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import static com.github.dkanellis.skyspark.api.algorithms.Preconditions.checkNotEmpty;
+import static com.github.dkanellis.skyspark.api.utils.Preconditions.checkNotEmpty;
 
 public class XmlResultWriter implements ResultWriter {
 

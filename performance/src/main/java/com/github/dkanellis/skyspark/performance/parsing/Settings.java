@@ -2,7 +2,7 @@ package com.github.dkanellis.skyspark.performance.parsing;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
-import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.SkylineAlgorithm;
+import com.github.dkanellis.skyspark.api.algorithms.SkylineAlgorithm;
 import com.github.dkanellis.skyspark.performance.result.PointDataFile;
 
 import java.time.LocalDateTime;

@@ -1,8 +1,8 @@
 package com.github.dkanellis.skyspark.performance;
 
-import com.github.dkanellis.skyspark.api.algorithms.sparkimplementations.SkylineAlgorithm;
-import com.github.dkanellis.skyspark.api.algorithms.wrappers.SparkContextWrapper;
-import com.github.dkanellis.skyspark.api.algorithms.wrappers.TextFileToPointRDD;
+import com.github.dkanellis.skyspark.api.algorithms.SkylineAlgorithm;
+import com.github.dkanellis.skyspark.api.helpers.SparkContextWrapper;
+import com.github.dkanellis.skyspark.api.helpers.TextFileToPointRDD;
 import com.github.dkanellis.skyspark.performance.parsing.Settings;
 import com.github.dkanellis.skyspark.performance.result.PointDataFile;
 import com.github.dkanellis.skyspark.performance.result.Result;
@@ -33,9 +33,7 @@ public class Main {
         textFileToPointRDD = new TextFileToPointRDD(new SparkContextWrapper("perf test", "local[4]"));
         resultWriter = new XmlResultWriter(settings.getOutputPath());
 
-        for (SkylineAlgorithm skylineAlgorithm : settings.getAlgorithms()) {
-            executeAlgorithm(skylineAlgorithm);
-        }
+        settings.getAlgorithms().forEach(Main::executeAlgorithm);
     }
 
     private static void executeAlgorithm(SkylineAlgorithm skylineAlgorithm) {
