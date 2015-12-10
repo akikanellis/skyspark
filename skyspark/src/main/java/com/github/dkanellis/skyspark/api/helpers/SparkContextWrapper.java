@@ -8,9 +8,6 @@ import scala.Tuple2;
 
 import java.util.List;
 
-/**
- * @author Dimitris Kanellis
- */
 public class SparkContextWrapper {
 
     private final JavaSparkContext sparkContext;

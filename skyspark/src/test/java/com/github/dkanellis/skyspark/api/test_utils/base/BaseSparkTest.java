@@ -10,7 +10,7 @@ public abstract class BaseSparkTest {
 
     @BeforeClass
     public static void setUpClass() {
-        sparkContextWrapper = new SparkContextWrapper("Tests", "local[1]");
+        sparkContextWrapper = new SparkContextWrapper("Tests", "local[4]");
     }
 
     @AfterClass

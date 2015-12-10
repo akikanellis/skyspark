@@ -5,9 +5,6 @@ import org.apache.spark.api.java.JavaRDD;
 
 import java.awt.geom.Point2D;
 
-/**
- * @author Dimitris Kanellis
- */
 public class TextFileToPointRDD {
 
     private final SparkContextWrapper sparkContext;

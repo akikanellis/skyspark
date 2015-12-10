@@ -4,9 +4,6 @@ import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.Comparator;
 
-/**
- * @author Dimitris Kanellis
- */
 public class DominationComparator implements Comparator<Point2D>, Serializable {
 
     @Override

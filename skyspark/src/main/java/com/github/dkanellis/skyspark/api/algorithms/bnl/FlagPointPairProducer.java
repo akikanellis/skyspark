@@ -8,9 +8,6 @@ import java.io.Serializable;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * @author Dimitris Kanellis
- */
 public class FlagPointPairProducer implements Serializable {
 
     private final Point2D medianPoint;

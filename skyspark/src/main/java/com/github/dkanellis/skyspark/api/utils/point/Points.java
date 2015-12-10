@@ -2,10 +2,11 @@ package com.github.dkanellis.skyspark.api.utils.point;
 
 import java.awt.geom.Point2D;
 
-/**
- * @author Dimitris Kanellis
- */
-public class Points {
+public final class Points {
+
+    private Points() {
+        throw new AssertionError("No instances.");
+    }
 
     public static boolean dominates(Point2D p, Point2D q) {
         double x1 = p.getX();
