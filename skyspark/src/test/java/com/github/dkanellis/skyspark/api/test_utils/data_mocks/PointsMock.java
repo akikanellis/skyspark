@@ -1,4 +1,4 @@
-package com.github.dkanellis.skyspark.api.test_utils.dataMocks;
+package com.github.dkanellis.skyspark.api.test_utils.data_mocks;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;

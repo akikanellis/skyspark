@@ -2,7 +2,7 @@ package com.github.dkanellis.skyspark.api.helpers;
 
 import com.github.dkanellis.skyspark.api.test_utils.base.BaseSparkTest;
 import com.github.dkanellis.skyspark.api.test_utils.categories.types.SparkTests;
-import com.github.dkanellis.skyspark.api.test_utils.dataMocks.PointsMock;
+import com.github.dkanellis.skyspark.api.test_utils.data_mocks.PointsMock;
 import org.apache.spark.api.java.JavaRDD;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;

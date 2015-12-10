@@ -92,4 +92,13 @@ public class SortFilterSkylineTest extends BaseSparkTest {
 
         return points;
     }
+
+    @Test
+    public void toString_returnName() {
+        String expectedName = "SortFilterSkyline";
+
+        String actualName = sortFilterSkyline.toString();
+
+        assertEquals(expectedName, actualName);
+    }
 }
