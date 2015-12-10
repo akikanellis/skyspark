@@ -1,12 +1,12 @@
 package com.github.dkanellis.skyspark.api.algorithms.bnl;
 
+import com.github.dkanellis.skyspark.api.test_utils.base.BaseSparkTest;
+import com.github.dkanellis.skyspark.api.test_utils.categories.types.SparkTests;
+import com.github.dkanellis.skyspark.api.test_utils.dataMocks.FlagPointPairsMock;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import com.github.dkanellis.skyspark.api.testUtils.base.BaseSparkTest;
-import com.github.dkanellis.skyspark.api.testUtils.categories.types.SparkTests;
-import com.github.dkanellis.skyspark.api.testUtils.dataMocks.FlagPointPairsMock;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
