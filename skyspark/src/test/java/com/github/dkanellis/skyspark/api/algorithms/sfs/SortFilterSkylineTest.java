@@ -1,13 +1,13 @@
 package com.github.dkanellis.skyspark.api.algorithms.sfs;
 
 import com.github.dkanellis.skyspark.api.algorithms.bnl.PointFlag;
+import com.github.dkanellis.skyspark.api.test_utils.base.BaseSparkTest;
+import com.github.dkanellis.skyspark.api.test_utils.categories.types.SparkTests;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import scala.Tuple2;
-import com.github.dkanellis.skyspark.api.testUtils.base.BaseSparkTest;
-import com.github.dkanellis.skyspark.api.testUtils.categories.types.SparkTests;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;

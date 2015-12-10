@@ -1,10 +1,10 @@
 package com.github.dkanellis.skyspark.api.algorithms.bnl;
 
+import com.github.dkanellis.skyspark.api.test_utils.categories.types.UnitTests;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import scala.Tuple2;
-import com.github.dkanellis.skyspark.api.testUtils.categories.types.UnitTests;
 
 import java.awt.geom.Point2D;
 
