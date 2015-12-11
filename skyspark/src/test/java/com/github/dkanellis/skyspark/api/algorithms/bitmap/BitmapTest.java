@@ -3,6 +3,9 @@ package com.github.dkanellis.skyspark.api.algorithms.bitmap;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.BitSet;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public class BitmapTest {
@@ -12,6 +15,11 @@ public class BitmapTest {
     @Before
     public void setUp() {
         bitmap = new Bitmap();
+    }
+
+    @Test
+    public void forEachPoint_returnBitVector() {
+        List<BitSet> expectedBitVectors;
     }
 
     @Test
