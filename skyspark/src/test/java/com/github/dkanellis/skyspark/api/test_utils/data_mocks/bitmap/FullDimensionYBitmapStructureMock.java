@@ -5,6 +5,7 @@ import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import scala.Tuple2;
 
+import java.awt.geom.Point2D;
 import java.util.Arrays;
 import java.util.BitSet;
 
@@ -16,6 +17,11 @@ public class FullDimensionYBitmapStructureMock implements FullBitmapStructureMoc
 
     public FullDimensionYBitmapStructureMock(SparkContextWrapper sparkContextWrapper) {
         this.sparkContextWrapper = sparkContextWrapper;
+    }
+
+    @Override
+    public JavaRDD<Double> getDimensionValues() {
+        return BitmapPointsMock.get10Points(sparkContextWrapper).map(Point2D::getY);
     }
 
     @Override

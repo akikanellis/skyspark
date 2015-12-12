@@ -27,7 +27,7 @@ public class Bitmap implements SkylineAlgorithm, Serializable {
 
     @Override
     public List<Point2D> getSkylinePoints(JavaRDD<Point2D> points) {
-        BitmapStructure bitmapStructure = new BitmapStructure(points, numberOfPartitions);
+        BitmapStructure bitmapStructure = new BitmapStructure(points.map(Point2D::getX), 4);
 
         //JavaRDD<BitSet> bitsetX = points.map(p -> getBitVectorRepresentation(p.getX(), distinctPointsOfYDimension));
 
