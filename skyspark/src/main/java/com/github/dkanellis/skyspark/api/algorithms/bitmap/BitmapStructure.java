@@ -5,30 +5,26 @@ import org.apache.spark.api.java.JavaRDD;
 import scala.Tuple2;
 
 import javax.validation.constraints.NotNull;
-import java.awt.geom.Point2D;
 import java.util.BitSet;
 
 class BitmapStructure {
 
-    private final JavaRDD<Point2D> points;
+    private final JavaRDD<Double> dimensionValues;
     private final int numberOfPartitions;
 
-    private JavaRDD<BitSet> dimensionXBitmap;
-    private JavaRDD<BitSet> dimensionYBitmap;
+    private JavaRDD<BitSet> dimensionBitmap;
 
-    BitmapStructure(@NotNull JavaRDD<Point2D> points, final int numberOfPartitions) {
-        this.points = points;
+    BitmapStructure(@NotNull JavaRDD<Double> dimensionValues, final int numberOfPartitions) {
+        this.dimensionValues = dimensionValues;
         this.numberOfPartitions = numberOfPartitions;
     }
 
     public void /* TODO change */ create() {
-        JavaRDD<Double> distinctPointsOfXDimension = getDistinctSorted(points, 1);
-        JavaRDD<Double> distinctPointsOfYDimension = getDistinctSorted(points, 2);
+        JavaRDD<Double> distinctSortedPoints = getDistinctSorted();
 
-        JavaPairRDD<Long, Double> uniqueXValuesIndexed = mapWithIndex(distinctPointsOfXDimension);
-        JavaPairRDD<Long, Double> uniqueYValuesIndexed = mapWithIndex(distinctPointsOfYDimension);
+        JavaPairRDD<Long, Double> indexed = mapWithIndex(distinctSortedPoints);
 
-
+        //avaRDD<BitSet> bitSets = points.map(p -> );
     }
 
     JavaPairRDD<Long, Double> mapWithIndex(JavaRDD<Double> distinctPointsOfDimension) {
@@ -36,9 +32,8 @@ class BitmapStructure {
     }
 
     // We use ascending order because our points dominate each other when they are less in every dimension.
-    JavaRDD<Double> getDistinctSorted(JavaRDD<Point2D> points, final int dimension) {
-        return points
-                .map(dimension == 1 ? Point2D::getX : Point2D::getY)
+    JavaRDD<Double> getDistinctSorted() {
+        return dimensionValues
                 .distinct()
                 .sortBy(Double::doubleValue, true, numberOfPartitions);
     }

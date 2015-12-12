@@ -2,7 +2,6 @@ package com.github.dkanellis.skyspark.api.algorithms.bitmap;
 
 import com.github.dkanellis.skyspark.api.test_utils.Rdds;
 import com.github.dkanellis.skyspark.api.test_utils.base.BaseSparkTest;
-import com.github.dkanellis.skyspark.api.test_utils.data_mocks.bitmap.BitmapPointsMock;
 import com.github.dkanellis.skyspark.api.test_utils.data_mocks.bitmap.FullBitmapStructureMock;
 import com.github.dkanellis.skyspark.api.test_utils.data_mocks.bitmap.FullDimensionXBitmapStructureMock;
 import org.apache.spark.api.java.JavaPairRDD;
@@ -10,7 +9,7 @@ import org.apache.spark.api.java.JavaRDD;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.geom.Point2D;
+import java.util.BitSet;
 
 import static junit.framework.Assert.assertTrue;
 
@@ -21,17 +20,16 @@ public class BitmapStructureTest extends BaseSparkTest {
 
     @Before
     public void setUp() {
-        this.bitmapStructure = new BitmapStructure(BitmapPointsMock.get10Points(getSparkContextWrapper()), 4);
         this.fullBitmapStructureMock = new FullDimensionXBitmapStructureMock(getSparkContextWrapper());
+        this.bitmapStructure = new BitmapStructure(fullBitmapStructureMock.getDimensionValues(), 4);
     }
 
 
     @Test
     public void keepDistincts_andSortByAscendingOrder() {
-        JavaRDD<Point2D> currentPointsRdd = BitmapPointsMock.get10Points(getSparkContextWrapper());
         JavaRDD<Double> expectedValues = fullBitmapStructureMock.getDistinctValuesSorted();
 
-        JavaRDD<Double> actualValues = bitmapStructure.getDistinctSorted(currentPointsRdd, 1);
+        JavaRDD<Double> actualValues = bitmapStructure.getDistinctSorted();
 
         assertTrue(Rdds.areEqual(expectedValues, actualValues));
     }
@@ -44,5 +42,13 @@ public class BitmapStructureTest extends BaseSparkTest {
         JavaPairRDD<Long, Double> actualPoints = bitmapStructure.mapWithIndex(currentPoints);
 
         assertTrue(Rdds.areEqual(expectedPoints, actualPoints));
+    }
+
+    @Test
+    public void getBitSets() {
+        JavaPairRDD<Long, Double> currentData = fullBitmapStructureMock.getValuesIndexed();
+        JavaRDD<BitSet> expectedBitSets = fullBitmapStructureMock.getValuesBitSets();
+
+        //JavaRDD<BitSet> actualBitSets = bitmapStructure.valueToBitset()
     }
 }
