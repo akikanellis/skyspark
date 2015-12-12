@@ -10,7 +10,7 @@ public interface FullBitmapStructureMock {
 
     JavaRDD<Double> getDistinctValuesSorted();
 
-    JavaPairRDD<Long, Double> getValuesIndexed();
+    JavaPairRDD<Double, Long> getValuesIndexed();
 
     JavaRDD<BitSet> getValuesBitSets();
 }

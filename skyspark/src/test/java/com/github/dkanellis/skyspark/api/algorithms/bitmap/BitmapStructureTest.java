@@ -37,18 +37,20 @@ public class BitmapStructureTest extends BaseSparkTest {
     @Test
     public void mapValuesByIndex() {
         JavaRDD<Double> currentPoints = fullBitmapStructureMock.getDistinctValuesSorted();
-        JavaPairRDD<Long, Double> expectedPoints = fullBitmapStructureMock.getValuesIndexed();
+        JavaPairRDD<Double, Long> expectedPoints = fullBitmapStructureMock.getValuesIndexed();
 
-        JavaPairRDD<Long, Double> actualPoints = bitmapStructure.mapWithIndex(currentPoints);
+        JavaPairRDD<Double, Long> actualPoints = bitmapStructure.mapWithIndex(currentPoints);
 
         assertTrue(Rdds.areEqual(expectedPoints, actualPoints));
     }
 
     @Test
     public void getBitSets() {
-        JavaPairRDD<Long, Double> currentData = fullBitmapStructureMock.getValuesIndexed();
+        JavaPairRDD<Double, Long> currentData = fullBitmapStructureMock.getValuesIndexed();
         JavaRDD<BitSet> expectedBitSets = fullBitmapStructureMock.getValuesBitSets();
 
-        //JavaRDD<BitSet> actualBitSets = bitmapStructure.valueToBitset()
+        JavaRDD<BitSet> actualBitSets = bitmapStructure.calculateBitSets(currentData);
+
+        assertTrue(Rdds.areEqual(expectedBitSets, actualBitSets));
     }
 }

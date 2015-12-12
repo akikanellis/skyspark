@@ -2,10 +2,10 @@ package com.github.dkanellis.skyspark.api.algorithms.bitmap;
 
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
-import scala.Tuple2;
 
 import javax.validation.constraints.NotNull;
 import java.util.BitSet;
+import java.util.List;
 
 class BitmapStructure {
 
@@ -22,13 +22,25 @@ class BitmapStructure {
     public void /* TODO change */ create() {
         JavaRDD<Double> distinctSortedPoints = getDistinctSorted();
 
-        JavaPairRDD<Long, Double> indexed = mapWithIndex(distinctSortedPoints);
+        JavaPairRDD<Double, Long> indexed = mapWithIndex(distinctSortedPoints);
 
-        //avaRDD<BitSet> bitSets = points.map(p -> );
+        JavaRDD<BitSet> bitSets = calculateBitSets(indexed);
     }
 
-    JavaPairRDD<Long, Double> mapWithIndex(JavaRDD<Double> distinctPointsOfDimension) {
-        return distinctPointsOfDimension.zipWithIndex().mapToPair(Tuple2::swap);
+    JavaRDD<BitSet> calculateBitSets(JavaPairRDD<Double, Long> indexed) {
+
+        return dimensionValues.map(v -> {
+            BitSet bitSet = new BitSet();
+            List<Long> ls = indexed.lookup(5.4); // can't call lookup inside .map
+            final long lastIndex = indexed.lookup(v).get(0);
+            bitSet.set(0, (int) lastIndex - 1);
+
+            return bitSet;
+        });
+    }
+
+    JavaPairRDD<Double, Long> mapWithIndex(JavaRDD<Double> distinctPointsOfDimension) {
+        return distinctPointsOfDimension.zipWithIndex();
     }
 
     // We use ascending order because our points dominate each other when they are less in every dimension.
