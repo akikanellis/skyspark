@@ -27,25 +27,17 @@ public class Bitmap implements SkylineAlgorithm, Serializable {
 
     @Override
     public List<Point2D> getSkylinePoints(JavaRDD<Point2D> points) {
-        JavaRDD<Double> distinctPointsOfXDimension = getDistinctSorted(points, 1);
-        JavaRDD<Double> distinctPointsOfYDimension = getDistinctSorted(points, 2);
+        BitmapStructure bitmapStructure = new BitmapStructure(points, numberOfPartitions);
 
         //JavaRDD<BitSet> bitsetX = points.map(p -> getBitVectorRepresentation(p.getX(), distinctPointsOfYDimension));
 
-        List<Double> x = distinctPointsOfXDimension.collect();
+        //List<Double> x = distinctPointsOfXDimension.collect();
         //List<Tuple2<Double, Long>> y = distinctPointsOfYDimension.collect();
 
         throw new UnsupportedOperationException("Bitmap is not supported yet.");
     }
 
 
-    // We use ascending order because our points dominate each other when they are less in every dimension.
-    JavaRDD<Double> getDistinctSorted(JavaRDD<Point2D> points, final int dimension) {
-        return points
-                .map(dimension == 1 ? Point2D::getX : Point2D::getY)
-                .distinct()
-                .sortBy(Double::doubleValue, true, numberOfPartitions);
-    }
 
     private BitSet getBitVectorRepresentation(final double p, JavaPairRDD<Double, Long> distinctPoints) {
         BitSet bitSet = new BitSet();
