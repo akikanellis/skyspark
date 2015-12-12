@@ -26,10 +26,13 @@ class BitmapStructure {
         JavaRDD<Double> distinctPointsOfYDimension = getDistinctSorted(points, 2);
 
         JavaPairRDD<Long, Double> uniqueXValuesIndexed = mapWithIndex(distinctPointsOfXDimension);
+        JavaPairRDD<Long, Double> uniqueYValuesIndexed = mapWithIndex(distinctPointsOfYDimension);
+
+
     }
 
-    JavaPairRDD<Long, Double> mapWithIndex(JavaRDD<Double> distinctPointsOfXDimension) {
-        return distinctPointsOfXDimension.zipWithIndex().mapToPair(Tuple2::swap);
+    JavaPairRDD<Long, Double> mapWithIndex(JavaRDD<Double> distinctPointsOfDimension) {
+        return distinctPointsOfDimension.zipWithIndex().mapToPair(Tuple2::swap);
     }
 
     // We use ascending order because our points dominate each other when they are less in every dimension.
