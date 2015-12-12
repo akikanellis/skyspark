@@ -10,7 +10,21 @@ import java.io.Serializable;
 import java.util.BitSet;
 import java.util.List;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 public class Bitmap implements SkylineAlgorithm, Serializable {
+
+    private final int numberOfPartitions;
+
+    public Bitmap() {
+        this(4);
+    }
+
+    public Bitmap(final int numberOfPartitions) {
+        checkArgument(numberOfPartitions > 0, "Partitions can't be less than 1.");
+        
+        this.numberOfPartitions = numberOfPartitions;
+    }
 
     @Override
     public List<Point2D> getSkylinePoints(JavaRDD<Point2D> points) {
@@ -19,7 +33,7 @@ public class Bitmap implements SkylineAlgorithm, Serializable {
         JavaPairRDD<Double, Long> distinctPointsOfYDimension = points
                 .map(Point2D::getY)
                 .distinct()
-                .sortBy(Double::doubleValue, false, 1)
+                .sortBy(Double::doubleValue, false, numberOfPartitions)
                 .zipWithIndex();
 
 
@@ -31,12 +45,8 @@ public class Bitmap implements SkylineAlgorithm, Serializable {
         throw new UnsupportedOperationException("Bitmap is not supported yet.");
     }
 
-    /**
-     * We use ascending order because our points dominate each other when they are less in every dimension.
-     *
-     * @param points
-     * @return
-     */
+
+    // We use ascending order because our points dominate each other when they are less in every dimension.
     JavaRDD<Double> getDistinctSorted(JavaRDD<Point2D> points) {
         return points
                 .map(Point2D::getX)
