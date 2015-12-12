@@ -3,7 +3,6 @@ package com.github.dkanellis.skyspark.api.algorithms.bitmap;
 import com.github.dkanellis.skyspark.api.algorithms.SkylineAlgorithm;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
-import scala.Tuple2;
 
 import java.awt.geom.Point2D;
 import java.io.Serializable;
@@ -22,36 +21,30 @@ public class Bitmap implements SkylineAlgorithm, Serializable {
 
     public Bitmap(final int numberOfPartitions) {
         checkArgument(numberOfPartitions > 0, "Partitions can't be less than 1.");
-        
+
         this.numberOfPartitions = numberOfPartitions;
     }
 
     @Override
     public List<Point2D> getSkylinePoints(JavaRDD<Point2D> points) {
-        JavaRDD<Double> distinctPointsOfXDimension = getDistinctSorted(points);
+        JavaRDD<Double> distinctPointsOfXDimension = getDistinctSorted(points, 1);
+        JavaRDD<Double> distinctPointsOfYDimension = getDistinctSorted(points, 2);
 
-        JavaPairRDD<Double, Long> distinctPointsOfYDimension = points
-                .map(Point2D::getY)
-                .distinct()
-                .sortBy(Double::doubleValue, false, numberOfPartitions)
-                .zipWithIndex();
-
-
-        JavaRDD<BitSet> bitsetX = points.map(p -> getBitVectorRepresentation(p.getX(), distinctPointsOfYDimension));
+        //JavaRDD<BitSet> bitsetX = points.map(p -> getBitVectorRepresentation(p.getX(), distinctPointsOfYDimension));
 
         List<Double> x = distinctPointsOfXDimension.collect();
-        List<Tuple2<Double, Long>> y = distinctPointsOfYDimension.collect();
+        //List<Tuple2<Double, Long>> y = distinctPointsOfYDimension.collect();
 
         throw new UnsupportedOperationException("Bitmap is not supported yet.");
     }
 
 
     // We use ascending order because our points dominate each other when they are less in every dimension.
-    JavaRDD<Double> getDistinctSorted(JavaRDD<Point2D> points) {
+    JavaRDD<Double> getDistinctSorted(JavaRDD<Point2D> points, final int dimension) {
         return points
-                .map(Point2D::getX)
+                .map(dimension == 1 ? Point2D::getX : Point2D::getY)
                 .distinct()
-                .sortBy(Double::doubleValue, true, 1);
+                .sortBy(Double::doubleValue, true, numberOfPartitions);
     }
 
     private BitSet getBitVectorRepresentation(final double p, JavaPairRDD<Double, Long> distinctPoints) {
