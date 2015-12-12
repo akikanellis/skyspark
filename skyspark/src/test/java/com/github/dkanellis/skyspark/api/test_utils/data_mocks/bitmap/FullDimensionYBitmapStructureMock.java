@@ -3,7 +3,6 @@ package com.github.dkanellis.skyspark.api.test_utils.data_mocks.bitmap;
 import com.github.dkanellis.skyspark.api.helpers.SparkContextWrapper;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
-import scala.Tuple2;
 
 import java.awt.geom.Point2D;
 import java.util.Arrays;
@@ -30,18 +29,18 @@ public class FullDimensionYBitmapStructureMock implements FullBitmapStructureMoc
     }
 
     @Override
-    public JavaPairRDD<Long, Double> getValuesIndexed() {
-        return sparkContextWrapper.parallelizePairs(Arrays.asList(
-                new Tuple2<>(0L, 3.3),
-                new Tuple2<>(1L, 3.4),
-                new Tuple2<>(2L, 3.5),
-                new Tuple2<>(3L, 4.0),
-                new Tuple2<>(4L, 4.1),
-                new Tuple2<>(5L, 4.4),
-                new Tuple2<>(6L, 4.6),
-                new Tuple2<>(7L, 7.3),
-                new Tuple2<>(8L, 9.0)
-        ));
+    public JavaPairRDD<Double, Long> getValuesIndexed() {
+        return null;//sparkContextWrapper.parallelizePairs(Arrays.asList(
+//                new Tuple2<>(0L, 3.3),
+//                new Tuple2<>(1L, 3.4),
+//                new Tuple2<>(2L, 3.5),
+//                new Tuple2<>(3L, 4.0),
+//                new Tuple2<>(4L, 4.1),
+//                new Tuple2<>(5L, 4.4),
+//                new Tuple2<>(6L, 4.6),
+//                new Tuple2<>(7L, 7.3),
+//                new Tuple2<>(8L, 9.0)
+//        ));
     }
 
     @Override

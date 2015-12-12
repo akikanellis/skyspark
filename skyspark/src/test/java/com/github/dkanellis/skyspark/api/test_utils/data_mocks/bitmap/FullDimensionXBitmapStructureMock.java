@@ -30,17 +30,17 @@ public class FullDimensionXBitmapStructureMock implements FullBitmapStructureMoc
     }
 
     @Override
-    public JavaPairRDD<Long, Double> getValuesIndexed() {
+    public JavaPairRDD<Double, Long> getValuesIndexed() {
         return sparkContextWrapper.parallelizePairs(Arrays.asList(
-                new Tuple2<>(0L, 2.5),
-                new Tuple2<>(1L, 3.6),
-                new Tuple2<>(2L, 5.0),
-                new Tuple2<>(3L, 5.4),
-                new Tuple2<>(4L, 5.9),
-                new Tuple2<>(5L, 6.1),
-                new Tuple2<>(6L, 6.3),
-                new Tuple2<>(7L, 6.7),
-                new Tuple2<>(8L, 9.9)
+                new Tuple2<>(2.5, 0L),
+                new Tuple2<>(3.6, 1L),
+                new Tuple2<>(5.0, 2L),
+                new Tuple2<>(5.4, 3L),
+                new Tuple2<>(5.9, 4L),
+                new Tuple2<>(6.1, 5L),
+                new Tuple2<>(6.3, 6L),
+                new Tuple2<>(6.7, 7L),
+                new Tuple2<>(9.9, 8L)
         ));
     }
 
