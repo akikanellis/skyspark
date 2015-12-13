@@ -13,12 +13,16 @@ public final class Rdds {
     }
 
     public static <T> boolean areEqual(JavaRDD<T> expected, JavaRDD<T> actual) {
+        List<T> expList = expected.collect();
+        List<T> actualList = actual.collect();
         List<T> difference = expected.subtract(actual).collect();
 
         return difference.isEmpty();
     }
 
     public static <K, V> boolean areEqual(JavaPairRDD<K, V> expected, JavaPairRDD<K, V> actual) {
+        List<Tuple2<K, V>> expList = expected.collect();
+        List<Tuple2<K, V>> actualList = actual.collect();
         List<Tuple2<K, V>> difference = expected.subtract(actual).collect();
 
         return difference.isEmpty();

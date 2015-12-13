@@ -1,5 +1,6 @@
 package com.github.dkanellis.skyspark.api.test_utils.data_mocks.bitmap;
 
+import com.github.dkanellis.skyspark.api.algorithms.bitmap.BitSlice;
 import com.github.dkanellis.skyspark.api.helpers.SparkContextWrapper;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -8,7 +9,7 @@ import java.awt.geom.Point2D;
 import java.util.Arrays;
 import java.util.BitSet;
 
-import static com.github.dkanellis.skyspark.api.utils.BitSets.bitSetfromString;
+import static com.github.dkanellis.skyspark.api.utils.BitSets.bitSetFromString;
 
 public class FullDimensionYBitmapStructureMock implements FullBitmapStructureMock {
 
@@ -46,16 +47,21 @@ public class FullDimensionYBitmapStructureMock implements FullBitmapStructureMoc
     @Override
     public JavaRDD<BitSet> getValuesBitSets() {
         return sparkContextWrapper.parallelize(Arrays.asList(
-                bitSetfromString("000001111"), // 4.4
-                bitSetfromString("000011111"), // 4.1
-                bitSetfromString("000000001"), // 9.0
-                bitSetfromString("000111111"), // 4.0
-                bitSetfromString("000000111"), // 4.6
-                bitSetfromString("000000011"), // 7.3
-                bitSetfromString("001111111"), // 3.5
-                bitSetfromString("000011111"), // 4.1
-                bitSetfromString("111111111"), // 3.3
-                bitSetfromString("011111111")  // 3.4
+                bitSetFromString("000001111"), // 4.4
+                bitSetFromString("000011111"), // 4.1
+                bitSetFromString("000000001"), // 9.0
+                bitSetFromString("000111111"), // 4.0
+                bitSetFromString("000000111"), // 4.6
+                bitSetFromString("000000011"), // 7.3
+                bitSetFromString("001111111"), // 3.5
+                bitSetFromString("000011111"), // 4.1
+                bitSetFromString("111111111"), // 3.3
+                bitSetFromString("011111111")  // 3.4
         ));
+    }
+
+    @Override
+    public JavaRDD<BitSlice> getValuesBitSlices() {
+        return null;
     }
 }
