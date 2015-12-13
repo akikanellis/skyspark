@@ -64,15 +64,15 @@ public class FullDimensionXBitmapStructureMock implements FullBitmapStructureMoc
     @Override
     public JavaRDD<BitSlice> getValuesBitSlices() {
         return sparkContextWrapper.parallelize(Arrays.asList(
-                new BitSlice(0L, 2.5, bitSetFromString("0000010000")),
-                new BitSlice(1L, 3.6, bitSetFromString("0010010000")),
-                new BitSlice(2L, 5.0, bitSetFromString("0110010000")),
-                new BitSlice(3L, 5.4, bitSetFromString("1110010000")),
+                new BitSlice(8L, 2.5, bitSetFromString("0000010000")),
+                new BitSlice(7L, 3.6, bitSetFromString("0010010000")),
+                new BitSlice(6L, 5.0, bitSetFromString("0110010000")),
+                new BitSlice(5L, 5.4, bitSetFromString("1110010000")),
                 new BitSlice(4L, 5.9, bitSetFromString("1111110000")),
-                new BitSlice(5L, 6.1, bitSetFromString("1111110001")),
-                new BitSlice(6L, 6.3, bitSetFromString("1111111001")),
-                new BitSlice(7L, 6.7, bitSetFromString("1111111011")),
-                new BitSlice(8L, 9.9, bitSetFromString("1111111111"))
+                new BitSlice(3L, 6.1, bitSetFromString("1111110001")),
+                new BitSlice(2L, 6.3, bitSetFromString("1111111001")),
+                new BitSlice(1L, 6.7, bitSetFromString("1111111011")),
+                new BitSlice(0L, 9.9, bitSetFromString("1111111111"))
         ));
     }
 }

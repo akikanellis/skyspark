@@ -29,7 +29,7 @@ class BitmapStructure implements Serializable {
 
         JavaPairRDD<Double, Long> indexed = mapWithIndex(distinctSortedPoints);
 
-        JavaRDD<BitSet> bitSets = calculateBitSets(indexed, uniqueDimensionValuesSize);
+        JavaRDD<BitSet> bitSets = calculateBitSets(indexed);
 
         bitSlices = calculateBitSlices(indexed, bitSets);
     }
@@ -41,14 +41,14 @@ class BitmapStructure implements Serializable {
                 .map(BitSlice::fromTuple);
     }
 
-    JavaRDD<BitSet> calculateBitSets(JavaPairRDD<Double, Long> indexed, long uniqueDimensionValuesSize) {
+    JavaRDD<BitSet> calculateBitSets(JavaPairRDD<Double, Long> indexed) {
         JavaPairRDD<Double, Tuple2<Double, Long>> combinations = dimensionValues.cartesian(indexed);
         JavaPairRDD<Double, Long> dimensionValuesWithRanking = combinations
                 .filter(v -> v._1().equals(v._2()._1()))
                 .mapToPair(v -> new Tuple2<>(v._1(), v._2()._2()));
 
         return dimensionValuesWithRanking
-                .map(v -> BitSets.bitSetFromIndexes(0, v._2()));
+                .map(v -> BitSets.bitSetFromIndexes(0, v._2() + 1));
     }
 
     JavaPairRDD<Double, Long> mapWithIndex(JavaRDD<Double> distinctPointsOfDimension) {
