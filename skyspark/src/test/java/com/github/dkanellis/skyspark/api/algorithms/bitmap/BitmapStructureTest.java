@@ -15,41 +15,34 @@ import static junit.framework.Assert.assertTrue;
 
 public class BitmapStructureTest extends BaseSparkTest {
 
-    private BitmapStructure bitmapStructure;
+    private BitmapStructureImpl bitmapStructure;
     private FullBitmapStructureMock fullBitmapStructureMock;
 
     @Before
     public void setUp() {
         this.fullBitmapStructureMock = new FullDimensionXBitmapStructureMock(getSparkContextWrapper());
-        this.bitmapStructure = new BitmapStructure(fullBitmapStructureMock.getDimensionValues(), 4);
+        BitSliceCreator bitSliceCreator = new BitSliceCreatorImpl();
+        this.bitmapStructure = new BitmapStructureImpl(4, bitSliceCreator);
     }
 
 
     @Test
     public void keepDistincts_andSortByAscendingOrder() {
-        JavaRDD<Double> expectedValues = fullBitmapStructureMock.getDistinctValuesSorted();
+        JavaRDD<Double> dimensionValues = fullBitmapStructureMock.getDimensionValues();
+        JavaPairRDD<Double, Long> expectedValues = fullBitmapStructureMock.getValuesIndexed();
 
-        JavaRDD<Double> actualValues = bitmapStructure.getDistinctSorted();
+        JavaPairRDD<Double, Long> actualValues = bitmapStructure.getDistinctSortedWithIndex(dimensionValues);
 
         assertTrue(Rdds.areEqual(expectedValues, actualValues));
     }
 
     @Test
-    public void mapValuesByIndex() {
-        JavaRDD<Double> currentPoints = fullBitmapStructureMock.getDistinctValuesSorted();
-        JavaPairRDD<Double, Long> expectedPoints = fullBitmapStructureMock.getValuesIndexed();
-
-        JavaPairRDD<Double, Long> actualPoints = bitmapStructure.mapWithIndex(currentPoints);
-
-        assertTrue(Rdds.areEqual(expectedPoints, actualPoints));
-    }
-
-    @Test
     public void calculateBitSets() {
+        JavaRDD<Double> dimensionValues = fullBitmapStructureMock.getDimensionValues();
         JavaPairRDD<Double, Long> currentData = fullBitmapStructureMock.getValuesIndexed();
         JavaRDD<BitSet> expectedBitSets = fullBitmapStructureMock.getValuesBitSets();
 
-        JavaRDD<BitSet> actualBitSets = bitmapStructure.calculateBitSets(currentData);
+        JavaRDD<BitSet> actualBitSets = bitmapStructure.calculateBitSets(dimensionValues, currentData);
 
         assertTrue(Rdds.areEqual(expectedBitSets, actualBitSets));
     }

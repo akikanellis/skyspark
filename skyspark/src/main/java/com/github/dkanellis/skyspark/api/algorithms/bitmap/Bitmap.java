@@ -15,6 +15,9 @@ public class Bitmap implements SkylineAlgorithm, Serializable {
 
     private final int numberOfPartitions;
 
+    private final BitmapStructure bitmapOfFirstDimension;
+    private final BitmapStructure bitmapOfSecondDimension;
+
     public Bitmap() {
         this(4);
     }
@@ -23,11 +26,14 @@ public class Bitmap implements SkylineAlgorithm, Serializable {
         checkArgument(numberOfPartitions > 0, "Partitions can't be less than 1.");
 
         this.numberOfPartitions = numberOfPartitions;
+        this.bitmapOfFirstDimension = Injector.getBitmapStructure(numberOfPartitions);
+        this.bitmapOfSecondDimension = Injector.getBitmapStructure(numberOfPartitions);
     }
 
     @Override
     public List<Point2D> getSkylinePoints(JavaRDD<Point2D> points) {
-        BitmapStructure bitmapStructure = new BitmapStructure(points.map(Point2D::getX), 4);
+        bitmapOfFirstDimension.init(points.map(Point2D::getX));
+        bitmapOfSecondDimension.init(points.map(Point2D::getY));
 
         //JavaRDD<BitSet> bitsetX = points.map(p -> getBitVectorRepresentation(p.getX(), distinctPointsOfYDimension));
 
