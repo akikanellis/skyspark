@@ -33,6 +33,19 @@ class BitmapStructureImpl implements BitmapStructure {
         bitSlices = calculateBitSlices(distinctSortedPointsWithIndex, bitSets);
     }
 
+    @Override
+    public BitSet getCorrespondingBitSlice(final double dimensionValue) {
+        return bitSlices
+                .filter(bs -> bs.getDimensionValue() == dimensionValue)
+                .first()
+                .getBitVector();
+    }
+
+    @Override
+    public JavaRDD<BitSlice> rdd() {
+        return bitSlices;
+    }
+
     JavaPairRDD<Double, Long> getDistinctSortedWithIndex(JavaRDD<Double> dimensionValues) {
         return dimensionValues
                 .distinct()

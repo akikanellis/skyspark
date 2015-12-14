@@ -10,6 +10,7 @@ public class DatasetFiles {
     private static String DELIMITER = " ";
 
     public static JavaRDD<Point2D> getRddFromFile(TextFileToPointRDD textFileToPointRDD, String filePath) {
-        return textFileToPointRDD.getPointRDDFromTextFile(DatasetFiles.class.getResource(filePath).getPath(), DELIMITER);
+        String fullFilePath = DatasetFiles.class.getResource(filePath).getPath();
+        return textFileToPointRDD.getPointRDDFromTextFile(fullFilePath, DELIMITER);
     }
 }

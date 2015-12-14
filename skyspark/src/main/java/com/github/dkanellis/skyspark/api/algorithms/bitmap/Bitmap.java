@@ -35,20 +35,30 @@ public class Bitmap implements SkylineAlgorithm, Serializable {
         bitmapOfFirstDimension.init(points.map(Point2D::getX));
         bitmapOfSecondDimension.init(points.map(Point2D::getY));
 
+        JavaRDD<Point2D> skylines = calculateSkylines(points);
+
         //JavaRDD<BitSet> bitsetX = points.map(p -> getBitVectorRepresentation(p.getX(), distinctPointsOfYDimension));
 
         //List<Double> x = distinctPointsOfXDimension.collect();
         //List<Tuple2<Double, Long>> y = distinctPointsOfYDimension.collect();
 
-        throw new UnsupportedOperationException("Bitmap is not supported yet.");
+        return skylines.collect();
     }
 
+    private JavaRDD<Point2D> calculateSkylines(JavaRDD<Point2D> points) {
+        return points
+                .cartesian(bitmapOfFirstDimension.rdd())
+                .filter(pb -> pb._1().getX() == pb._2().getDimensionValue())
+                .cartesian(bitmapOfSecondDimension.rdd())
+                .filter(pb -> pb._1()._1().getY() == pb._2().getDimensionValue());
 
+    }
 
-    private BitSet getBitVectorRepresentation(final double p, JavaPairRDD<Double, Long> distinctPoints) {
-        BitSet bitSet = new BitSet();
-        bitSet.set(0, (int) getPosition(p, distinctPoints));
-        return bitSet;
+    private Boolean isSkyline(Point2D point2D) {
+        bitmapOfFirstDimension.rdd();
+        BitSet bitSliceOfSecondDimension = bitmapOfSecondDimension.getCorrespondingBitSlice(point2D.getY());
+
+        return true;
     }
 
     private long getPosition(final double pY, JavaPairRDD<Double, Long> distinctPointsOfXDimension) {
