@@ -3,6 +3,7 @@ package com.github.dkanellis.skyspark.api.algorithms.bitmap;
 import com.github.dkanellis.skyspark.api.algorithms.SkylineAlgorithm;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
+import scala.Tuple2;
 
 import java.awt.geom.Point2D;
 import java.io.Serializable;
@@ -37,20 +38,18 @@ public class Bitmap implements SkylineAlgorithm, Serializable {
 
         JavaRDD<Point2D> skylines = calculateSkylines(points);
 
-        //JavaRDD<BitSet> bitsetX = points.map(p -> getBitVectorRepresentation(p.getX(), distinctPointsOfYDimension));
-
-        //List<Double> x = distinctPointsOfXDimension.collect();
-        //List<Tuple2<Double, Long>> y = distinctPointsOfYDimension.collect();
-
         return skylines.collect();
     }
 
     private JavaRDD<Point2D> calculateSkylines(JavaRDD<Point2D> points) {
-        return points
-                .cartesian(bitmapOfFirstDimension.rdd())
-                .filter(pb -> pb._1().getX() == pb._2().getDimensionValue())
-                .cartesian(bitmapOfSecondDimension.rdd())
-                .filter(pb -> pb._1()._1().getY() == pb._2().getDimensionValue());
+        bitmapOfFirstDimension.rdd().collect();
+        JavaPairRDD<Double, BitSlice> keyedByDimensionValue = bitmapOfFirstDimension.rdd().keyBy(BitSlice::getDimensionValue);
+        keyedByDimensionValue.collectAsMap();
+        JavaPairRDD<Double, Point2D> pointsKeyedByDimensionValue = points.keyBy(Point2D::getX);
+        JavaPairRDD<Double, Tuple2<Point2D, BitSlice>> joined = pointsKeyedByDimensionValue.join(keyedByDimensionValue);
+        joined.take(10).forEach(p -> System.out.println("key"));
+
+        return null;
 
     }
 

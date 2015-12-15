@@ -28,7 +28,7 @@ class BitmapStructureImpl implements BitmapStructure {
 
         JavaPairRDD<Double, Long> distinctSortedPointsWithIndex = getDistinctSortedWithIndex(dimensionValues);
 
-        JavaRDD<BitSet> bitSets = calculateBitSets(dimensionValues, distinctSortedPointsWithIndex);
+        JavaPairRDD<Double, BitSet> bitSets = calculateBitSets(dimensionValues, distinctSortedPointsWithIndex);
 
         bitSlices = calculateBitSlices(distinctSortedPointsWithIndex, bitSets);
     }
@@ -53,20 +53,22 @@ class BitmapStructureImpl implements BitmapStructure {
                 .zipWithIndex();
     }
 
-    JavaRDD<BitSet> calculateBitSets(JavaRDD<Double> dimensionValues, JavaPairRDD<Double, Long> indexed) {
-        JavaPairRDD<Double, Tuple2<Double, Long>> combinations = dimensionValues.cartesian(indexed);
-        JavaPairRDD<Double, Long> dimensionValuesWithRanking = combinations
-                .filter(v -> v._1().equals(v._2()._1()))
-                .mapToPair(v -> new Tuple2<>(v._1(), v._2()._2()));
-
-        return dimensionValuesWithRanking
-                .map(v -> BitSets.bitSetFromIndexes(0, v._2() + 1));
+    JavaPairRDD<Double, BitSet> calculateBitSets(JavaRDD<Double> dimensionValues, JavaPairRDD<Double, Long> indexed) {
+        return dimensionValues
+                .keyBy(Double::doubleValue)
+                .join(indexed)
+                .mapToPair(v -> new Tuple2<>(v._1(), BitSets.bitSetFromIndexes(0, v._2()._2() + 1)));
     }
 
-    JavaRDD<BitSlice> calculateBitSlices(JavaPairRDD<Double, Long> indexed, JavaRDD<BitSet> bitSets) {
-        return indexed
-                .cartesian(bitSets)
+    JavaRDD<BitSlice> calculateBitSlices(JavaPairRDD<Double, Long> indexed, JavaPairRDD<Double, BitSet> bitSets) {
+        System.out.println("Size before: " + in)
+        indexed
+                .join(bitSets)
                 .groupByKey()
-                .map(bitSliceCreator::from);
+                .take(10).forEach(p -> System.out.printf("(value=%f, index=%d, bits=%d)\n", p., p._2()._1(), p._2()._2().size()));
+//        return indexed
+//                .join(bitSets)
+//                .;
+        return null;
     }
 }
