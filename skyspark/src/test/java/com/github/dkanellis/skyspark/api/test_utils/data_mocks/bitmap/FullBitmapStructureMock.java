@@ -7,13 +7,14 @@ import org.apache.spark.api.java.JavaRDD;
 import java.util.BitSet;
 
 public interface FullBitmapStructureMock {
-    JavaRDD<Double> getDimensionValues();
 
-    JavaRDD<Double> getDistinctValuesSorted();
+    Long getSizeOfUniqueValues();
+
+    JavaRDD<Double> getDimensionValues();
 
     JavaPairRDD<Double, Long> getValuesIndexed();
 
     JavaRDD<BitSet> getValuesBitSets();
 
-    JavaRDD<BitSlice> getValuesBitSlices();
+    JavaPairRDD<Long, BitSlice> getValuesBitSlices();
 }
