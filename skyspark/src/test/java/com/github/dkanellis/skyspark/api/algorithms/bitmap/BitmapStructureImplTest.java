@@ -13,7 +13,7 @@ import java.util.BitSet;
 
 import static junit.framework.Assert.assertTrue;
 
-public class BitmapStructureTest extends BaseSparkTest {
+public class BitmapStructureImplTest extends BaseSparkTest {
 
     private BitmapStructureImpl bitmapStructure;
     private FullBitmapStructureMock fullBitmapStructureMock;
@@ -22,12 +22,12 @@ public class BitmapStructureTest extends BaseSparkTest {
     public void setUp() {
         this.fullBitmapStructureMock = new FullDimensionXBitmapStructureMock(getSparkContextWrapper());
         BitSliceCreator bitSliceCreator = new BitSliceCreatorImpl();
-        this.bitmapStructure = new BitmapStructureImpl(4, bitSliceCreator);
+        this.bitmapStructure = (BitmapStructureImpl) Injector.getBitmapStructure(getSparkContextWrapper(), 4);
     }
 
 
     @Test
-    public void keepDistincts_andSortByAscendingOrder() {
+    public void keepDistincts_sortByAscendingOrder_addIndex() {
         JavaRDD<Double> dimensionValues = fullBitmapStructureMock.getDimensionValues();
         JavaPairRDD<Double, Long> expectedValues = fullBitmapStructureMock.getValuesIndexed();
 
@@ -38,22 +38,24 @@ public class BitmapStructureTest extends BaseSparkTest {
 
     @Test
     public void calculateBitSets() {
+        Long sizeOfUniqueValues = fullBitmapStructureMock.getSizeOfUniqueValues();
         JavaRDD<Double> dimensionValues = fullBitmapStructureMock.getDimensionValues();
         JavaPairRDD<Double, Long> currentData = fullBitmapStructureMock.getValuesIndexed();
         JavaRDD<BitSet> expectedBitSets = fullBitmapStructureMock.getValuesBitSets();
 
-        JavaRDD<BitSet> actualBitSets = null;//bitmapStructure.calculateBitSets(dimensionValues, currentData);
+        JavaRDD<BitSet> actualBitSets = bitmapStructure.calculateBitSets(dimensionValues, currentData, sizeOfUniqueValues);
 
         assertTrue(Rdds.areEqual(expectedBitSets, actualBitSets));
     }
 
     @Test
     public void calculateBitSlices() {
+        Long sizeOfUniqueValues = fullBitmapStructureMock.getSizeOfUniqueValues();
         JavaPairRDD<Double, Long> currentIndexed = fullBitmapStructureMock.getValuesIndexed();
         JavaRDD<BitSet> currentBitSets = fullBitmapStructureMock.getValuesBitSets();
-        JavaRDD<BitSlice> expectedBitSlices = fullBitmapStructureMock.getValuesBitSlices();
+        JavaPairRDD<Long, BitSlice> expectedBitSlices = fullBitmapStructureMock.getValuesBitSlices();
 
-        JavaRDD<BitSlice> actualBitSlices = bitmapStructure.calculateBitSlices(currentIndexed, null);
+        JavaPairRDD<Long, BitSlice> actualBitSlices = bitmapStructure.calculateBitSlices(currentIndexed, currentBitSets, sizeOfUniqueValues);
 
         assertTrue(Rdds.areEqual(expectedBitSlices, actualBitSlices));
     }

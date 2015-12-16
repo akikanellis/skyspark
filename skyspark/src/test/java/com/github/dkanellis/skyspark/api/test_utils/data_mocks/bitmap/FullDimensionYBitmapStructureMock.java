@@ -20,13 +20,13 @@ public class FullDimensionYBitmapStructureMock implements FullBitmapStructureMoc
     }
 
     @Override
-    public JavaRDD<Double> getDimensionValues() {
-        return BitmapPointsMock.get10Points(sparkContextWrapper).map(Point2D::getY);
+    public Long getSizeOfUniqueValues() {
+        return null;
     }
 
     @Override
-    public JavaRDD<Double> getDistinctValuesSorted() {
-        return sparkContextWrapper.parallelize(Arrays.asList(3.3, 3.4, 3.5, 4.0, 4.1, 4.4, 4.6, 7.3, 9.0));
+    public JavaRDD<Double> getDimensionValues() {
+        return BitmapPointsMock.get10Points(sparkContextWrapper).map(Point2D::getY);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class FullDimensionYBitmapStructureMock implements FullBitmapStructureMoc
     }
 
     @Override
-    public JavaRDD<BitSlice> getValuesBitSlices() {
+    public JavaPairRDD<Long, BitSlice> getValuesBitSlices() {
         return null;
     }
 }
