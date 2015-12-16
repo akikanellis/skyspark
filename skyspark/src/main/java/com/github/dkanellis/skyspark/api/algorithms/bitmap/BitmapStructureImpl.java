@@ -3,6 +3,7 @@ package com.github.dkanellis.skyspark.api.algorithms.bitmap;
 import com.github.dkanellis.skyspark.api.utils.BitSets;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
+import scala.Tuple2;
 
 import javax.validation.constraints.NotNull;
 import java.util.BitSet;
@@ -59,9 +60,12 @@ class BitmapStructureImpl implements BitmapStructure {
 
     JavaRDD<BitSet> calculateBitSets(JavaRDD<Double> dimensionValues, JavaPairRDD<Double, Long> indexed, Long sizeOfUniqueValues) {
         return dimensionValues
-                .keyBy(Double::doubleValue)
+                .zipWithIndex()
                 .join(indexed)
-                .map(v -> BitSets.bitSetFromIndexes(0, sizeOfUniqueValues - v._2()._2()));
+                .mapToPair(v -> new Tuple2<>(BitSets.bitSetFromIndexes(0, sizeOfUniqueValues - v._2()._2()), v._2()._1()))
+                .map(Tuple2::swap)
+                .sortBy(Tuple2::_1, true, numberOfPartitions)
+                .map(Tuple2::_2);
     }
 
     JavaPairRDD<Long, BitSlice> calculateBitSlices(JavaPairRDD<Double, Long> indexed, JavaRDD<BitSet> bitSets, Long sizeOfUniqueValues) {
@@ -69,15 +73,9 @@ class BitmapStructureImpl implements BitmapStructure {
                 .coalesce(1)
                 .glom();
 
-        JavaPairRDD<Long, BitSlice> result = glomed
+        return glomed
                 .cartesian(indexed)
                 .mapToPair(p -> bitSliceCreator.from(p, sizeOfUniqueValues))
                 .union(defaultValueRdd);
-
-        result.takeSample(true, 10)
-                .forEach(p -> System.out.printf("(value=%f, index=%d, bits=%d)\n",
-                        p._2().getDimensionValue(), p._1(), p._2().getBitVector().size()));
-
-        return result;
     }
 }

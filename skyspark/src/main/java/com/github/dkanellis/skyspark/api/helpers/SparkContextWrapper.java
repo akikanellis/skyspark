@@ -6,9 +6,10 @@ import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import scala.Tuple2;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class SparkContextWrapper {
+public class SparkContextWrapper implements Serializable {
 
     private final JavaSparkContext sparkContext;
 
