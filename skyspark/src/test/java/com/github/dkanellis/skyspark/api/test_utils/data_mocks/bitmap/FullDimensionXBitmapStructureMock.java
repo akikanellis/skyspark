@@ -21,27 +21,27 @@ public class FullDimensionXBitmapStructureMock implements FullBitmapStructureMoc
     }
 
     @Override
+    public Long getSizeOfUniqueValues() {
+        return 9L;
+    }
+
+    @Override
     public JavaRDD<Double> getDimensionValues() {
         return BitmapPointsMock.get10Points(sparkContextWrapper).map(Point2D::getX);
     }
 
     @Override
-    public JavaRDD<Double> getDistinctValuesSorted() {
-        return sparkContextWrapper.parallelize(Arrays.asList(9.9, 6.7, 6.3, 6.1, 5.9, 5.4, 5.0, 3.6, 2.5));
-    }
-
-    @Override
     public JavaPairRDD<Double, Long> getValuesIndexed() {
         return sparkContextWrapper.parallelizePairs(Arrays.asList(
-                new Tuple2<>(2.5, 8L),
-                new Tuple2<>(3.6, 7L),
-                new Tuple2<>(5.0, 6L),
-                new Tuple2<>(5.4, 5L),
+                new Tuple2<>(2.5, 0L),
+                new Tuple2<>(3.6, 1L),
+                new Tuple2<>(5.0, 2L),
+                new Tuple2<>(5.4, 3L),
                 new Tuple2<>(5.9, 4L),
-                new Tuple2<>(6.1, 3L),
-                new Tuple2<>(6.3, 2L),
-                new Tuple2<>(6.7, 1L),
-                new Tuple2<>(9.9, 0L)
+                new Tuple2<>(6.1, 5L),
+                new Tuple2<>(6.3, 6L),
+                new Tuple2<>(6.7, 7L),
+                new Tuple2<>(9.9, 8L)
         ));
     }
 
@@ -62,17 +62,18 @@ public class FullDimensionXBitmapStructureMock implements FullBitmapStructureMoc
     }
 
     @Override
-    public JavaRDD<BitSlice> getValuesBitSlices() {
-        return sparkContextWrapper.parallelize(Arrays.asList(
-                new BitSlice(8L, 2.5, bitSetFromString("0000010000")),
-                new BitSlice(7L, 3.6, bitSetFromString("0010010000")),
-                new BitSlice(6L, 5.0, bitSetFromString("0110010000")),
-                new BitSlice(5L, 5.4, bitSetFromString("1110010000")),
-                new BitSlice(4L, 5.9, bitSetFromString("1111110000")),
-                new BitSlice(3L, 6.1, bitSetFromString("1111110001")),
-                new BitSlice(2L, 6.3, bitSetFromString("1111111001")),
-                new BitSlice(1L, 6.7, bitSetFromString("1111111011")),
-                new BitSlice(0L, 9.9, bitSetFromString("1111111111"))
+    public JavaPairRDD<Long, BitSlice> getValuesBitSlices() {
+        return sparkContextWrapper.parallelizePairs(Arrays.asList(
+                new Tuple2<>(0L, new BitSlice(0L, 2.5, bitSetFromString("0000010000"))),
+                new Tuple2<>(1L, new BitSlice(1L, 3.6, bitSetFromString("0010010000"))),
+                new Tuple2<>(2L, new BitSlice(2L, 5.0, bitSetFromString("0110010000"))),
+                new Tuple2<>(3L, new BitSlice(3L, 5.4, bitSetFromString("1110010000"))),
+                new Tuple2<>(4L, new BitSlice(4L, 5.9, bitSetFromString("1111110000"))),
+                new Tuple2<>(5L, new BitSlice(5L, 6.1, bitSetFromString("1111110001"))),
+                new Tuple2<>(6L, new BitSlice(6L, 6.3, bitSetFromString("1111111001"))),
+                new Tuple2<>(7L, new BitSlice(7L, 6.7, bitSetFromString("1111111011"))),
+                new Tuple2<>(8L, new BitSlice(8L, 9.9, bitSetFromString("1111111111"))),
+                new Tuple2<>(-1L, new BitSlice(-1L, 0, bitSetFromString("000000000")))
         ));
     }
 }
