@@ -1,25 +1,31 @@
 package com.github.dkanellis.skyspark.api.algorithms.bitmap;
 
+import com.github.dkanellis.skyspark.api.test_utils.base.BaseSparkTest;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-
-import java.util.BitSet;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class BitmapTest {
+public class BitmapTest extends BaseSparkTest {
 
     private Bitmap bitmap;
 
     @Before
     public void setUp() {
-        bitmap = new Bitmap();
+        bitmap = new Bitmap(1);
+    }
+
+
+    @Test
+    @Ignore("To be implemented")
+    public void forEachXofPoint_returnBitVector() {
+
     }
 
     @Test
-    public void forEachPoint_returnBitVector() {
-        List<BitSet> expectedBitVectors;
+    @Ignore("To be implemented")
+    public void forEachYofPoint_returnBitVector() {
     }
 
     @Test
