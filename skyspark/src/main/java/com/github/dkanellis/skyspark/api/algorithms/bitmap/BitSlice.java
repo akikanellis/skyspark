@@ -11,12 +11,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class BitSlice implements Serializable {
 
+    public static final BitSlice DEFAULT_BITSLICE = new BitSlice(-1L, 0, new BitSet(0));
     private final long index;
     private final double dimensionValue;
     private final BitSet bitVector;
 
     public BitSlice(final long index, final double dimensionValue, @NotNull BitSet bitVector) {
-        Preconditions.checkArgument(index >= 0, "Index can not be negative");
+        Preconditions.checkArgument(index >= -1, "Index can not be less than -1");
         this.index = index;
         this.dimensionValue = dimensionValue;
         this.bitVector = checkNotNull(bitVector);
@@ -51,6 +52,6 @@ public class BitSlice implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("[%d, %.2f, %s]", index, dimensionValue, bitVector);
+        return String.format("[%d, %.2f, %d]", index, dimensionValue, bitVector.cardinality());
     }
 }

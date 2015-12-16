@@ -4,25 +4,30 @@ import com.google.common.collect.Iterables;
 import scala.Tuple2;
 
 import java.util.BitSet;
+import java.util.List;
 
 public class BitSliceCreatorImpl implements BitSliceCreator {
 
     @Override
-    public BitSlice from(Tuple2<Tuple2<Double, Long>, Iterable<BitSet>> data) {
-        final long index = data._1()._2();
-        final double dimensionValue = data._1()._1();
-        final BitSet bitVector = sliceBits(data._2(), index);
+    public Tuple2<Long, BitSlice> defaultValue() {
+        return new Tuple2<>(-1L, new BitSlice(-1L, 0, new BitSet(0)));
+    }
 
-        return new BitSlice(index, dimensionValue, bitVector);
+    @Override
+    public Tuple2<Long, BitSlice> from(Tuple2<List<BitSet>, Tuple2<Double, Long>> data, Long sizeOfUniqueValues) {
+        final long index = data._2()._2();
+        final double dimensionValue = data._2()._1();
+        final BitSet bitVector = sliceBits(data._1(), sizeOfUniqueValues - index - 1);
+
+        return new Tuple2<>(index, new BitSlice(index, dimensionValue, bitVector));
     }
 
     private BitSet sliceBits(Iterable<BitSet> bitSets, Long sliceAt) {
         BitSet bitSlice = new BitSet();
         final int numberOfElements = Iterables.size(bitSets);
-        final int lastIndex = numberOfElements - 1;
-        int i = 0;
+        int lastIndex = numberOfElements - 1;
         for (BitSet bitVector : bitSets) {
-            bitSlice.set(lastIndex - i++, bitVector.get(sliceAt.intValue()));
+            bitSlice.set(lastIndex--, bitVector.get(sliceAt.intValue()));
         }
 
         return bitSlice;
