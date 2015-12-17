@@ -31,7 +31,7 @@ public class BitmapStructureImplTest extends BaseSparkTest {
         JavaRDD<Double> dimensionValues = fullBitmapStructureMock.getDimensionValues();
         JavaPairRDD<Double, Long> expectedValues = fullBitmapStructureMock.getValuesIndexed();
 
-        JavaPairRDD<Double, Long> actualValues = bitmapStructure.getDistinctSortedWithIndex(dimensionValues);
+        JavaPairRDD<Double, Long> actualValues = null;//TODO bitmapStructure.getDistinctSortedWithIndex(dimensionValues);
 
         assertTrue(Rdds.areEqual(expectedValues, actualValues));
     }

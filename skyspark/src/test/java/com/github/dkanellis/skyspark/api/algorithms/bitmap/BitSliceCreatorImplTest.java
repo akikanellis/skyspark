@@ -62,7 +62,7 @@ public class BitSliceCreatorImplTest {
 
     @Test
     public void returnCorrectBitSlices() {
-        //BitSlice actual = bitSliceCreator.from(null);// TODO
+        //BitSlice actual = bitSliceCreator.fromTuple(null);// TODO
 
         assertEquals(expected, null);
     }

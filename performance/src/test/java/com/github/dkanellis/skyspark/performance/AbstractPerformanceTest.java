@@ -12,7 +12,7 @@ public abstract class AbstractPerformanceTest {
 //
 //    private static List<Result> performanceResults;
 //
-//    public static void init(String datasetFolder, String expectedResultsFolder,
+//    public static void computeBitSlices(String datasetFolder, String expectedResultsFolder,
 //                            String appName) {
 //        inputFiles = getListOfFilesFromFolder(datasetFolder);
 //        expectedResults = getListOfFilesFromFolder(expectedResultsFolder);

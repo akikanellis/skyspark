@@ -8,9 +8,6 @@ import java.io.Serializable;
 import java.util.BitSet;
 
 public interface BitmapStructure extends Serializable {
-    void init(@NotNull JavaRDD<Double> dimensionValues);
-
-    JavaPairRDD<Double, Long> rankingsRdd();
-
-    JavaPairRDD<Long, BitSet> bitSlicesRdd();
+    JavaPairRDD<Long, BitSet> computeBitSlices(@NotNull JavaRDD<Double> dimensionValues,
+                                               @NotNull JavaPairRDD<Double, Long> distinctValuesWithRankings);
 }

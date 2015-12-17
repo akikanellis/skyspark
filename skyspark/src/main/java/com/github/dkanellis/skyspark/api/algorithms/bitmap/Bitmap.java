@@ -4,7 +4,6 @@ import com.github.dkanellis.skyspark.api.algorithms.SkylineAlgorithm;
 import com.github.dkanellis.skyspark.api.helpers.SparkContextWrapper;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
-import scala.Tuple2;
 
 import java.awt.geom.Point2D;
 import java.io.Serializable;
@@ -17,8 +16,9 @@ public class Bitmap implements SkylineAlgorithm, Serializable {
 
     private final int numberOfPartitions;
 
-    private final BitmapStructure bitmapOfFirstDimension;
-    private final BitmapStructure bitmapOfSecondDimension;
+    private final BitmapStructure bitmapCalculator;
+    private final RankingCalculator rankingCalculator;
+    private final PointsWithBitmapMerger pointsWithBitmapMerger;
 
     public Bitmap(SparkContextWrapper sparkContextWrapper) {
         this(sparkContextWrapper, 4);
@@ -28,108 +28,38 @@ public class Bitmap implements SkylineAlgorithm, Serializable {
         checkArgument(numberOfPartitions > 0, "Partitions can't be less than 1.");
 
         this.numberOfPartitions = numberOfPartitions;
-        this.bitmapOfFirstDimension = Injector.getBitmapStructure(sparkContextWrapper, numberOfPartitions);
-        this.bitmapOfSecondDimension = Injector.getBitmapStructure(sparkContextWrapper, numberOfPartitions);
+        this.bitmapCalculator = Injector.getBitmapStructure(sparkContextWrapper, numberOfPartitions);
+        this.rankingCalculator = new RankingCalculatorImpl(numberOfPartitions);
+        this.pointsWithBitmapMerger = new PointsWithBitmapMergerImpl();
     }
 
     @Override
     public List<Point2D> getSkylinePoints(JavaRDD<Point2D> points) {
-        bitmapOfFirstDimension.init(points.map(Point2D::getX));
-        bitmapOfSecondDimension.init(points.map(Point2D::getY));
+        JavaRDD<Double> firstDimensionValues = points.map(Point2D::getX);
+        JavaRDD<Double> secondDimensionValues = points.map(Point2D::getX);
 
-        JavaRDD<Point2D> skylines = calculateSkylines(points);
+        JavaPairRDD<Double, Long> firstDimensionWithRankings = rankingCalculator.computeDistinctRankings(firstDimensionValues);
+        JavaPairRDD<Double, Long> secondDimensionWithRankings = rankingCalculator.computeDistinctRankings(secondDimensionValues);
+
+        JavaPairRDD<Rankings, Point2D> pointsWithRankings
+                = rankingCalculator.applyRankingsToAllPoints(points, firstDimensionWithRankings, secondDimensionWithRankings);
+        JavaPairRDD<Rankings, Point2D> pointsWithPreviousRankings
+                = rankingCalculator.getWithPreviousRankingsPoints(pointsWithRankings);
+
+        JavaPairRDD<Long, BitSet> bitmapOfFirstDimension
+                = bitmapCalculator.computeBitSlices(firstDimensionValues, firstDimensionWithRankings);
+        JavaPairRDD<Long, BitSet> bitmapOfSecondDimension
+                = bitmapCalculator.computeBitSlices(secondDimensionValues, secondDimensionWithRankings);
+
+        JavaRDD<PointsWithRequiredBitSlices> pointsWithRequiredBitSlices
+                = pointsWithBitmapMerger.mergePointsWithBitmap(pointsWithRankings, pointsWithPreviousRankings,
+                bitmapOfFirstDimension, bitmapOfSecondDimension);
+
+        JavaRDD<Point2D> skylines = pointsWithRequiredBitSlices
+                .filter(PointsWithRequiredBitSlices::isSkyline)
+                .map(PointsWithRequiredBitSlices::getPoint);
 
         return skylines.collect();
-    }
-
-    private JavaRDD<Point2D> calculateSkylines(JavaRDD<Point2D> points) {
-        JavaPairRDD<Point2D, Long> pointsWithRankingsOfFirstDimension
-                = points.keyBy(Point2D::getX)
-                .join(bitmapOfFirstDimension.rankingsRdd())
-                .mapToPair(p -> new Tuple2<>(p._2()._1(), p._2()._2()));
-
-        JavaPairRDD<Point2D, Long> pointsWithRankingsOfSecondDimension
-                = points.keyBy(Point2D::getY)
-                .join(bitmapOfSecondDimension.rankingsRdd())
-                .mapToPair(p -> new Tuple2<>(p._2()._1(), p._2()._2()));
-
-        JavaPairRDD<Point2D, Tuple2<Long, Long>> joined = pointsWithRankingsOfFirstDimension.join(pointsWithRankingsOfSecondDimension);
-
-        JavaPairRDD<Point2D, Tuple2<BitSet, BitSet>> withCurrentBitSlices
-                = joined.keyBy(p -> p._2()._1())
-                .join(bitmapOfFirstDimension.bitSlicesRdd())
-                .keyBy(p -> p._2()._1()._2()._2())
-                .join(bitmapOfSecondDimension.bitSlicesRdd())
-                .mapToPair(p -> new Tuple2<>(p._2()._1()._2()._1()._1(), new Tuple2<>(p._2()._1()._2()._2(), p._2()._2())));
-
-        JavaPairRDD<Point2D, Tuple2<BitSet, BitSet>> withPreviousBitSlices = getPreviousBitSlices(points);
-
-        JavaPairRDD<Point2D, Tuple2<Tuple2<BitSet, BitSet>, Tuple2<BitSet, BitSet>>> allTogether
-                = getAllTogether(withCurrentBitSlices, withPreviousBitSlices);
-
-        JavaRDD<Point2D> skylines = getSkylines(allTogether);
-
-//        .take(100)
-//                .forEach(p -> System.out.printf("(point=%s, bitslice1=%s, bitslice2=%s)\n",
-//                p._1(), p._2()._1(), p._2()._2()));
-
-        //JavaPairRDD<Double, Tuple2<Point2D, BitSlice>> joined = pointsKeyedByDimensionValue.join(keyedByDimensionValue);
-        //joined.take(10).forEach(p -> System.out.println("key"));
-
-        return skylines;
-
-    }
-
-    private JavaRDD<Point2D> getSkylines(JavaPairRDD<Point2D, Tuple2<Tuple2<BitSet, BitSet>, Tuple2<BitSet, BitSet>>> allTogether) {
-        return allTogether
-                .filter(clusterfuck -> isSkyline(clusterfuck))
-                .map(Tuple2::_1);
-    }
-
-    private boolean isSkyline(Tuple2<Point2D, Tuple2<Tuple2<BitSet, BitSet>, Tuple2<BitSet, BitSet>>> clusterfuck) {
-        BitSet dimension1BitSlice1 = clusterfuck._2()._1()._1();
-        BitSet dimension2BitSlice1 = clusterfuck._2()._1()._2();
-
-        BitSet dimension1BitSliceMinus1 = clusterfuck._2()._2()._1();
-        BitSet dimension2BitSliceMinus1 = clusterfuck._2()._2()._2();
-
-        BitSet A = (BitSet) dimension1BitSlice1.clone();
-        A.and(dimension2BitSlice1);
-
-        BitSet B = (BitSet) dimension1BitSliceMinus1.clone();
-        B.or(dimension2BitSliceMinus1);
-
-        BitSet C = (BitSet) A.clone();
-        C.and(B);
-
-        return C.isEmpty();
-    }
-
-    private JavaPairRDD<Point2D, Tuple2<Tuple2<BitSet, BitSet>, Tuple2<BitSet, BitSet>>> getAllTogether(JavaPairRDD<Point2D, Tuple2<BitSet, BitSet>> withCurrentBitSlices, JavaPairRDD<Point2D, Tuple2<BitSet, BitSet>> withPreviousBitSlices) {
-        return withCurrentBitSlices.join(withPreviousBitSlices);
-    }
-
-    private JavaPairRDD<Point2D, Tuple2<BitSet, BitSet>> getPreviousBitSlices(JavaRDD<Point2D> points) {
-        JavaPairRDD<Point2D, Long> pointsWithRankingsOfFirstDimension
-                = points.keyBy(Point2D::getX)
-                .join(bitmapOfFirstDimension.rankingsRdd())
-                .mapToPair(p -> new Tuple2<>(p._2()._1(), p._2()._2() - 1));
-
-        JavaPairRDD<Point2D, Long> pointsWithRankingsOfSecondDimension
-                = points.keyBy(Point2D::getY)
-                .join(bitmapOfSecondDimension.rankingsRdd())
-                .mapToPair(p -> new Tuple2<>(p._2()._1(), p._2()._2() - 1));
-
-        JavaPairRDD<Point2D, Tuple2<Long, Long>> joined = pointsWithRankingsOfFirstDimension.join(pointsWithRankingsOfSecondDimension);
-
-        JavaPairRDD<Point2D, Tuple2<BitSet, BitSet>> withPreviousBitSlices = joined
-                .keyBy(p -> p._2()._1())
-                .join(bitmapOfFirstDimension.bitSlicesRdd())
-                .keyBy(p -> p._2()._1()._2()._2())
-                .join(bitmapOfSecondDimension.bitSlicesRdd())
-                .mapToPair(p -> new Tuple2<>(p._2()._1()._2()._1()._1(), new Tuple2<>(p._2()._1()._2()._2(), p._2()._2())));
-
-        return withPreviousBitSlices;
     }
 
     @Override
