@@ -16,13 +16,13 @@ class BitmapStructureImpl implements BitmapStructure {
 
     private final int numberOfPartitions;
     private final BitSliceCreator bitSliceCreator;
-    private final JavaPairRDD<Long, BitSlice> defaultValueRdd;
+    private final JavaPairRDD<Long, BitSet> defaultValueRdd;
     Long sizeOfUniqueValues;
-    private JavaPairRDD<Long, BitSlice> bitSlices;
+    private JavaPairRDD<Long, BitSet> bitSlices;
     private JavaPairRDD<Double, Long> distinctSortedPointsWithIndex;
 
     BitmapStructureImpl(final int numberOfPartitions, @NotNull BitSliceCreator bitSliceCreator,
-                        JavaPairRDD<Long, BitSlice> defaultValueRdd) {
+                        JavaPairRDD<Long, BitSet> defaultValueRdd) {
         this.numberOfPartitions = numberOfPartitions;
         this.bitSliceCreator = checkNotNull(bitSliceCreator);
         this.defaultValueRdd = defaultValueRdd;
@@ -47,7 +47,7 @@ class BitmapStructureImpl implements BitmapStructure {
     }
 
     @Override
-    public JavaPairRDD<Long, BitSlice> bitSlicesRdd() {
+    public JavaPairRDD<Long, BitSet> bitSlicesRdd() {
         return bitSlices;
     }
 
@@ -68,7 +68,7 @@ class BitmapStructureImpl implements BitmapStructure {
                 .map(Tuple2::_2);
     }
 
-    JavaPairRDD<Long, BitSlice> calculateBitSlices(JavaPairRDD<Double, Long> indexed, JavaRDD<BitSet> bitSets, Long sizeOfUniqueValues) {
+    JavaPairRDD<Long, BitSet> calculateBitSlices(JavaPairRDD<Double, Long> indexed, JavaRDD<BitSet> bitSets, Long sizeOfUniqueValues) {
         JavaRDD<List<BitSet>> glomed = bitSets
                 .coalesce(1)
                 .glom();
