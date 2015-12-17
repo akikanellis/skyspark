@@ -8,7 +8,7 @@ import java.util.List;
 
 interface BitSliceCreator extends Serializable {
 
-    Tuple2<Long, BitSlice> defaultValue();
+    Tuple2<Long, BitSet> DEFAULT = new Tuple2<>(-1L, new BitSet(0));
 
-    Tuple2<Long, BitSlice> from(Tuple2<List<BitSet>, Tuple2<Double, Long>> data, Long sizeOfUniqueValues);
+    Tuple2<Long, BitSet> from(Tuple2<List<BitSet>, Tuple2<Double, Long>> data, Long sizeOfUniqueValues);
 }
