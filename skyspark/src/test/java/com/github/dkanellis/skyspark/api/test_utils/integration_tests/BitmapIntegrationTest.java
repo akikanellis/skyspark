@@ -16,7 +16,7 @@ public class BitmapIntegrationTest extends BaseSkylineAlgorithmIntegrationTest {
 
     @Override
     protected SkylineAlgorithm getSkylineAlgorithm() {
-        return new Bitmap(getSparkContextWrapper(), 12);
+        return new Bitmap(getSparkContextWrapper(), 4);
     }
 
     @Test

@@ -5,11 +5,9 @@ import org.apache.spark.api.java.JavaRDD;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.BitSet;
 
 public interface BitmapStructure extends Serializable {
-    void init(@NotNull JavaRDD<Double> dimensionValues);
-
-    JavaPairRDD<Double, Long> rankingsRdd();
-
-    JavaPairRDD<Long, BitSlice> bitSlicesRdd();
+    JavaPairRDD<Long, BitSet> computeBitSlices(@NotNull JavaRDD<Double> dimensionValues,
+                                               @NotNull JavaPairRDD<Double, Long> distinctValuesWithRankings);
 }

@@ -16,46 +16,25 @@ class BitmapStructureImpl implements BitmapStructure {
 
     private final int numberOfPartitions;
     private final BitSliceCreator bitSliceCreator;
-    private final JavaPairRDD<Long, BitSlice> defaultValueRdd;
-    Long sizeOfUniqueValues;
-    private JavaPairRDD<Long, BitSlice> bitSlices;
-    private JavaPairRDD<Double, Long> distinctSortedPointsWithIndex;
+    private final JavaPairRDD<Long, BitSet> defaultValueRdd;
 
     BitmapStructureImpl(final int numberOfPartitions, @NotNull BitSliceCreator bitSliceCreator,
-                        JavaPairRDD<Long, BitSlice> defaultValueRdd) {
+                        JavaPairRDD<Long, BitSet> defaultValueRdd) {
         this.numberOfPartitions = numberOfPartitions;
         this.bitSliceCreator = checkNotNull(bitSliceCreator);
         this.defaultValueRdd = defaultValueRdd;
     }
 
     @Override
-    public void init(@NotNull JavaRDD<Double> dimensionValues) {
+    public JavaPairRDD<Long, BitSet> computeBitSlices(@NotNull JavaRDD<Double> dimensionValues,
+                                                      @NotNull JavaPairRDD<Double, Long> distinctValuesWithRankings) {
         checkNotNull(dimensionValues);
 
-        distinctSortedPointsWithIndex = getDistinctSortedWithIndex(dimensionValues);
+        Long sizeOfUniqueValues = distinctValuesWithRankings.count();
 
-        sizeOfUniqueValues = distinctSortedPointsWithIndex.count();
+        JavaRDD<BitSet> bitSets = calculateBitSets(dimensionValues, distinctValuesWithRankings, sizeOfUniqueValues);
 
-        JavaRDD<BitSet> bitSets = calculateBitSets(dimensionValues, distinctSortedPointsWithIndex, sizeOfUniqueValues);
-
-        bitSlices = calculateBitSlices(distinctSortedPointsWithIndex, bitSets, sizeOfUniqueValues);
-    }
-
-    @Override
-    public JavaPairRDD<Double, Long> rankingsRdd() {
-        return distinctSortedPointsWithIndex;
-    }
-
-    @Override
-    public JavaPairRDD<Long, BitSlice> bitSlicesRdd() {
-        return bitSlices;
-    }
-
-    JavaPairRDD<Double, Long> getDistinctSortedWithIndex(JavaRDD<Double> dimensionValues) {
-        return dimensionValues
-                .distinct()
-                .sortBy(Double::doubleValue, true, numberOfPartitions)
-                .zipWithIndex();
+        return calculateBitSlices(distinctValuesWithRankings, bitSets, sizeOfUniqueValues);
     }
 
     JavaRDD<BitSet> calculateBitSets(JavaRDD<Double> dimensionValues, JavaPairRDD<Double, Long> indexed, Long sizeOfUniqueValues) {
@@ -68,7 +47,7 @@ class BitmapStructureImpl implements BitmapStructure {
                 .map(Tuple2::_2);
     }
 
-    JavaPairRDD<Long, BitSlice> calculateBitSlices(JavaPairRDD<Double, Long> indexed, JavaRDD<BitSet> bitSets, Long sizeOfUniqueValues) {
+    JavaPairRDD<Long, BitSet> calculateBitSlices(JavaPairRDD<Double, Long> indexed, JavaRDD<BitSet> bitSets, Long sizeOfUniqueValues) {
         JavaRDD<List<BitSet>> glomed = bitSets
                 .coalesce(1)
                 .glom();
