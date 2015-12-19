@@ -1,6 +1,5 @@
 package com.github.dkanellis.skyspark.api.test_utils.data_mocks.bitmap;
 
-import com.github.dkanellis.skyspark.api.algorithms.bitmap.BitSlice;
 import com.github.dkanellis.skyspark.api.helpers.SparkContextWrapper;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -61,7 +60,7 @@ public class FullDimensionYBitmapStructureMock implements FullBitmapStructureMoc
     }
 
     @Override
-    public JavaPairRDD<Long, BitSlice> getValuesBitSlices() {
+    public JavaPairRDD<Long, BitSet> getValuesBitSlices() {
         return null;
     }
 }

@@ -1,6 +1,5 @@
 package com.github.dkanellis.skyspark.api.test_utils.data_mocks.bitmap;
 
-import com.github.dkanellis.skyspark.api.algorithms.bitmap.BitSlice;
 import com.github.dkanellis.skyspark.api.helpers.SparkContextWrapper;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -62,18 +61,18 @@ public class FullDimensionXBitmapStructureMock implements FullBitmapStructureMoc
     }
 
     @Override
-    public JavaPairRDD<Long, BitSlice> getValuesBitSlices() {
+    public JavaPairRDD<Long, BitSet> getValuesBitSlices() {
         return sparkContextWrapper.parallelizePairs(Arrays.asList(
-                new Tuple2<>(0L, new BitSlice(0L, 2.5, bitSetFromString("0000010000"))),
-                new Tuple2<>(1L, new BitSlice(1L, 3.6, bitSetFromString("0010010000"))),
-                new Tuple2<>(2L, new BitSlice(2L, 5.0, bitSetFromString("0110010000"))),
-                new Tuple2<>(3L, new BitSlice(3L, 5.4, bitSetFromString("1110010000"))),
-                new Tuple2<>(4L, new BitSlice(4L, 5.9, bitSetFromString("1111110000"))),
-                new Tuple2<>(5L, new BitSlice(5L, 6.1, bitSetFromString("1111110001"))),
-                new Tuple2<>(6L, new BitSlice(6L, 6.3, bitSetFromString("1111111001"))),
-                new Tuple2<>(7L, new BitSlice(7L, 6.7, bitSetFromString("1111111011"))),
-                new Tuple2<>(8L, new BitSlice(8L, 9.9, bitSetFromString("1111111111"))),
-                new Tuple2<>(-1L, new BitSlice(-1L, 0, bitSetFromString("000000000")))
+                new Tuple2<>(0L, bitSetFromString("0000010000")),
+                new Tuple2<>(1L, bitSetFromString("0010010000")),
+                new Tuple2<>(2L, bitSetFromString("0110010000")),
+                new Tuple2<>(3L, bitSetFromString("1110010000")),
+                new Tuple2<>(4L, bitSetFromString("1111110000")),
+                new Tuple2<>(5L, bitSetFromString("1111110001")),
+                new Tuple2<>(6L, bitSetFromString("1111111001")),
+                new Tuple2<>(7L, bitSetFromString("1111111011")),
+                new Tuple2<>(8L, bitSetFromString("1111111111")),
+                new Tuple2<>(-1L, bitSetFromString("000000000"))
         ));
     }
 }
