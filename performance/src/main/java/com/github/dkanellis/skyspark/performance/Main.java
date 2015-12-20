@@ -21,7 +21,6 @@ public class Main {
     private static TextFileToPointRDD textFileToPointRDD;
     private static Settings settings;
     private static ResultWriter resultWriter;
-    private static List<Point2D> skylines;
 
     public static void main(String[] args) {
         settings = Settings.fromArgs(args);
@@ -47,11 +46,12 @@ public class Main {
             JavaRDD<Point2D> points = textFileToPointRDD.getPointRDDFromTextFile(pointDataFile.getFilePath(), " ");
 
             stopwatch.start();
-            skylines = skylineAlgorithm.getSkylinePoints(points);
+            JavaRDD<Point2D> skylines = skylineAlgorithm.computeSkylinePoints(points);
+            List<Point2D> skylineList = skylines.collect();
             stopwatch.stop();
 
             Result result = new Result(skylineAlgorithm.toString(), pointDataFile,
-                    stopwatch.elapsed(TimeUnit.NANOSECONDS), skylines.size());
+                    stopwatch.elapsed(TimeUnit.NANOSECONDS), skylineList.size());
             resultWriter.writeResult(result);
 
             stopwatch.reset();
