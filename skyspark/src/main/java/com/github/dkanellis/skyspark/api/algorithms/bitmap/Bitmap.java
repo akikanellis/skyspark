@@ -6,13 +6,11 @@ import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 
 import java.awt.geom.Point2D;
-import java.io.Serializable;
 import java.util.BitSet;
-import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-public class Bitmap implements SkylineAlgorithm, Serializable {
+public class Bitmap implements SkylineAlgorithm {
 
     private final BitmapStructure bitmapCalculator;
     private final RankingCalculator rankingCalculator;
@@ -31,7 +29,7 @@ public class Bitmap implements SkylineAlgorithm, Serializable {
     }
 
     @Override
-    public List<Point2D> getSkylinePoints(JavaRDD<Point2D> points) {
+    public JavaRDD<Point2D> computeSkylinePoints(JavaRDD<Point2D> points) {
         JavaRDD<Double> firstDimensionValues = points.map(Point2D::getX);
         JavaRDD<Double> secondDimensionValues = points.map(Point2D::getX);
 
@@ -56,7 +54,7 @@ public class Bitmap implements SkylineAlgorithm, Serializable {
                 .filter(PointsWithRequiredBitSlices::isSkyline)
                 .map(PointsWithRequiredBitSlices::getPoint);
 
-        return skylines.collect();
+        return skylines;
     }
 
     @Override

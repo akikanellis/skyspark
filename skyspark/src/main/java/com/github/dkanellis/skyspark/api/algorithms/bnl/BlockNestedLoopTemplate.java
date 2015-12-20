@@ -7,12 +7,11 @@ import org.apache.spark.api.java.JavaRDD;
 import scala.Tuple2;
 
 import java.awt.geom.Point2D;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class BlockNestedLoopTemplate implements SkylineAlgorithm, Serializable {
+public abstract class BlockNestedLoopTemplate implements SkylineAlgorithm {
 
     private FlagPointPairProducer flagPointPairProducer;
 
@@ -27,13 +26,13 @@ public abstract class BlockNestedLoopTemplate implements SkylineAlgorithm, Seria
     }
 
     @Override
-    public final List<Point2D> getSkylinePoints(JavaRDD<Point2D> points) {
+    public final JavaRDD<Point2D> computeSkylinePoints(JavaRDD<Point2D> points) {
         flagPointPairProducer = createFlagPointPairProducer(points);
 
         JavaPairRDD<PointFlag, Iterable<Point2D>> localSkylinePointsByFlag = divide(points);
-        JavaRDD<Point2D> skylinePoints = merge(localSkylinePointsByFlag);
+        JavaRDD<Point2D> skylines = merge(localSkylinePointsByFlag);
 
-        return skylinePoints.collect();
+        return skylines;
     }
 
     private FlagPointPairProducer createFlagPointPairProducer(JavaRDD<Point2D> points) {
