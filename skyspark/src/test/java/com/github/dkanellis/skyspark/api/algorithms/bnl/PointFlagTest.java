@@ -1,9 +1,10 @@
 package com.github.dkanellis.skyspark.api.algorithms.bnl;
 
+import com.github.dkanellis.skyspark.api.test_utils.categories.types.UnitTests;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import com.github.dkanellis.skyspark.api.testUtils.categories.types.UnitTests;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @Category(UnitTests.class)
@@ -16,5 +17,14 @@ public class PointFlagTest {
 
         assertTrue(first.equals(second) && second.equals(first));
         assertTrue(first.hashCode() == second.hashCode());
+    }
+
+    @Test
+    public void toString_returnData() {
+        String expectedName = "[10]";
+
+        String actualName = new PointFlag(1, 0).toString();
+
+        assertEquals(expectedName, actualName);
     }
 }

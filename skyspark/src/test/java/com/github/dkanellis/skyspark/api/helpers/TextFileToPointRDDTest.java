@@ -1,11 +1,11 @@
 package com.github.dkanellis.skyspark.api.helpers;
 
+import com.github.dkanellis.skyspark.api.test_utils.base.BaseSparkTest;
+import com.github.dkanellis.skyspark.api.test_utils.categories.types.SparkTests;
+import com.github.dkanellis.skyspark.api.test_utils.data_mocks.PointsMock;
 import org.apache.spark.api.java.JavaRDD;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import com.github.dkanellis.skyspark.api.testUtils.base.BaseSparkTest;
-import com.github.dkanellis.skyspark.api.testUtils.categories.types.SparkTests;
-import com.github.dkanellis.skyspark.api.testUtils.dataMocks.PointsMock;
 
 import java.awt.geom.Point2D;
 
