@@ -27,13 +27,13 @@ public abstract class BlockNestedLoopTemplate implements SkylineAlgorithm, Seria
     }
 
     @Override
-    public final List<Point2D> getSkylinePoints(JavaRDD<Point2D> points) {
+    public final JavaRDD<Point2D> computeSkylinePoints(JavaRDD<Point2D> points) {
         flagPointPairProducer = createFlagPointPairProducer(points);
 
         JavaPairRDD<PointFlag, Iterable<Point2D>> localSkylinePointsByFlag = divide(points);
-        JavaRDD<Point2D> skylinePoints = merge(localSkylinePointsByFlag);
+        JavaRDD<Point2D> skylines = merge(localSkylinePointsByFlag);
 
-        return skylinePoints.collect();
+        return skylines;
     }
 
     private FlagPointPairProducer createFlagPointPairProducer(JavaRDD<Point2D> points) {

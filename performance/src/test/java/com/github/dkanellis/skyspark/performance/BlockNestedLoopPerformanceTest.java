@@ -80,7 +80,7 @@ public class BlockNestedLoopPerformanceTest {
 //        Result performanceResult = new Result("Block Nested Loop", inputFile);
 //        for (int i = 0; i < timesToRun; i++) {
 //            long startTime = System.currentTimeMillis();
-//            List<Point2D> result = bnl.getSkylinePoints(inputFilePath);
+//            List<Point2D> result = bnl.computeSkylinePoints(inputFilePath);
 //            long endTime = System.currentTimeMillis();
 //            long totalDuration = endTime - startTime;
 //            performanceResult.addResult(totalDuration);
