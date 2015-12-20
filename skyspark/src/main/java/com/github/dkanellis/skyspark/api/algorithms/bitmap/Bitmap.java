@@ -14,8 +14,6 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 public class Bitmap implements SkylineAlgorithm, Serializable {
 
-    private final int numberOfPartitions;
-
     private final BitmapStructure bitmapCalculator;
     private final RankingCalculator rankingCalculator;
     private final PointsWithBitmapMerger pointsWithBitmapMerger;
@@ -27,7 +25,6 @@ public class Bitmap implements SkylineAlgorithm, Serializable {
     public Bitmap(SparkContextWrapper sparkContextWrapper, final int numberOfPartitions) {
         checkArgument(numberOfPartitions > 0, "Partitions can't be less than 1.");
 
-        this.numberOfPartitions = numberOfPartitions;
         this.bitmapCalculator = Injector.getBitmapStructure(sparkContextWrapper, numberOfPartitions);
         this.rankingCalculator = new RankingCalculatorImpl(numberOfPartitions);
         this.pointsWithBitmapMerger = new PointsWithBitmapMergerImpl();
