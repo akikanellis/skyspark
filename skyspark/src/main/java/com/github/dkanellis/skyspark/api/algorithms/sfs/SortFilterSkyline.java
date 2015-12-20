@@ -9,9 +9,6 @@ import org.apache.spark.api.java.JavaPairRDD;
 import java.awt.geom.Point2D;
 import java.util.List;
 
-/**
- * @author Dimitris Kanellis
- */
 public class SortFilterSkyline extends BlockNestedLoopTemplate {
 
     @Override

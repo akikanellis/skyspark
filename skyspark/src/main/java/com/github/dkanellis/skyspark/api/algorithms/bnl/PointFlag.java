@@ -40,9 +40,7 @@ public class PointFlag implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder buffer = new StringBuilder();
-        buffer.append('[').append(xBit).append(yBit).append(']');
-        return buffer.toString();
+        return "[" + xBit + yBit + ']';
     }
 
 }

@@ -5,9 +5,6 @@ import org.apache.spark.api.java.JavaPairRDD;
 import java.awt.geom.Point2D;
 import java.util.List;
 
-/**
- * @author Dimitris Kanellis
- */
 public class BlockNestedLoop extends BlockNestedLoopTemplate {
 
     @Override
@@ -24,5 +21,4 @@ public class BlockNestedLoop extends BlockNestedLoopTemplate {
     public String toString() {
         return "BlockNestedLoop";
     }
-
 }
