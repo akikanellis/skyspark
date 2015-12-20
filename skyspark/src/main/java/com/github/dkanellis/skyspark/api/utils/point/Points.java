@@ -9,10 +9,10 @@ public final class Points {
     }
 
     public static boolean dominates(Point2D p, Point2D q) {
-        double x1 = p.getX();
-        double y1 = p.getY();
-        double x2 = q.getX();
-        double y2 = q.getY();
+        Double x1 = p.getX();
+        Double y1 = p.getY();
+        Double x2 = q.getX();
+        Double y2 = q.getY();
 
         return (x1 <= x2 && y1 < y2) || (y1 <= y2 && x1 < x2);
     }
