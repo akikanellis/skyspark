@@ -92,7 +92,7 @@ public class BlockNestedLoopPerformanceTest {
 //
 //    private List<Point2D> getPointsFromFile(File file) {
 //        TextFileToPointRDD txtToPoints = new TextFileToPointRDD(sparkContext);
-//        JavaRDD<Point2D> pointsRDD = txtToPoints.getPointRDDFromTextFile(file.getAbsolutePath(), " ");
+//        JavaRDD<Point2D> pointsRDD = txtToPoints.getPointRddFromTextFile(file.getAbsolutePath(), " ");
 //
 //        return pointsRDD.collect();
 //    }

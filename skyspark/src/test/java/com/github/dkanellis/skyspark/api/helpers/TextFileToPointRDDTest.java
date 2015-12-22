@@ -21,7 +21,7 @@ public class TextFileToPointRDDTest extends BaseSparkTest {
         TextFileToPointRDD instance = new TextFileToPointRDD(getSparkContextWrapper());
 
         JavaRDD<Point2D> expResult = getSparkContextWrapper().parallelize(PointsMock.getUniform210());
-        JavaRDD<Point2D> result = instance.getPointRDDFromTextFile(filePath, delimiter);
+        JavaRDD<Point2D> result = instance.getPointRddFromTextFile(filePath, delimiter);
 
         assertEquals(expResult.collect(), result.collect());
     }
