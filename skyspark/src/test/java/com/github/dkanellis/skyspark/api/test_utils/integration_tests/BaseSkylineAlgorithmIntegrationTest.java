@@ -20,7 +20,7 @@ abstract class BaseSkylineAlgorithmIntegrationTest extends BaseSparkTest {
     @Before
     public void setUp() {
         skylineAlgorithm = getSkylineAlgorithm();
-        textFileToPointRDD = new TextFileToPointRDD(getSparkContextWrapper());
+        textFileToPointRDD = new TextFileToPointRDD(getSparkContext());
     }
 
     protected abstract SkylineAlgorithm getSkylineAlgorithm();

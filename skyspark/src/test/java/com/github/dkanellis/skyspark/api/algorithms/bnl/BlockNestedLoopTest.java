@@ -26,7 +26,7 @@ public class BlockNestedLoopTest extends BaseSparkTest {
 
     @Test
     public void returnTheSameRddUnsorted() {
-        JavaPairRDD<PointFlag, Point2D> expectedRdd = getSparkContextWrapper().parallelizePairs(FlagPointPairsMock.getFlagPointPairsUnsorted());
+        JavaPairRDD<PointFlag, Point2D> expectedRdd = getSparkContext().parallelizePairs(FlagPointPairsMock.getFlagPointPairsUnsorted());
 
         JavaPairRDD<PointFlag, Point2D> actualRdd = blockNestedLoop.sortRdd(expectedRdd);
 

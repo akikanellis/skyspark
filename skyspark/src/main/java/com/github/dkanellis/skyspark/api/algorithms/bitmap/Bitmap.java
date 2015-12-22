@@ -12,24 +12,28 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 public class Bitmap implements SkylineAlgorithm {
 
-    private final BitmapStructure bitmapCalculator;
     private final RankingCalculator rankingCalculator;
     private final PointsWithBitmapMerger pointsWithBitmapMerger;
+    private BitmapStructure bitmapCalculator;
+    private int numberOfPartitions;
 
-    public Bitmap(JavaSparkContext sparkContext) {
-        this(sparkContext, 4);
+    public Bitmap() {
+        this(4);
     }
 
-    public Bitmap(JavaSparkContext sparkContext, final int numberOfPartitions) {
+    public Bitmap(final int numberOfPartitions) {
         checkArgument(numberOfPartitions > 0, "Partitions can't be less than 1.");
 
-        this.bitmapCalculator = Injector.getBitmapStructure(sparkContext, numberOfPartitions);
+        this.numberOfPartitions = numberOfPartitions;
         this.rankingCalculator = new RankingCalculatorImpl(numberOfPartitions);
         this.pointsWithBitmapMerger = new PointsWithBitmapMergerImpl();
     }
 
     @Override
     public JavaRDD<Point2D> computeSkylinePoints(JavaRDD<Point2D> points) {
+        bitmapCalculator
+                = new BitmapStructureImpl(numberOfPartitions, (JavaSparkContext.fromSparkContext(points.context())));
+
         JavaRDD<Double> firstDimensionValues = points.map(Point2D::getX);
         JavaRDD<Double> secondDimensionValues = points.map(Point2D::getX);
 
