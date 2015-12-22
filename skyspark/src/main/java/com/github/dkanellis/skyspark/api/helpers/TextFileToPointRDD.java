@@ -2,14 +2,15 @@ package com.github.dkanellis.skyspark.api.helpers;
 
 import com.github.dkanellis.skyspark.api.utils.point.Points;
 import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.api.java.JavaSparkContext;
 
 import java.awt.geom.Point2D;
 
 public class TextFileToPointRDD {
 
-    private final SparkContextWrapper sparkContext;
+    private final JavaSparkContext sparkContext;
 
-    public TextFileToPointRDD(SparkContextWrapper sparkContext) {
+    public TextFileToPointRDD(JavaSparkContext sparkContext) {
         this.sparkContext = sparkContext;
     }
 

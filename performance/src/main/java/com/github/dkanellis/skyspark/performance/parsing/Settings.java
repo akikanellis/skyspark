@@ -4,6 +4,7 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.github.dkanellis.skyspark.api.algorithms.SkylineAlgorithm;
 import com.github.dkanellis.skyspark.performance.result.PointDataFile;
+import org.apache.spark.api.java.JavaSparkContext;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,15 +15,23 @@ public class Settings {
     @Parameter(names = {"-a", "-algorithm"}, description = "The algorithm(s) to use", required = true,
             converter = SkylineAlgorithmConverter.class)
     private List<SkylineAlgorithm> algorithms;
+
     @Parameter(names = {"-f", "-file"}, description = "The filepath(s) of the points", required = true,
             validateWith = PointDataFileValidator.class, converter = PointDataFileConverter.class)
     private List<PointDataFile> filepaths;
+
     @Parameter(names = {"-t", "-times"}, description = "How many times to run per algorithm and file combination",
             validateWith = BiggerThanZeroIntegerValidator.class)
     private Integer times = 10;
+
     @Parameter(names = {"-o", "-output"}, description = "The output file with the results, can only be .txt or .xls",
             validateWith = OutputFileValidator.class)
     private String outputPath = "Results of " + String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("uuuu-mm-dd--HH-mm-ss"))) + ".xls";
+
+    @Parameter(names = {"-m", "-mode"}, description = "The mode running the performance test", required = true,
+            converter = ModeToSparkContextConverter.class)
+    private JavaSparkContext sparkContext;
+
     @Parameter(names = "--help", help = true)
     private boolean help;
 
@@ -44,6 +53,10 @@ public class Settings {
 
     public List<PointDataFile> getPointDataFiles() {
         return filepaths;
+    }
+
+    public JavaSparkContext getSparkContext() {
+        return sparkContext;
     }
 
     public Integer getTimes() {
