@@ -1,9 +1,9 @@
 package com.github.dkanellis.skyspark.api.algorithms.bitmap;
 
 import com.github.dkanellis.skyspark.api.algorithms.SkylineAlgorithm;
-import com.github.dkanellis.skyspark.api.helpers.SparkContextWrapper;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.api.java.JavaSparkContext;
 
 import java.awt.geom.Point2D;
 import java.util.BitSet;
@@ -16,14 +16,14 @@ public class Bitmap implements SkylineAlgorithm {
     private final RankingCalculator rankingCalculator;
     private final PointsWithBitmapMerger pointsWithBitmapMerger;
 
-    public Bitmap(SparkContextWrapper sparkContextWrapper) {
-        this(sparkContextWrapper, 4);
+    public Bitmap(JavaSparkContext sparkContext) {
+        this(sparkContext, 4);
     }
 
-    public Bitmap(SparkContextWrapper sparkContextWrapper, final int numberOfPartitions) {
+    public Bitmap(JavaSparkContext sparkContext, final int numberOfPartitions) {
         checkArgument(numberOfPartitions > 0, "Partitions can't be less than 1.");
 
-        this.bitmapCalculator = Injector.getBitmapStructure(sparkContextWrapper, numberOfPartitions);
+        this.bitmapCalculator = Injector.getBitmapStructure(sparkContext, numberOfPartitions);
         this.rankingCalculator = new RankingCalculatorImpl(numberOfPartitions);
         this.pointsWithBitmapMerger = new PointsWithBitmapMergerImpl();
     }

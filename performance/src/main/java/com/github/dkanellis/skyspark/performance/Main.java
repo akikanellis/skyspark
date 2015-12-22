@@ -1,7 +1,6 @@
 package com.github.dkanellis.skyspark.performance;
 
 import com.github.dkanellis.skyspark.api.algorithms.SkylineAlgorithm;
-import com.github.dkanellis.skyspark.api.helpers.SparkContextWrapper;
 import com.github.dkanellis.skyspark.api.helpers.TextFileToPointRDD;
 import com.github.dkanellis.skyspark.performance.parsing.Settings;
 import com.github.dkanellis.skyspark.performance.result.PointDataFile;
@@ -30,7 +29,7 @@ public class Main {
         }
 
         stopwatch = new Stopwatch();
-        textFileToPointRDD = new TextFileToPointRDD(new SparkContextWrapper("test", "local[8]"));
+        textFileToPointRDD = new TextFileToPointRDD(settings.getSparkContext());
         resultWriter = new XmlResultWriter(settings.getOutputPath());
 
         IntStream.rangeClosed(1, settings.getTimes())

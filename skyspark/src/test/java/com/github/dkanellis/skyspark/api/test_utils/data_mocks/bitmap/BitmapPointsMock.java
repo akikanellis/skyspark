@@ -1,7 +1,7 @@
 package com.github.dkanellis.skyspark.api.test_utils.data_mocks.bitmap;
 
-import com.github.dkanellis.skyspark.api.helpers.SparkContextWrapper;
 import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.api.java.JavaSparkContext;
 
 import java.awt.geom.Point2D;
 import java.util.Arrays;
@@ -13,8 +13,8 @@ public final class BitmapPointsMock {
         throw new AssertionError("No instances.");
     }
 
-    public static JavaRDD<Point2D> get10Points(SparkContextWrapper sparkContextWrapper) {
-        return sparkContextWrapper.parallelize(Arrays.asList(
+    public static JavaRDD<Point2D> get10Points(JavaSparkContext sparkContext) {
+        return sparkContext.parallelize(Arrays.asList(
                 new Point2D.Double(5.4, 4.4),
                 new Point2D.Double(5.0, 4.1),
                 new Point2D.Double(3.6, 9.0),
