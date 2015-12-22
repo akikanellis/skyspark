@@ -16,8 +16,8 @@ public abstract class BlockNestedLoopTemplate implements SkylineAlgorithm {
     private FlagPointPairProducer flagPointPairProducer;
 
     private static Point2D getMedianPointFromRDD(JavaRDD<Point2D> points) {
-        Point2D biggestPointByXDimension = points.reduce((a, b) -> Points.getBiggestPointByXDimension(a, b));
-        Point2D biggestPointByYDimension = points.reduce((a, b) -> Points.getBiggestPointByYDimension(a, b));
+        Point2D biggestPointByXDimension = points.reduce(Points::getBiggestPointByXDimension);
+        Point2D biggestPointByYDimension = points.reduce(Points::getBiggestPointByYDimension);
 
         double xDimensionMedian = biggestPointByXDimension.getX() / 2.0;
         double yDimensionMedian = biggestPointByYDimension.getY() / 2.0;
@@ -74,8 +74,7 @@ public abstract class BlockNestedLoopTemplate implements SkylineAlgorithm {
         JavaPairRDD<PointFlag, Point2D> sortedLocalSkylines = sortRdd(ungroupedLocalSkylines);
 
         JavaRDD<List<Tuple2<PointFlag, Point2D>>> groupedByTheSameId = groupByTheSameId(sortedLocalSkylines);
-        JavaRDD<Point2D> globalSkylinePoints
-                = groupedByTheSameId.flatMap(singleList -> getGlobalSkylineWithBNLAndPrecomparisson(singleList));
+        JavaRDD<Point2D> globalSkylinePoints = groupedByTheSameId.flatMap(this::getGlobalSkylineWithBNLAndPrecomparisson);
 
         return globalSkylinePoints;
     }
