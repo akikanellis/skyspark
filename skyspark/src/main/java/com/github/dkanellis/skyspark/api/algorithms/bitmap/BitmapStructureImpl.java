@@ -3,10 +3,12 @@ package com.github.dkanellis.skyspark.api.algorithms.bitmap;
 import com.github.dkanellis.skyspark.api.utils.BitSets;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.api.java.JavaSparkContext;
 import scala.Tuple2;
 
 import javax.validation.constraints.NotNull;
 import java.util.BitSet;
+import java.util.Collections;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -18,11 +20,18 @@ class BitmapStructureImpl implements BitmapStructure {
     private final BitSliceCreator bitSliceCreator;
     private final JavaPairRDD<Long, BitSet> defaultValueRdd;
 
-    BitmapStructureImpl(final int numberOfPartitions, @NotNull BitSliceCreator bitSliceCreator,
-                        JavaPairRDD<Long, BitSet> defaultValueRdd) {
+    public BitmapStructureImpl(final int numberOfPartitions, JavaSparkContext sparkContext) {
         this.numberOfPartitions = numberOfPartitions;
-        this.bitSliceCreator = checkNotNull(bitSliceCreator);
-        this.defaultValueRdd = defaultValueRdd;
+        this.defaultValueRdd = getDefaultValueRdd(sparkContext);
+        this.bitSliceCreator = new BitSliceCreatorImpl();
+    }
+
+    private JavaPairRDD<Long, BitSet> getDefaultValueRdd(JavaSparkContext sparkContextWrapper) {
+        Tuple2<Long, BitSet> defaultValue = BitSliceCreator.DEFAULT;
+        List<Tuple2<Long, BitSet>> edgeCaseList = Collections.singletonList(defaultValue);
+        JavaRDD<Tuple2<Long, BitSet>> rdd = sparkContextWrapper.parallelize(edgeCaseList);
+
+        return rdd.mapToPair(p -> new Tuple2<>(p._1(), p._2()));
     }
 
     @Override

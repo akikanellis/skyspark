@@ -15,7 +15,7 @@ public abstract class BaseSparkTest {
 
     @BeforeClass
     public static void setUpClass() {
-        sparkContext = new JavaSparkContext("Tests", "local[4]");
+        sparkContext = new JavaSparkContext("local[*]", "Tests");
     }
 
     @AfterClass
@@ -23,7 +23,7 @@ public abstract class BaseSparkTest {
         sparkContext.stop();
     }
 
-    protected static JavaSparkContext getSparkContextWrapper() {
+    protected static JavaSparkContext getSparkContext() {
         return sparkContext;
     }
 
