@@ -23,7 +23,7 @@ public abstract class BaseSparkTest {
         sparkContextWrapper.stop();
     }
 
-    public static SparkContextWrapper getSparkContextWrapper() {
+    protected static SparkContextWrapper getSparkContextWrapper() {
         return sparkContextWrapper;
     }
 
