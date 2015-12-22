@@ -7,8 +7,8 @@ import com.google.common.io.Files;
 @SuppressWarnings("FieldCanBeLocal")
 public class OutputFileValidator implements IParameterValidator {
 
-    private static String EXTENSION_TEXT_FILE = "txt";
-    private static String EXTENSION_EXCEL = "xls";
+    private static final String EXTENSION_TEXT_FILE = "txt";
+    private static final String EXTENSION_EXCEL = "xls";
 
     @Override
     public void validate(String name, String value) throws ParameterException {
