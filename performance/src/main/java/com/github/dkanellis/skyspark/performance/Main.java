@@ -43,7 +43,7 @@ public class Main {
 
     private static void executeWithFile(SkylineAlgorithm skylineAlgorithm, PointDataFile pointDataFile) {
         for (int timesToRun = 0; timesToRun < settings.getTimes(); ++timesToRun) {
-            JavaRDD<Point2D> points = textFileToPointRDD.getPointRDDFromTextFile(pointDataFile.getFilePath(), " ");
+            JavaRDD<Point2D> points = textFileToPointRDD.getPointRddFromTextFile(pointDataFile.getFilePath(), " ");
 
             stopwatch.start();
             JavaRDD<Point2D> skylines = skylineAlgorithm.computeSkylinePoints(points);

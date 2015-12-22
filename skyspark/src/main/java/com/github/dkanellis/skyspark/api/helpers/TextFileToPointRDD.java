@@ -13,10 +13,9 @@ public class TextFileToPointRDD {
         this.sparkContext = sparkContext;
     }
 
-    public JavaRDD<Point2D> getPointRDDFromTextFile(String filePath, String delimiter) {
+    public JavaRDD<Point2D> getPointRddFromTextFile(String filePath, String delimiter) {
         JavaRDD<String> lines = sparkContext.textFile(filePath);
-        JavaRDD<Point2D> points = convertToPoints(lines, delimiter);
-        return points;
+        return convertToPoints(lines, delimiter);
     }
 
     private JavaRDD<Point2D> convertToPoints(JavaRDD<String> lines, String delimiter) {

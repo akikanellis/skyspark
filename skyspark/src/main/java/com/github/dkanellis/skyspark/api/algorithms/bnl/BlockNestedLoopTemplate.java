@@ -44,7 +44,7 @@ public abstract class BlockNestedLoopTemplate implements SkylineAlgorithm {
         JavaPairRDD<PointFlag, Point2D> flagPointPairs = points.mapToPair(p -> flagPointPairProducer.getFlagPointPair(p));
         JavaPairRDD<PointFlag, Iterable<Point2D>> pointsGroupedByFlag = flagPointPairs.groupByKey();
         JavaPairRDD<PointFlag, Iterable<Point2D>> flagsWithLocalSkylines
-                = pointsGroupedByFlag.mapToPair(fp -> new Tuple2(fp._1(), getLocalSkylinesWithBnl(fp._2())));
+                = pointsGroupedByFlag.mapToPair(fp -> new Tuple2<>(fp._1(), getLocalSkylinesWithBnl(fp._2())));
 
         return flagsWithLocalSkylines;
     }
