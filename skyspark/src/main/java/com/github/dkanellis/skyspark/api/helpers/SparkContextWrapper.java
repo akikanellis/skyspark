@@ -13,6 +13,10 @@ public class SparkContextWrapper implements Serializable {
 
     private final JavaSparkContext sparkContext;
 
+    public SparkContextWrapper() {
+        sparkContext = new JavaSparkContext();
+    }
+
     public SparkContextWrapper(String appName, String master) {
         SparkConf sparkConf = new SparkConf()
                 .setMaster(master)
