@@ -29,7 +29,7 @@ public class Main {
         }
 
         stopwatch = new Stopwatch();
-        textFileToPointRDD = new TextFileToPointRDD(new SparkContextWrapper("perf test", "local[4]"));
+        textFileToPointRDD = new TextFileToPointRDD(new SparkContextWrapper());
         resultWriter = new XmlResultWriter(settings.getOutputPath());
 
         settings.getAlgorithms().forEach(Main::executeAlgorithm);
