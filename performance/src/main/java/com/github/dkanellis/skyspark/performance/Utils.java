@@ -1,6 +1,6 @@
 package com.github.dkanellis.skyspark.performance;
 
-public class PerformanceResultTest {
+public final class Utils {
 
 
 }

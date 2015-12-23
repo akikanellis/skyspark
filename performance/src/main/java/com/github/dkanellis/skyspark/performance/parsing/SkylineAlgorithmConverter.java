@@ -3,6 +3,7 @@ package com.github.dkanellis.skyspark.performance.parsing;
 import com.beust.jcommander.IStringConverter;
 import com.beust.jcommander.ParameterException;
 import com.github.dkanellis.skyspark.api.algorithms.SkylineAlgorithm;
+import com.github.dkanellis.skyspark.api.algorithms.bitmap.Bitmap;
 import com.github.dkanellis.skyspark.api.algorithms.bnl.BlockNestedLoop;
 import com.github.dkanellis.skyspark.api.algorithms.sfs.SortFilterSkyline;
 import com.github.dkanellis.skyspark.api.utils.Preconditions;
@@ -24,7 +25,7 @@ public class SkylineAlgorithmConverter implements IStringConverter<SkylineAlgori
             case ALIAS_SORT_FILTER_SKYLINE:
                 return new SortFilterSkyline();
             case ALIAS_BITMAP:
-                return null; // TODO new Bitmap();
+                return new Bitmap();
             default:
                 throw new ParameterException("Wrong algorithm value: " + value);
         }

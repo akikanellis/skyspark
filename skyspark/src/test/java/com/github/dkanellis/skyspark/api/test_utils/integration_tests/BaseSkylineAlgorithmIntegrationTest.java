@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public abstract class BaseSkylineAlgorithmIntegrationTest extends BaseSparkTest {
+abstract class BaseSkylineAlgorithmIntegrationTest extends BaseSparkTest {
 
     private SkylineAlgorithm skylineAlgorithm;
     private TextFileToPointRDD textFileToPointRDD;
@@ -20,44 +20,44 @@ public abstract class BaseSkylineAlgorithmIntegrationTest extends BaseSparkTest 
     @Before
     public void setUp() {
         skylineAlgorithm = getSkylineAlgorithm();
-        textFileToPointRDD = new TextFileToPointRDD(getSparkContextWrapper());
+        textFileToPointRDD = new TextFileToPointRDD(getSparkContext());
     }
 
     protected abstract SkylineAlgorithm getSkylineAlgorithm();
 
-    public void smallAnticorrelated() {
+    protected void smallAnticorrelated() {
         findCorrectSkylines("/ANTICOR_2_10000.txt", "/ANTICOR_2_10000_SKYLINES.txt");
     }
 
-    public void mediumAnticorrelated() {
+    protected void mediumAnticorrelated() {
         findCorrectSkylines("/ANTICOR_2_100000.txt", "/ANTICOR_2_100000_SKYLINES.txt");
     }
 
-    public void bigAnticorrelated() {
+    protected void bigAnticorrelated() {
         findCorrectSkylines("/ANTICOR_2_1000000.txt", "/ANTICOR_2_1000000_SKYLINES.txt");
     }
 
-    public void smallCorrelated() {
+    protected void smallCorrelated() {
         findCorrectSkylines("/CORREL_2_10000.txt", "/CORREL_2_10000_SKYLINES.txt");
     }
 
-    public void mediumCorrelated() {
+    protected void mediumCorrelated() {
         findCorrectSkylines("/CORREL_2_100000.txt", "/CORREL_2_100000_SKYLINES.txt");
     }
 
-    public void bigCorrelated() {
+    protected void bigCorrelated() {
         findCorrectSkylines("/CORREL_2_1000000.txt", "/CORREL_2_1000000_SKYLINES.txt");
     }
 
-    public void smallUniform() {
+    protected void smallUniform() {
         findCorrectSkylines("/UNIFORM_2_10000.txt", "/UNIFORM_2_10000_SKYLINES.txt");
     }
 
-    public void mediumUniform() {
+    protected void mediumUniform() {
         findCorrectSkylines("/UNIFORM_2_100000.txt", "/UNIFORM_2_100000_SKYLINES.txt");
     }
 
-    public void bigUniform() {
+    protected void bigUniform() {
         findCorrectSkylines("/UNIFORM_2_1000000.txt", "/UNIFORM_2_1000000_SKYLINES.txt");
     }
 

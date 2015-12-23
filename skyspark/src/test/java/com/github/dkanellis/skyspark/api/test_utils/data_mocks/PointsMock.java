@@ -6,7 +6,7 @@ import java.util.List;
 
 public class PointsMock {
 
-    private static List<Point2D> UNIFORM_2_10 = new ArrayList<Point2D>() {{
+    private static final List<Point2D> UNIFORM_2_10 = new ArrayList<Point2D>() {{
         add(new Point2D.Double(7384.475430902016, 6753.440980966086));
         add(new Point2D.Double(5132.274536706283, 176.07686372999513));
         add(new Point2D.Double(4691.353681108572, 8232.92056883113));
