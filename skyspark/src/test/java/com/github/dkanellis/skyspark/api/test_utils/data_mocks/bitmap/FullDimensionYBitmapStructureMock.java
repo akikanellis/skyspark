@@ -1,8 +1,8 @@
 package com.github.dkanellis.skyspark.api.test_utils.data_mocks.bitmap;
 
-import com.github.dkanellis.skyspark.api.helpers.SparkContextWrapper;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.api.java.JavaSparkContext;
 
 import java.awt.geom.Point2D;
 import java.util.Arrays;
@@ -12,10 +12,10 @@ import static com.github.dkanellis.skyspark.api.utils.BitSets.bitSetFromString;
 
 public class FullDimensionYBitmapStructureMock implements FullBitmapStructureMock {
 
-    private final SparkContextWrapper sparkContextWrapper;
+    private final JavaSparkContext sparkContext;
 
-    public FullDimensionYBitmapStructureMock(SparkContextWrapper sparkContextWrapper) {
-        this.sparkContextWrapper = sparkContextWrapper;
+    public FullDimensionYBitmapStructureMock(JavaSparkContext sparkContext) {
+        this.sparkContext = sparkContext;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class FullDimensionYBitmapStructureMock implements FullBitmapStructureMoc
 
     @Override
     public JavaRDD<Double> getDimensionValues() {
-        return BitmapPointsMock.get10Points(sparkContextWrapper).map(Point2D::getY);
+        return BitmapPointsMock.get10Points(sparkContext).map(Point2D::getY);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class FullDimensionYBitmapStructureMock implements FullBitmapStructureMoc
 
     @Override
     public JavaRDD<BitSet> getValuesBitSets() {
-        return sparkContextWrapper.parallelize(Arrays.asList(
+        return sparkContext.parallelize(Arrays.asList(
                 bitSetFromString("000001111"), // 4.4
                 bitSetFromString("000011111"), // 4.1
                 bitSetFromString("000000001"), // 9.0

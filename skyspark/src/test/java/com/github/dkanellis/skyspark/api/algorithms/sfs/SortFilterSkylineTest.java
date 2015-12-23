@@ -28,10 +28,10 @@ public class SortFilterSkylineTest extends BaseSparkTest {
     @Test
     public void returnTheRddSorted() {
         JavaPairRDD<PointFlag, Point2D> expectedRdd
-                = getSparkContextWrapper().parallelizePairs(getSortedFlagPointPairsByTotals());
+                = getSparkContext().parallelizePairs(getSortedFlagPointPairsByTotals());
 
         JavaPairRDD<PointFlag, Point2D> unsortedFlagPointRdd
-                = getSparkContextWrapper().parallelizePairs(getUnsortedFlagPointPairs());
+                = getSparkContext().parallelizePairs(getUnsortedFlagPointPairs());
         JavaPairRDD<PointFlag, Point2D> actualRdd = sortFilterSkyline.sortRdd(unsortedFlagPointRdd);
 
         assertEquals(expectedRdd.collect(), actualRdd.collect());

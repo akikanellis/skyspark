@@ -1,8 +1,8 @@
 package com.github.dkanellis.skyspark.api.test_utils.data_mocks.bitmap;
 
-import com.github.dkanellis.skyspark.api.helpers.SparkContextWrapper;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.api.java.JavaSparkContext;
 import scala.Tuple2;
 
 import java.awt.geom.Point2D;
@@ -13,10 +13,10 @@ import static com.github.dkanellis.skyspark.api.utils.BitSets.bitSetFromString;
 
 public class FullDimensionXBitmapStructureMock implements FullBitmapStructureMock {
 
-    private final SparkContextWrapper sparkContextWrapper;
+    private final JavaSparkContext sparkContext;
 
-    public FullDimensionXBitmapStructureMock(SparkContextWrapper sparkContextWrapper) {
-        this.sparkContextWrapper = sparkContextWrapper;
+    public FullDimensionXBitmapStructureMock(JavaSparkContext sparkContext) {
+        this.sparkContext = sparkContext;
     }
 
     @Override
@@ -26,12 +26,12 @@ public class FullDimensionXBitmapStructureMock implements FullBitmapStructureMoc
 
     @Override
     public JavaRDD<Double> getDimensionValues() {
-        return BitmapPointsMock.get10Points(sparkContextWrapper).map(Point2D::getX);
+        return BitmapPointsMock.get10Points(sparkContext).map(Point2D::getX);
     }
 
     @Override
     public JavaPairRDD<Double, Long> getValuesIndexed() {
-        return sparkContextWrapper.parallelizePairs(Arrays.asList(
+        return sparkContext.parallelizePairs(Arrays.asList(
                 new Tuple2<>(2.5, 0L),
                 new Tuple2<>(3.6, 1L),
                 new Tuple2<>(5.0, 2L),
@@ -46,7 +46,7 @@ public class FullDimensionXBitmapStructureMock implements FullBitmapStructureMoc
 
     @Override
     public JavaRDD<BitSet> getValuesBitSets() {
-        return sparkContextWrapper.parallelize(Arrays.asList(
+        return sparkContext.parallelize(Arrays.asList(
                 bitSetFromString("000111111"), // 5.4
                 bitSetFromString("001111111"), // 5.0
                 bitSetFromString("011111111"), // 3.6
@@ -62,7 +62,7 @@ public class FullDimensionXBitmapStructureMock implements FullBitmapStructureMoc
 
     @Override
     public JavaPairRDD<Long, BitSet> getValuesBitSlices() {
-        return sparkContextWrapper.parallelizePairs(Arrays.asList(
+        return sparkContext.parallelizePairs(Arrays.asList(
                 new Tuple2<>(0L, bitSetFromString("0000010000")),
                 new Tuple2<>(1L, bitSetFromString("0010010000")),
                 new Tuple2<>(2L, bitSetFromString("0110010000")),

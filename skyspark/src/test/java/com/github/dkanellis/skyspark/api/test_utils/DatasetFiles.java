@@ -7,10 +7,9 @@ import java.awt.geom.Point2D;
 
 public class DatasetFiles {
 
-    private static String DELIMITER = " ";
-
     public static JavaRDD<Point2D> getRddFromFile(TextFileToPointRDD textFileToPointRDD, String filePath) {
         String fullFilePath = DatasetFiles.class.getResource(filePath).getPath();
-        return textFileToPointRDD.getPointRDDFromTextFile(fullFilePath, DELIMITER);
+        String DELIMITER = " ";
+        return textFileToPointRDD.getPointRddFromTextFile(fullFilePath, DELIMITER);
     }
 }

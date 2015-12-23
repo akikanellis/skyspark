@@ -6,9 +6,6 @@ import static com.github.dkanellis.skyspark.api.utils.Preconditions.checkNotEmpt
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * @author Dimitris Kanellis
- */
 public class Result {
 
     private final String algorithmName;
@@ -18,7 +15,6 @@ public class Result {
 
     public Result(@NotNull String algorithmName, @NotNull PointDataFile pointDataFile,
                   final long elapsedTime, final int numberOfSkylines) {
-        checkArgument(numberOfSkylines > 0);
         checkArgument(elapsedTime > 0);
         this.algorithmName = checkNotEmpty(algorithmName);
         this.pointDataFile = checkNotNull(pointDataFile);

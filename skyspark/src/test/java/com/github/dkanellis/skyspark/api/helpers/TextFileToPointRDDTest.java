@@ -18,10 +18,10 @@ public class TextFileToPointRDDTest extends BaseSparkTest {
     public void getPointRDDFromTextFile() {
         String filePath = getClass().getResource("/UNIFORM_2_10.txt").getFile();
         String delimiter = " ";
-        TextFileToPointRDD instance = new TextFileToPointRDD(getSparkContextWrapper());
+        TextFileToPointRDD instance = new TextFileToPointRDD(getSparkContext());
 
-        JavaRDD<Point2D> expResult = getSparkContextWrapper().parallelize(PointsMock.getUniform210());
-        JavaRDD<Point2D> result = instance.getPointRDDFromTextFile(filePath, delimiter);
+        JavaRDD<Point2D> expResult = getSparkContext().parallelize(PointsMock.getUniform210());
+        JavaRDD<Point2D> result = instance.getPointRddFromTextFile(filePath, delimiter);
 
         assertEquals(expResult.collect(), result.collect());
     }

@@ -1,7 +1,6 @@
 package com.github.dkanellis.skyspark.performance;
 
 import com.github.dkanellis.skyspark.api.algorithms.SkylineAlgorithm;
-import com.github.dkanellis.skyspark.api.helpers.SparkContextWrapper;
 import com.github.dkanellis.skyspark.api.helpers.TextFileToPointRDD;
 import com.github.dkanellis.skyspark.performance.parsing.Settings;
 import com.github.dkanellis.skyspark.performance.result.PointDataFile;
@@ -14,6 +13,7 @@ import org.apache.spark.api.java.JavaRDD;
 import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 public class Main {
 
@@ -29,32 +29,27 @@ public class Main {
         }
 
         stopwatch = new Stopwatch();
-        textFileToPointRDD = new TextFileToPointRDD(new SparkContextWrapper("perf test", "local[4]"));
+        textFileToPointRDD = new TextFileToPointRDD(settings.getSparkContext());
         resultWriter = new XmlResultWriter(settings.getOutputPath());
 
-        settings.getAlgorithms().forEach(Main::executeAlgorithm);
-    }
-
-    private static void executeAlgorithm(SkylineAlgorithm skylineAlgorithm) {
-        for (PointDataFile pointDataFile : settings.getPointDataFiles()) {
-            executeWithFile(skylineAlgorithm, pointDataFile);
-        }
+        IntStream.rangeClosed(1, settings.getTimes())
+                .forEach(t -> settings.getAlgorithms()
+                        .forEach(algo -> settings.getPointDataFiles()
+                                .forEach(file -> executeWithFile(algo, file))));
     }
 
     private static void executeWithFile(SkylineAlgorithm skylineAlgorithm, PointDataFile pointDataFile) {
-        for (int timesToRun = 0; timesToRun < settings.getTimes(); ++timesToRun) {
-            JavaRDD<Point2D> points = textFileToPointRDD.getPointRDDFromTextFile(pointDataFile.getFilePath(), " ");
+        JavaRDD<Point2D> points = textFileToPointRDD.getPointRddFromTextFile(pointDataFile.getFilePath(), " ");
 
-            stopwatch.start();
-            JavaRDD<Point2D> skylines = skylineAlgorithm.computeSkylinePoints(points);
-            List<Point2D> skylineList = skylines.collect();
-            stopwatch.stop();
+        stopwatch.start();
+        JavaRDD<Point2D> skylines = skylineAlgorithm.computeSkylinePoints(points);
+        List<Point2D> skylineList = skylines.collect();
+        stopwatch.stop();
 
-            Result result = new Result(skylineAlgorithm.toString(), pointDataFile,
-                    stopwatch.elapsed(TimeUnit.NANOSECONDS), skylineList.size());
-            resultWriter.writeResult(result);
+        Result result = new Result(skylineAlgorithm.toString(), pointDataFile,
+                stopwatch.elapsed(TimeUnit.MILLISECONDS), skylineList.size());
+        resultWriter.writeResult(result);
 
-            stopwatch.reset();
-        }
+        stopwatch.reset();
     }
 }

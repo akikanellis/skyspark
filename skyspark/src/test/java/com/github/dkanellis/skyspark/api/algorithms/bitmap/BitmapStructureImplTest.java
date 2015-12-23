@@ -20,9 +20,8 @@ public class BitmapStructureImplTest extends BaseSparkTest {
 
     @Before
     public void setUp() {
-        this.fullBitmapStructureMock = new FullDimensionXBitmapStructureMock(getSparkContextWrapper());
-        BitSliceCreator bitSliceCreator = new BitSliceCreatorImpl();
-        this.bitmapStructure = (BitmapStructureImpl) Injector.getBitmapStructure(getSparkContextWrapper(), 4);
+        this.fullBitmapStructureMock = new FullDimensionXBitmapStructureMock(getSparkContext());
+        this.bitmapStructure = new BitmapStructureImpl(4, getSparkContext());
     }
 
 
