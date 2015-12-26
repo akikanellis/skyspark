@@ -9,19 +9,42 @@ import org.apache.spark.api.java.JavaRDD;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.geom.Point2D;
+import java.util.Arrays;
 import java.util.BitSet;
+import java.util.List;
 
 import static junit.framework.Assert.assertTrue;
 
 public class BitmapStructureImplTest extends BaseSparkTest {
 
-    private BitmapStructureImpl bitmapStructure;
+    private BitmapCalculator bitmapStructure;
     private FullBitmapStructureMock fullBitmapStructureMock;
 
     @Before
     public void setUp() {
         this.fullBitmapStructureMock = new FullDimensionXBitmapStructureMock(getSparkContext());
-        this.bitmapStructure = new BitmapStructureImpl(4, getSparkContext());
+        this.bitmapStructure = new BitmapCalculator(4, getSparkContext());
+    }
+
+    @Test
+    public void fullRun() {
+        List<Point2D> pointsList = Arrays.asList(
+                new Point2D.Double(5.4, 4.4),
+                new Point2D.Double(5.0, 4.1),
+                new Point2D.Double(3.6, 9.0),
+                new Point2D.Double(5.9, 4.0),
+                new Point2D.Double(5.9, 4.6),
+                new Point2D.Double(2.5, 7.3),
+                new Point2D.Double(6.3, 3.5),
+                new Point2D.Double(9.9, 4.1),
+                new Point2D.Double(6.7, 3.3),
+                new Point2D.Double(6.1, 3.4)
+        );
+
+        JavaRDD<Point2D> points = getSparkContext().parallelize(pointsList);
+
+        bitmapStructure.computeBitSlices(points).collect();
     }
 
 
