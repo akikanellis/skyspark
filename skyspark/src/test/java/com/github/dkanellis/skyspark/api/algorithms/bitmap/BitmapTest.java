@@ -13,7 +13,7 @@ public class BitmapTest extends BaseSparkTest {
 
     @Before
     public void setUp() {
-        bitmap = new Bitmap(1);
+        bitmap = new Bitmap();
     }
 
 
