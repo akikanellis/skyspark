@@ -21,12 +21,11 @@ public class BitmapIntegrationTest extends BaseSkylineAlgorithmIntegrationTest {
 
     @Override
     protected SkylineAlgorithm getSkylineAlgorithm() {
-        return new Bitmap(4);
+        return new Bitmap();
     }
 
     @Test
     public void smallFromCollection() {
-
         List<Point2D> pointsList = Arrays.asList(
                 new Point2D.Double(5.4, 4.4),
                 new Point2D.Double(5.0, 4.1),
@@ -42,7 +41,7 @@ public class BitmapIntegrationTest extends BaseSkylineAlgorithmIntegrationTest {
 
         JavaRDD<Point2D> points = getSparkContext().parallelize(pointsList);
 
-        getSkylineAlgorithm().computeSkylinePoints(points);
+        getSkylineAlgorithm().computeSkylinePoints(points).collect().forEach(System.out::println);
     }
 
     @Test

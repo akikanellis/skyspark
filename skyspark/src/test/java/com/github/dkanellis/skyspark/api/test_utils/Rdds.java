@@ -12,7 +12,7 @@ public final class Rdds {
         throw new AssertionError("No instances.");
     }
 
-    public static <T> boolean areEqual(JavaRDD<T> expected, JavaRDD<T> actual) {
+    public static <T> boolean areEqualNoOrder(JavaRDD<T> expected, JavaRDD<T> actual) {
         List<T> expList = expected.collect();
         List<T> actualList = actual.collect();
         List<T> difference = expected.subtract(actual).collect();

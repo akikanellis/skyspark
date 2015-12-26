@@ -65,9 +65,11 @@ abstract class BaseSkylineAlgorithmIntegrationTest extends BaseSparkTest {
         JavaRDD<Point2D> expectedSkylinesRdd = DatasetFiles.getRddFromFile(textFileToPointRDD, datasetSkylineFilePath);
 
         JavaRDD<Point2D> points = DatasetFiles.getRddFromFile(textFileToPointRDD, datasetFilePath);
-        List<Point2D> actualSkylines = skylineAlgorithm.computeSkylinePoints(points).collect();
-        actualSkylines.removeAll(expectedSkylinesRdd.collect());
+        JavaRDD<Point2D> actualSkylinesRdd = skylineAlgorithm.computeSkylinePoints(points);
 
-        assertTrue(actualSkylines.isEmpty());
+        List<Point2D> expectedSkylinesList = expectedSkylinesRdd.collect();
+        List<Point2D> actualSkylinesList = actualSkylinesRdd.collect();
+
+        assertTrue(expectedSkylinesList.containsAll(actualSkylinesList) && actualSkylinesList.containsAll(expectedSkylinesList));
     }
 }
