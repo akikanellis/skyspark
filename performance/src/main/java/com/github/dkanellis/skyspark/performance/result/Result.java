@@ -1,5 +1,6 @@
 package com.github.dkanellis.skyspark.performance.result;
 
+import com.github.dkanellis.skyspark.performance.SparkConfs;
 import org.apache.spark.SparkConf;
 
 import javax.validation.constraints.NotNull;
@@ -28,8 +29,8 @@ public class Result {
                   final long elapsedTime, final long numberOfSkylines, final int numberOfSlaves, @NotNull SparkConf sparkConf) {
         this(algorithmName, pointDataFile, elapsedTime, numberOfSkylines, numberOfSlaves,
                 sparkConf.getInt("spark.executor.cores", 0),
-                sparkConf.getInt("spark.driver.memory", 0),
-                sparkConf.getInt("spark.executor.memory", 0));
+                SparkConfs.getMasterMemory(sparkConf),
+                SparkConfs.getSlaveMemory(sparkConf));
     }
 
     public Result(@NotNull String algorithmName, @NotNull PointDataFile pointDataFile, final long elapsedTime,
