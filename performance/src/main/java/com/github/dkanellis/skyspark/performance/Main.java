@@ -11,7 +11,6 @@ import com.google.common.base.Stopwatch;
 import org.apache.spark.api.java.JavaRDD;
 
 import java.awt.geom.Point2D;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
@@ -43,12 +42,11 @@ public class Main {
 
         stopwatch.start();
         JavaRDD<Point2D> skylines = skylineAlgorithm.computeSkylinePoints(points);
-        List<Point2D> skylineList = skylines.collect();
+        final long numberOfSkylines = skylines.count();
         stopwatch.stop();
 
-        Result result = new Result(skylineAlgorithm.toString(), pointDataFile,
-                stopwatch.elapsed(TimeUnit.MILLISECONDS), skylineList.size(), settings.getNumberOfSlaves(),
-                settings.getSparkContext().getConf());
+        Result result = new Result(skylineAlgorithm.toString(), pointDataFile, stopwatch.elapsed(TimeUnit.MILLISECONDS),
+                numberOfSkylines, settings.getNumberOfSlaves(), settings.getSparkContext().getConf());
         resultWriter.writeResult(result);
 
         stopwatch.reset();
