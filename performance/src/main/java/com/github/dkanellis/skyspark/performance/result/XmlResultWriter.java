@@ -20,8 +20,8 @@ public class XmlResultWriter implements ResultWriter {
 
     public XmlResultWriter(String outputFilePath) {
         this.outputFilePath = checkNotEmpty(outputFilePath);
-        workbook = new HSSFWorkbook();
-        resultSheet = workbook.createSheet("Results");
+        this.workbook = new HSSFWorkbook();
+        this.resultSheet = workbook.createSheet("Results");
         Row row = resultSheet.createRow(resultSheet.getLastRowNum());
         row.createCell(0).setCellValue("Algorithm");
         row.createCell(1).setCellValue("Data Type");

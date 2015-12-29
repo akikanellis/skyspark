@@ -13,7 +13,7 @@ public class Result {
     private final String algorithmName;
     private final PointDataFile pointDataFile;
     private final long elapsedTime;
-    private final int numberOfSkylines;
+    private final long numberOfSkylines;
     private final int numberOfSlaves;
     private final int numberOfCoresPerSlave;
     private final double masterMemory;
@@ -25,7 +25,7 @@ public class Result {
     }
 
     public Result(@NotNull String algorithmName, @NotNull PointDataFile pointDataFile,
-                  final long elapsedTime, final int numberOfSkylines, final int numberOfSlaves, @NotNull SparkConf sparkConf) {
+                  final long elapsedTime, final long numberOfSkylines, final int numberOfSlaves, @NotNull SparkConf sparkConf) {
         this(algorithmName, pointDataFile, elapsedTime, numberOfSkylines, numberOfSlaves,
                 sparkConf.getInt("spark.executor.cores", 0),
                 sparkConf.getInt("spark.driver.memory", 0),
@@ -33,7 +33,7 @@ public class Result {
     }
 
     public Result(@NotNull String algorithmName, @NotNull PointDataFile pointDataFile, final long elapsedTime,
-                  final int numberOfSkylines, final int numberOfSlaves, final int numberOfCoresPerSlave,
+                  final long numberOfSkylines, final int numberOfSlaves, final int numberOfCoresPerSlave,
                   final double masterMemory, final double slaveMemory) {
         checkArgument(elapsedTime > 0);
         this.algorithmName = checkNotEmpty(algorithmName);
@@ -59,7 +59,7 @@ public class Result {
         return pointDataFile.getDataSize();
     }
 
-    public int getNumberOfSkylines() {
+    public long getNumberOfSkylines() {
         return numberOfSkylines;
     }
 
