@@ -47,7 +47,8 @@ public class Main {
         stopwatch.stop();
 
         Result result = new Result(skylineAlgorithm.toString(), pointDataFile,
-                stopwatch.elapsed(TimeUnit.MILLISECONDS), skylineList.size());
+                stopwatch.elapsed(TimeUnit.MILLISECONDS), skylineList.size(), settings.getNumberOfSlaves(),
+                settings.getSparkContext().getConf());
         resultWriter.writeResult(result);
 
         stopwatch.reset();

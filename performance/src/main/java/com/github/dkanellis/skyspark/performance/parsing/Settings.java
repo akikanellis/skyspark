@@ -22,7 +22,7 @@ public class Settings {
 
     @Parameter(names = {"-t", "-times"}, description = "How many times to run per algorithm and file combination",
             validateWith = BiggerThanZeroIntegerValidator.class)
-    private Integer times = 10;
+    private Integer times = 1;
 
     @Parameter(names = {"-o", "-output"}, description = "The output file with the results, can only be .txt or .xls",
             validateWith = OutputFileValidator.class)
@@ -31,6 +31,9 @@ public class Settings {
     @Parameter(names = {"-m", "-mode"}, description = "The mode running the performance test", required = true,
             converter = ModeToSparkContextConverter.class)
     private JavaSparkContext sparkContext;
+
+    @Parameter(names = {"-s", "-slaves"}, description = "The number of slaves used")
+    private int numberOfSlaves = 0;
 
     @Parameter(names = "--help", help = true)
     private boolean help;
@@ -65,6 +68,10 @@ public class Settings {
 
     public String getOutputPath() {
         return outputPath;
+    }
+
+    public int getNumberOfSlaves() {
+        return numberOfSlaves;
     }
 
     public boolean isHelp() {

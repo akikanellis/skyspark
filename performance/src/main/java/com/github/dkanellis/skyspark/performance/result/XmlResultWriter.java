@@ -27,7 +27,11 @@ public class XmlResultWriter implements ResultWriter {
         row.createCell(1).setCellValue("Data Type");
         row.createCell(2).setCellValue("Data Size");
         row.createCell(3).setCellValue("Number of Skylines");
-        row.createCell(4).setCellValue("Elapsed Time (ns)");
+        row.createCell(4).setCellValue("Master memory (g)");
+        row.createCell(5).setCellValue("Number of Slaves");
+        row.createCell(6).setCellValue("Cores/Slave");
+        row.createCell(7).setCellValue("Memory/slave (g)");
+        row.createCell(8).setCellValue("Elapsed Time (ms)");
     }
 
     @Override
@@ -37,7 +41,11 @@ public class XmlResultWriter implements ResultWriter {
         row.createCell(1).setCellValue(result.getDataType());
         row.createCell(2).setCellValue(result.getDataSize());
         row.createCell(3).setCellValue(result.getNumberOfSkylines());
-        row.createCell(4).setCellValue(result.getElapsedTime());
+        row.createCell(4).setCellValue(result.getMasterMemory());
+        row.createCell(5).setCellValue(result.getNumberOfSlaves());
+        row.createCell(6).setCellValue(result.getNumberOfCoresPerSlave());
+        row.createCell(7).setCellValue(result.getSlaveMemory());
+        row.createCell(8).setCellValue(result.getElapsedTime());
 
         writeToFile();
     }
