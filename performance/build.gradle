@@ -1,5 +1,5 @@
 group 'com.github.dkanellis.skyspark.performance'
-version '0.1'
+version '1.0'
 
 apply plugin: 'java'
 apply plugin: 'com.github.johnrengelman.shadow'
