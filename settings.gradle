@@ -1,1 +1,1 @@
-include ':skyspark', ':performance'
+include ':skyspark', ':performance', ':examples'
