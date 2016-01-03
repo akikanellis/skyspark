@@ -8,6 +8,10 @@ import java.io.Serializable;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+/**
+ * This class holds the median point of a dataset and for every point given it outputs where that point should be in
+ * the dataset, meaning a pair of <PointFlag, Point>.
+ */
 public class FlagPointPairProducer implements Serializable {
 
     private final Point2D medianPoint;
