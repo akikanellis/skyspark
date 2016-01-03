@@ -41,9 +41,7 @@ Usage: SkySpark performance testing [options]
        Default: 1
 ```
 ####Study
-The *performance* module serves as a cluster-ready jar in case you want to test out the algorithms and their performance in a cluster environment. There have already been done ~2500 experiments in different cluster sizes, memory sizes, data types and data sizes for the algorithms. The summary of the performance study is like so: 
-
-[[images/performance_results.png]]
+The *performance* module serves as a cluster-ready jar in case you want to test out the algorithms and their performance in a cluster environment. There have already been done ~2500 experiments in different cluster sizes, memory sizes, data types and data sizes for the algorithms which proved the algorithms to be very fast in the Apache Spark framework.
 
 ###Examples module
 In the [examples module](examples) you can find an example dataset as well as the usage of the library
