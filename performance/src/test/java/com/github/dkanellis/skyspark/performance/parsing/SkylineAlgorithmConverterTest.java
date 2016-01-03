@@ -5,12 +5,15 @@ import com.github.dkanellis.skyspark.api.algorithms.SkylineAlgorithm;
 import com.github.dkanellis.skyspark.api.algorithms.bitmap.Bitmap;
 import com.github.dkanellis.skyspark.api.algorithms.bnl.BlockNestedLoop;
 import com.github.dkanellis.skyspark.api.algorithms.sfs.SortFilterSkyline;
+import com.github.dkanellis.skyspark.api.test_utils.categories.types.UnitTests;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.assertThat;
 
+@Category(UnitTests.class)
 public class SkylineAlgorithmConverterTest {
 
     SkylineAlgorithmConverter skylineAlgorithmConverter;
