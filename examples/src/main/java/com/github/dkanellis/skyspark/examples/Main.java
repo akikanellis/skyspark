@@ -37,8 +37,12 @@ public class Main {
         //skylineAlgorithm = new Bitmap();
 
         JavaRDD<Point2D> skylines = skylineAlgorithm.computeSkylinePoints(pointRdd);
-
         List<Point2D> skylineList = skylines.collect();
+
+        System.out.println("Input set is:");
+        pointsList.forEach(System.out::println);
+
+        System.out.println("Skyline set is:");
         skylineList.forEach(System.out::println);
     }
 }
