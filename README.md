@@ -1,6 +1,6 @@
 #SkySpark
 
-SkySpark is a library for solving the skyline query fast and efficiently on a cluster environment using the Apache Spark framework. The API includes different algorithms so the user can choose the best one for his particular environment and is also very simple to use. Each algorithm has been fine-tuned and configured to perform best on the Apache Spark framework.
+SkySpark is a library developed in Java 8 for solving the skyline query fast and efficiently on a cluster environment using the Apache Spark framework. The API includes different algorithms so the user can choose the best one for his particular environment and is also very simple to use. Each algorithm has been fine-tuned and configured to perform best on the Apache Spark framework.
 
 ##Algorithms
 
