@@ -6,9 +6,9 @@ SkySpark is a library developed in Java 8 for solving the skyline query fast and
 
 The algorithms that can be used are:
 
-* Block-Nested Loop
-* Sort Filter Skyline
-* Bitmap
+* Block-Nested Loop - [source code](skyspark/src/main/java/com/github/dkanellis/skyspark/api/algorithms/bnl)
+* Sort Filter Skyline - [source code](skyspark/src/main/java/com/github/dkanellis/skyspark/api/algorithms/sfs)
+* Bitmap - [source code](skyspark/src/main/java/com/github/dkanellis/skyspark/api/algorithms/bitmap)
 
 ##Modules
 ###Performance module
@@ -45,6 +45,9 @@ The *performance* module serves as a cluster-ready jar in case you want to test 
 
 ###Examples module
 In the [examples module](examples) you can find an example dataset as well as the usage of the library
+
+###Skyspark module
+In the [skyspark module](skyspark) is the core of the library with the three algorithms and the helper classes like creating a text file to a `JavaRDD<Point2D>`.
 
 ##Usage
 The usage is as simple as this:
