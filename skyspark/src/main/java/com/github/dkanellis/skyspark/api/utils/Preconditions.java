@@ -3,6 +3,9 @@ package com.github.dkanellis.skyspark.api.utils;
 
 import javax.annotation.Nullable;
 
+/**
+ * Collection of extra preconditions that are not included in the guava library.
+ */
 public final class Preconditions {
 
     private Preconditions() {

@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+/**
+ * Utility class for {@link List}.
+ */
 public final class SerializedLists {
 
     private SerializedLists() {
