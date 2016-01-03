@@ -10,13 +10,13 @@ import java.awt.geom.Point2D;
 import static org.junit.Assert.assertTrue;
 
 @Category(UnitTests.class)
-public class DominationComparatorTest {
+public class PointDominationComparatorMinAnnotationTest {
 
-    private DominationComparator comparator;
+    private PointDominationComparatorMinAnnotation comparator;
 
     @Before
     public void setUp() {
-        comparator = new DominationComparator();
+        comparator = new PointDominationComparatorMinAnnotation();
     }
 
     @Test

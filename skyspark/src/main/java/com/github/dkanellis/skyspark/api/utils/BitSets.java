@@ -5,6 +5,9 @@ import java.util.BitSet;
 import static com.github.dkanellis.skyspark.api.utils.Preconditions.checkNotEmpty;
 import static com.google.common.base.Preconditions.checkArgument;
 
+/**
+ * Utility class for {@link BitSet}.
+ */
 public final class BitSets {
 
     private BitSets() {

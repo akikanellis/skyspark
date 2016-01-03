@@ -3,6 +3,9 @@ package com.github.dkanellis.skyspark.api.utils.point;
 import java.io.Serializable;
 import java.util.Comparator;
 
+/**
+ * A comparator which returns if a double value dominates another using the MIN annotation.
+ */
 public class DominationComparatorMinAnotation implements Comparator<Double>, Serializable {
 
     @Override

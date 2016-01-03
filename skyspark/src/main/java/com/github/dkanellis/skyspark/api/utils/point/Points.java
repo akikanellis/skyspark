@@ -2,6 +2,9 @@ package com.github.dkanellis.skyspark.api.utils.point;
 
 import java.awt.geom.Point2D;
 
+/**
+ * Utility class for {@link Point2D}
+ */
 public final class Points {
 
     private Points() {

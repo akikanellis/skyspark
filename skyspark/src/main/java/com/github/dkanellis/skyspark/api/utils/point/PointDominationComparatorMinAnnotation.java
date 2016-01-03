@@ -4,7 +4,10 @@ import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.Comparator;
 
-public class DominationComparator implements Comparator<Point2D>, Serializable {
+/**
+ * A comparator which returns if a point dominates another using their dimension values' sums using the MIN annotation.
+ */
+public class PointDominationComparatorMinAnnotation implements Comparator<Point2D>, Serializable {
 
     @Override
     public int compare(Point2D p, Point2D q) {
