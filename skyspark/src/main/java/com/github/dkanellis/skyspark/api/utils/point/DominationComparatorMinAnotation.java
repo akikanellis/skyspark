@@ -7,7 +7,6 @@ public class DominationComparatorMinAnotation implements Comparator<Double>, Ser
 
     @Override
     public int compare(Double first, Double second) {
-
         if (first < second) {
             return -1;
         } else if (second < first) {
