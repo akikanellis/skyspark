@@ -2,6 +2,7 @@ group 'com.github.dkanellis.skyspark.examples'
 version '1.0'
 
 apply plugin: 'java'
+apply plugin: 'com.github.johnrengelman.shadow'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
