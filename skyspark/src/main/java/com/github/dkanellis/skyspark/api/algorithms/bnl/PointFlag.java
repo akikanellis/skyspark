@@ -2,6 +2,9 @@ package com.github.dkanellis.skyspark.api.algorithms.bnl;
 
 import java.io.Serializable;
 
+/**
+ * The PointFlag holds the two bits which signify where in the plane the point associated with the flag is located.
+ */
 public class PointFlag implements Serializable {
 
     private final int xBit;
