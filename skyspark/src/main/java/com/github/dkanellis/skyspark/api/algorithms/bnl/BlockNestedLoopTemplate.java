@@ -11,8 +11,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * The BlockNestedLoopTemplate is used by {@link BlockNestedLoop} and {@link com.github.dkanellis.skyspark.api.algorithms.sfs.SortFilterSkyline}
+ * and it contains the main functionality of the BlockNestedLoopAlgorithm. First we do the division job of the algorithm
+ * to <PointWithFlag, LocalSkylines> and then we merge the skylines together and calculate the total skyline set.
+ */
 public abstract class BlockNestedLoopTemplate implements SkylineAlgorithm {
 
+    /**
+     * Given a point and a median this produces a flag-point pair for the given point.
+     */
     private FlagPointPairProducer flagPointPairProducer;
 
     private static Point2D getMedianPointFromRDD(JavaRDD<Point2D> points) {

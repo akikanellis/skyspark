@@ -10,6 +10,10 @@ import scala.Tuple2;
 import java.awt.geom.Point2D;
 import java.util.List;
 
+/**
+ * In the SortFilterSkyline concrete implementation of {@link BlockNestedLoopTemplate} we sort the data by values in the
+ * sort function. Also the global skyline computation the more efficient algorithm since the data are sorted.
+ */
 public class SortFilterSkyline extends BlockNestedLoopTemplate {
 
     @Override
