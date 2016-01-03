@@ -57,6 +57,10 @@ JavaRDD<Point2D> skylines = skylineAlgorithm.computeSkylinePoints(pointRdd);
 
 ##Third-party libraries
  * [Apache Spark 2.10-1.3.1](https://spark.apache.org/)
+ * [Apache POI 3.9](https://poi.apache.org/)
+ * [Scala library 2.10](http://www.scala-lang.org/api/current/#package)
+ * [JCommander 1.48](http://jcommander.org/)
+ * [Mockito 1.10.19](http://mockito.org/)
 
 ##License
 This application itself is released under **MIT** license, see [LICENSE](./LICENSE).
