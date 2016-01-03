@@ -1,11 +1,14 @@
 package com.github.dkanellis.skyspark.api.utils;
 
+import com.github.dkanellis.skyspark.api.test_utils.categories.types.UnitTests;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.util.BitSet;
 
 import static org.junit.Assert.assertEquals;
 
+@Category(UnitTests.class)
 public class BitSetsTest {
 
     @Test
