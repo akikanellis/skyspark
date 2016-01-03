@@ -11,11 +11,30 @@ import java.util.*;
 
 import static org.apache.commons.math3.util.MathUtils.checkNotNull;
 
+/**
+ * Bitmap is a skyline algorithm which maps every unique point of each dimension to a bitmap, maps each point with its
+ * list of bitmap keys and uses in the end the bitmap algorithm to see if a point is a skyline or not.
+ */
 public class Bitmap implements SkylineAlgorithm {
 
+    /**
+     * Used for mapping each point to it's appropriate keys needed from the bitmap.
+     */
     private final PointToRankMapper pointToRankMapper;
+
+    /**
+     * Used to calculate the bitmap.
+     */
     private final BitmapCalculator bitmapCalculator;
+
+    /**
+     * The number of dimensions of the dataset.
+     */
     private final int numberOfDimensions;
+
+    /**
+     * Data structure containing the bitmap as well as bitmap accessing functions.
+     */
     private BitmapStructure bitmapStructure;
 
     public Bitmap() {
@@ -24,22 +43,28 @@ public class Bitmap implements SkylineAlgorithm {
         pointToRankMapper = new PointToRankMapper();
     }
 
+    /*
+     * In Bitmap first we separate the dimensions from the values, group them together, add their ranks
+     * (which is biggest/smallest), map the ranking to every point and thus we end up with every point being mapped to
+     * a list of keys needed for accessing the bitmap. Then we create the bitmap structure and we use the bitmap
+     * algorithm to check if a point belongs to the skyline.
+     */
     @Override
     public JavaRDD<Point2D> computeSkylinePoints(JavaRDD<Point2D> points) {
         checkNotNull(points);
 
         JavaPairRDD<Tuple2<Integer, Double>, Point2D> dimensionValuePoint = splitPointsToDimensionsWithValues(points);
 
-        JavaPairRDD<Integer, Iterable<Double>> grouped = dimensionValuePoint
+        JavaPairRDD<Integer, Iterable<Double>> groupedByDimension = dimensionValuePoint
                 .mapToPair(p -> new Tuple2<>(p._1()._1(), p._1()._2()))
                 .groupByKey();
 
-        JavaPairRDD<Tuple2<Integer, Double>, Integer> dimensionWithValueRanking = getDimensionWithValuesAndRankings(grouped);
+        JavaPairRDD<Tuple2<Integer, Double>, Integer> dimensionWithValueRanking = getDimensionWithValuesAndRankings(groupedByDimension);
 
         JavaPairRDD<Point2D, List<Tuple2<Integer, Integer>>> flattenedWithRankings
                 = pointToRankMapper.mapPointsToTheirRankings(dimensionValuePoint, dimensionWithValueRanking);
 
-        JavaPairRDD<Tuple2<Integer, Integer>, BitSet> bitmap = bitmapCalculator.computeBitSlices(dimensionWithValueRanking, grouped);
+        JavaPairRDD<Tuple2<Integer, Integer>, BitSet> bitmap = bitmapCalculator.computeBitSlices(dimensionWithValueRanking, groupedByDimension);
         bitmapStructure = new BitmapStructure(bitmap);
 
         JavaRDD<Point2D> skylines = flattenedWithRankings

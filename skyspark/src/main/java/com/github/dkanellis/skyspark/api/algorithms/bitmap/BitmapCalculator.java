@@ -10,15 +10,25 @@ import java.io.Serializable;
 import java.util.BitSet;
 import java.util.List;
 
-
+/**
+ * This class produces the bit slices for the Bitmap algorithm. To maximise reusability and performance we do not use the
+ * point RDD directly but it's dimension with value ranking and the groupings for each dimension.
+ */
 class BitmapCalculator implements Serializable {
 
+    /**
+     * Compute the bit slices.
+     *
+     * @param dimensionValueRanking each dimension-value key mapped to it's respective ranking.
+     * @param groupedByDimension    each dimension mapped to it's list of values.
+     * @return a tuple of <<Dimension, Ranking>, BitSlice> which are the bit slices for each dimension.
+     */
     public JavaPairRDD<Tuple2<Integer, Integer>, BitSet> computeBitSlices(
             @NotNull JavaPairRDD<Tuple2<Integer, Double>, Integer> dimensionValueRanking,
-            @NotNull JavaPairRDD<Integer, Iterable<Double>> grouped) {
+            @NotNull JavaPairRDD<Integer, Iterable<Double>> groupedByDimension) {
 
         JavaPairRDD<Tuple3<Integer, Double, Integer>, List<Double>> rankedWithAllValues
-                = getRankedWithAllValues(dimensionValueRanking, grouped);
+                = getRankedWithAllValues(dimensionValueRanking, groupedByDimension);
 
         JavaPairRDD<Tuple2<Integer, Integer>, BitSet> bitSlices = rankedWithAllValues.mapToPair(r -> {
             final int currentDimension = r._1()._1();
