@@ -20,7 +20,7 @@ public final class Rdds {
         return difference.isEmpty();
     }
 
-    public static <K, V> boolean areEqual(JavaPairRDD<K, V> expected, JavaPairRDD<K, V> actual) {
+    public static <K, V> boolean areEqualNoOrder(JavaPairRDD<K, V> expected, JavaPairRDD<K, V> actual) {
         List<Tuple2<K, V>> expList = expected.collect();
         List<Tuple2<K, V>> actualList = actual.collect();
         List<Tuple2<K, V>> difference = expected.subtract(actual).collect();
