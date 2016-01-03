@@ -8,6 +8,9 @@ import java.math.RoundingMode;
 
 import static com.github.dkanellis.skyspark.api.utils.Preconditions.checkNotEmpty;
 
+/**
+ * Utility class for {@link SparkConf}.
+ */
 public final class SparkConfs {
 
     private SparkConfs() {
