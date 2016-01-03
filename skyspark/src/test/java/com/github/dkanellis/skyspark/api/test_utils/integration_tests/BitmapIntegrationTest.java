@@ -8,13 +8,8 @@ import com.github.dkanellis.skyspark.api.test_utils.categories.combinations.Bitm
 import com.github.dkanellis.skyspark.api.test_utils.categories.combinations.BitmapSmallSizeTests;
 import com.github.dkanellis.skyspark.api.test_utils.categories.speeds.SlowTests;
 import com.github.dkanellis.skyspark.api.test_utils.categories.types.IntegrationTests;
-import org.apache.spark.api.java.JavaRDD;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-
-import java.awt.geom.Point2D;
-import java.util.Arrays;
-import java.util.List;
 
 @Category({BitmapTests.class, IntegrationTests.class, SlowTests.class})
 public class BitmapIntegrationTest extends BaseSkylineAlgorithmIntegrationTest {
@@ -22,26 +17,6 @@ public class BitmapIntegrationTest extends BaseSkylineAlgorithmIntegrationTest {
     @Override
     protected SkylineAlgorithm getSkylineAlgorithm() {
         return new Bitmap();
-    }
-
-    @Test
-    public void smallFromCollection() {
-        List<Point2D> pointsList = Arrays.asList(
-                new Point2D.Double(5.4, 4.4),
-                new Point2D.Double(5.0, 4.1),
-                new Point2D.Double(3.6, 9.0),
-                new Point2D.Double(5.9, 4.0),
-                new Point2D.Double(5.9, 4.6),
-                new Point2D.Double(2.5, 7.3),
-                new Point2D.Double(6.3, 3.5),
-                new Point2D.Double(9.9, 4.1),
-                new Point2D.Double(6.7, 3.3),
-                new Point2D.Double(6.1, 3.4)
-        );
-
-        JavaRDD<Point2D> points = getSparkContext().parallelize(pointsList);
-
-        getSkylineAlgorithm().computeSkylinePoints(points).collect().forEach(System.out::println);
     }
 
     @Test
