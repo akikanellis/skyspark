@@ -21,11 +21,6 @@ public class Result {
     private final double slaveMemory;
 
     public Result(@NotNull String algorithmName, @NotNull PointDataFile pointDataFile,
-                  final long elapsedTime, final int numberOfSkylines) {
-        this(algorithmName, pointDataFile, elapsedTime, numberOfSkylines, 0, 0, 0, 0);
-    }
-
-    public Result(@NotNull String algorithmName, @NotNull PointDataFile pointDataFile,
                   final long elapsedTime, final long numberOfSkylines, final int numberOfSlaves, @NotNull SparkConf sparkConf) {
         this(algorithmName, pointDataFile, elapsedTime, numberOfSkylines, numberOfSlaves,
                 sparkConf.getInt("spark.executor.cores", 0),
