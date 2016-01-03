@@ -1,13 +1,8 @@
 package com.github.dkanellis.skyspark.api.test_utils.base;
 
-import org.apache.spark.api.java.JavaPairRDD;
-import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import scala.Tuple2;
-
-import java.util.List;
 
 public abstract class BaseSparkTest {
 
@@ -25,13 +20,5 @@ public abstract class BaseSparkTest {
 
     protected static JavaSparkContext getSparkContext() {
         return sparkContext;
-    }
-
-    protected <T> JavaRDD<T> toRdd(List<T> listOfElements) {
-        return sparkContext.parallelize(listOfElements);
-    }
-
-    protected <K, V> JavaPairRDD<K, V> toPairRdd(List<Tuple2<K, V>> pairs) {
-        return sparkContext.parallelizePairs(pairs);
     }
 }
