@@ -8,8 +8,8 @@ class Point(dimensionValuesC: Double*) {
   def size() = dimensionValues.length
 
   def getValueOf(dimension: Int) = {
-    Preconditions.checkPositionIndexes(1, dimensionValues.length, dimensionValues.length + 1)
-    dimensionValues(dimension - 1)
+    Preconditions.checkElementIndex(dimension, dimensionValues.length)
+    dimensionValues(dimension)
   }
 
   override def equals(other: Any): Boolean = other match {
