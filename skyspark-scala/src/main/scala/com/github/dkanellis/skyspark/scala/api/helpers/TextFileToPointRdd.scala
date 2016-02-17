@@ -11,9 +11,10 @@ object TextFileToPointRdd {
   }
 
   private def pointFromTextLine(textLine: String, delimiter: String) = {
-    new Point(
-      textLine.trim
-        .split(delimiter)
-        .map(_.toDouble): _*)
+    val numberArray = textLine
+      .trim
+      .split(delimiter)
+      .map(_.toDouble)
+    new Point(numberArray: _*)
   }
 }
