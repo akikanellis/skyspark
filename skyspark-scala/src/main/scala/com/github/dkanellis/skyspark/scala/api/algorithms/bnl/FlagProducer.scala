@@ -2,7 +2,7 @@ package com.github.dkanellis.skyspark.scala.api.algorithms.bnl
 
 import com.github.dkanellis.skyspark.scala.api.algorithms.Point
 
-class FlagProducer(medianPointC: Point) {
+class FlagProducer(medianPointC: Point) extends Serializable {
 
   val medianPoint = medianPointC
 
