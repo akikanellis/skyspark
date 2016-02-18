@@ -3,9 +3,9 @@ package com.github.dkanellis.skyspark.scala.api.helpers
 import com.github.dkanellis.skyspark.scala.api.algorithms.Point
 import com.github.dkanellis.skyspark.scala.api.helpers.DataValidator.InvalidDataException
 import org.apache.spark.{SparkConf, SparkContext}
-import org.scalatest.{BeforeAndAfter, FlatSpec}
+import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 
-class DataValidatorTest extends FlatSpec with BeforeAndAfter {
+class DataValidatorTest extends FlatSpec with BeforeAndAfter with Matchers {
 
   private var sc: SparkContext = _
 
@@ -21,17 +21,16 @@ class DataValidatorTest extends FlatSpec with BeforeAndAfter {
   }
 
   "Points with different dimensions" should "throw InvalidDataException" in {
-    val pointsArray = Seq[Point](new Point(1, 1), new Point(3, 2, 1))
+    val pointsArray = Seq(new Point(1, 1), new Point(3, 2, 1))
     val points = sc.parallelize(pointsArray)
 
-    intercept[InvalidDataException] {
-      DataValidator.validate(points)
-    }
+    an[InvalidDataException] should be thrownBy DataValidator.validate(points)
   }
 
   "Points with same dimensions" should "not throw InvalidDataException" in {
-    val pointsArray = Seq[Point](new Point(1, 1), new Point(3, 2))
+    val pointsArray = Seq(new Point(1, 1), new Point(3, 2))
     val points = sc.parallelize(pointsArray)
-    DataValidator.validate(points)
+
+    noException should be thrownBy DataValidator.validate(points)
   }
 }

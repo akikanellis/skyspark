@@ -1,22 +1,22 @@
 package com.github.dkanellis.skyspark.api.algorithms
 
 import com.github.dkanellis.skyspark.scala.api.algorithms.Point
-import org.scalatest.FlatSpec
+import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 
-class PointTest extends FlatSpec {
+class PointTest extends FlatSpec with BeforeAndAfter with Matchers {
 
-  val point = new Point(5, 2, 7, 1)
+  var point: Point = _
+
+  before {
+    point = new Point(5, 2, 7, 1)
+  }
 
   "A smaller than 0 index" should "throw IndexOutOfBoundsException" in {
-    intercept[IndexOutOfBoundsException] {
-      point.getValueOf(-1)
-    }
+    an[IndexOutOfBoundsException] should be thrownBy point.getValueOf(-1)
   }
 
   "A bigger than size index" should "throw IndexOutOfBoundsException" in {
-    intercept[IndexOutOfBoundsException] {
-      point.getValueOf(4)
-    }
+    an[IndexOutOfBoundsException] should be thrownBy point.getValueOf(4)
   }
 
   "A 0 index" should "return the first value" in {
