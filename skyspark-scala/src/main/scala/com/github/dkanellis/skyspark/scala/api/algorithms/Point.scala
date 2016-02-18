@@ -2,7 +2,7 @@ package com.github.dkanellis.skyspark.scala.api.algorithms
 
 import com.google.common.base.Preconditions
 
-class Point(dimensionValuesC: Double*) {
+class Point(dimensionValuesC: Double*) extends Serializable {
   private val dimensionValues = dimensionValuesC
 
   def size() = dimensionValues.length
