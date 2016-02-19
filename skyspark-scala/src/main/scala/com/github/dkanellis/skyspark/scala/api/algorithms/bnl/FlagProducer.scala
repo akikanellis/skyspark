@@ -6,7 +6,7 @@ class FlagProducer(medianPointC: Point) extends Serializable {
 
   val medianPoint = medianPointC
 
-  def calculateFlag(point: Point) = {
+  def calculateFlag(point: Point): Flag = {
     val bits = new Array[Boolean](point.size())
     for (i <- 0 until point.size) {
       bits(i) = point.getValueOf(i) >= medianPoint.getValueOf(i)
