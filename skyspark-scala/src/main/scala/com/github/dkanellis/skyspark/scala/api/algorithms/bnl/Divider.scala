@@ -5,7 +5,7 @@ import org.apache.spark.rdd.RDD
 
 object Divider {
 
-  def divide(points: RDD[Point]) = {
+  def divide(points: RDD[Point]): RDD[(Flag, Point)] = {
     val numOfDimensions = points.first().size()
     val median = MedianFinder.getMedian(points, numOfDimensions)
     val flagProducer = new FlagProducer(median)
