@@ -18,13 +18,12 @@ object BnlAlgorithm {
   }
 
   private def passesPreComparison(flag: Flag): Boolean = {
+    var passes = true
     for (i <- 0 until flag.size) {
-      if (flag.getValueOf(i)) {
-        return true
-      }
+      passes &= flag.getValueOf(i)
     }
 
-    false
+    !passes
   }
 
   private def addDiscardOrDominate(localSkylines: ListBuffer[Point], candidateSkyline: Point) {
