@@ -8,6 +8,6 @@ class BlockNestedLoop extends SkylineAlgorithm {
   override def computeSkylinePoints(points: RDD[Point]): RDD[Point] = {
     val localSkylinesWithFlags = Divider.divide(points)
 
-    throw new UnsupportedOperationException("WIP")
+    Merger.merge(localSkylinesWithFlags)
   }
 }
