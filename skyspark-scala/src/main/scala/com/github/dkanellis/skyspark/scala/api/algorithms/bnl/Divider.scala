@@ -10,7 +10,7 @@ object Divider {
     val median = MedianFinder.getMedian(points, numOfDimensions)
     val flagProducer = new FlagProducer(median)
 
-    val flagPoints = points.map((flagProducer.calculateFlag _, _))
+    val flagPoints = points.map(p => (flagProducer.calculateFlag(p), p))
     val groupedByFlag = flagPoints.groupByKey()
 
     groupedByFlag.flatMapValues(BnlAlgorithm.computeSkylinesWithoutPreComparison)
