@@ -7,13 +7,24 @@ import scala.collection.mutable.ListBuffer
 
 object BnlAlgorithm {
 
-  def computeSkylinesWithoutPreComparison(pointIterable: Iterable[Point]) = {
+  def computeSkylinesWithPreComparison(flagsWithPoints: Iterable[(Flag, Point)]): Iterable[Point] = {
     val localSkylines = ListBuffer[Point]()
-    for (candidateSkyline <- pointIterable) {
-      addDiscardOrDominate(localSkylines, candidateSkyline)
-    }
+    flagsWithPoints
+      .filter(fp => passesPreComparison(fp._1))
+      .map(_._2)
+      .foreach(addDiscardOrDominate(localSkylines, _))
 
     localSkylines
+  }
+
+  private def passesPreComparison(flag: Flag): Boolean = {
+    for (i <- 0 until flag.size) {
+      if (flag.getValueOf(i)) {
+        return true
+      }
+    }
+
+    false
   }
 
   private def addDiscardOrDominate(localSkylines: ListBuffer[Point], candidateSkyline: Point) {
@@ -26,5 +37,14 @@ object BnlAlgorithm {
     }
 
     localSkylines += candidateSkyline
+  }
+
+  def computeSkylinesWithoutPreComparison(pointIterable: Iterable[Point]) = {
+    val localSkylines = ListBuffer[Point]()
+    for (candidateSkyline <- pointIterable) {
+      addDiscardOrDominate(localSkylines, candidateSkyline)
+    }
+
+    localSkylines
   }
 }
