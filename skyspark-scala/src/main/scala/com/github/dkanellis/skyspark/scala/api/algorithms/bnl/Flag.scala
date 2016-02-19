@@ -6,6 +6,8 @@ class Flag(bitsC: Boolean*) extends Serializable {
 
   val bits = bitsC
 
+  def size = bits.length
+
   def getValueOf(dimension: Int) = {
     Preconditions.checkElementIndex(dimension, bits.length)
     bits(dimension)
