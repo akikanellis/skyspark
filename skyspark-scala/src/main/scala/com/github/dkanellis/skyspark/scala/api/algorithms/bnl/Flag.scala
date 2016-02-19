@@ -2,7 +2,7 @@ package com.github.dkanellis.skyspark.scala.api.algorithms.bnl
 
 import com.google.common.base.Preconditions
 
-class Flag(bitsC: Boolean*) {
+class Flag(bitsC: Boolean*) extends Serializable {
 
   val bits = bitsC
 
