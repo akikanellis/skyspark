@@ -1,11 +1,11 @@
 package com.github.dkanellis.skyspark.scala.api.algorithms.bnl
 
+import com.github.dkanellis.skyspark.scala.api.SparkAddOn
 import com.github.dkanellis.skyspark.scala.api.helpers.TextFileToPointRdd
-import org.apache.spark.{SparkConf, SparkContext}
 import org.scalatest.prop.TableDrivenPropertyChecks
 import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 
-class BlockNestedLoopTest extends FlatSpec with BeforeAndAfter with Matchers with TableDrivenPropertyChecks {
+class BlockNestedLoopTest extends FlatSpec with BeforeAndAfter with Matchers with TableDrivenPropertyChecks with SparkAddOn {
 
   val pointFiles =
     Table(
@@ -15,22 +15,19 @@ class BlockNestedLoopTest extends FlatSpec with BeforeAndAfter with Matchers wit
       ("/ANTICOR_2_10000.txt", "/ANTICOR_2_10000_SKYLINES.txt")
     )
 
-  forAll(pointFiles) { (pointsFile: String, skylinesFile: String) =>
+  withSpark { sc =>
+    forAll(pointFiles) { (pointsFile: String, skylinesFile: String) =>
 
-    val sparkConf = new SparkConf().setAppName("BlockNestedLoop tests").setMaster("local[*]")
-    val sc = new SparkContext(sparkConf)
+      val pointsFilePath = getClass.getResource(pointsFile).getFile
+      val expectedSkylinesFilePath = getClass.getResource(skylinesFile).getFile
+      val points = TextFileToPointRdd.convert(sc, pointsFilePath, " ")
+      val expectedSkylines = TextFileToPointRdd.convert(sc, expectedSkylinesFilePath, " ")
 
-    val pointsFilePath = getClass.getResource(pointsFile).getFile
-    val expectedSkylinesFilePath = getClass.getResource(skylinesFile).getFile
-    val points = TextFileToPointRdd.convert(sc, pointsFilePath, " ")
-    val expectedSkylines = TextFileToPointRdd.convert(sc, expectedSkylinesFilePath, " ")
+      val bnl = new BlockNestedLoop
 
-    val bnl = new BlockNestedLoop
+      val actualSkylines = bnl.computeSkylinePoints(points)
 
-    val actualSkylines = bnl.computeSkylinePoints(points)
-
-    actualSkylines.collect() should contain theSameElementsAs expectedSkylines.collect()
-
-    sc.stop()
+      actualSkylines.collect() should contain theSameElementsAs expectedSkylines.collect()
+    }
   }
 }
