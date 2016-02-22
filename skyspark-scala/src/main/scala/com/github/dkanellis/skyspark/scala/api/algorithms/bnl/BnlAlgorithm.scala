@@ -17,7 +17,7 @@ private[bnl] object BnlAlgorithm {
     localSkylines
   }
 
-  private def passesPreComparison(flag: Flag): Boolean = {
+  private def passesPreComparison(flag: Flag) = {
     var passes = true
     for (i <- 0 until flag.size) {
       passes &= flag.bit(i)
@@ -38,7 +38,7 @@ private[bnl] object BnlAlgorithm {
     localSkylines += candidateSkyline
   }
 
-  private[bnl] def computeSkylinesWithoutPreComparison(pointIterable: Iterable[Point]) = {
+  private[bnl] def computeSkylinesWithoutPreComparison(pointIterable: Iterable[Point]): Iterable[Point] = {
     val localSkylines = ListBuffer[Point]()
     for (candidateSkyline <- pointIterable) {
       addDiscardOrDominate(localSkylines, candidateSkyline)
