@@ -16,6 +16,6 @@ object TextFileToPointRdd {
       .trim
       .split(delimiter)
       .map(_.toDouble)
-    new Point(numberArray: _*)
+    Point(numberArray: _*)
   }
 }

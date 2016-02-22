@@ -8,7 +8,7 @@ class PointTest extends FlatSpec with BeforeAndAfter with Matchers {
   var point: Point = _
 
   before {
-    point = new Point(5, 2, 7, 1)
+    point = Point(5, 2, 7, 1)
   }
 
   "A smaller than 0 index" should "throw IndexOutOfBoundsException" in {

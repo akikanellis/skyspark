@@ -13,10 +13,10 @@ class MergerTest extends FlatSpec with BeforeAndAfter with Matchers {
 
   before {
     val flagPointsSeq = Seq(
-      (new Flag(true, true), new Point(5.9, 4.6)),
-      (new Flag(true, false), new Point(5.0, 4.1)), (new Flag(true, false), new Point(5.9, 4.0)),
-      (new Flag(true, false), new Point(6.7, 3.3)), (new Flag(true, false), new Point(6.1, 3.4)),
-      (new Flag(false, true), new Point(2.5, 7.3)))
+      (new Flag(true, true), Point(5.9, 4.6)),
+      (new Flag(true, false), Point(5.0, 4.1)), (new Flag(true, false), Point(5.9, 4.0)),
+      (new Flag(true, false), Point(6.7, 3.3)), (new Flag(true, false), Point(6.1, 3.4)),
+      (new Flag(false, true), Point(2.5, 7.3)))
 
     val sparkConf = new SparkConf().setAppName("MedianFinder tests").setMaster("local[*]")
     sc = new SparkContext(sparkConf)
@@ -34,8 +34,8 @@ class MergerTest extends FlatSpec with BeforeAndAfter with Matchers {
 
   "A set of flag-points" should "keep only the skylines and be merged" in {
     val expectedSkylines = Seq(
-      new Point(5.0, 4.1), new Point(5.9, 4.0), new Point(2.5, 7.3), new Point(6.7, 3.3),
-      new Point(6.1, 3.4))
+      Point(5.0, 4.1), Point(5.9, 4.0), Point(2.5, 7.3), Point(6.7, 3.3),
+      Point(6.1, 3.4))
 
     val actualSkylines = merger.merge(flagPoints)
 
