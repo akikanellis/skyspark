@@ -1,8 +1,8 @@
 package com.github.dkanellis.skyspark.scala.api.algorithms.bnl
 
-case class Flag(bits: Boolean*) {
+private[bnl] case class Flag(bits: Boolean*) {
 
-  def size = bits.length
+  private[bnl] def size = bits.length
 
-  def bit(i: Int) = bits(i)
+  private[bnl] def bit(i: Int) = bits(i)
 }
