@@ -2,10 +2,11 @@ package com.github.dkanellis.skyspark.scala.api.helpers
 
 import com.github.dkanellis.skyspark.scala.api.algorithms.Point
 import org.apache.spark.SparkContext
+import org.apache.spark.rdd.RDD
 
 object TextFileToPointRdd {
 
-  def convert(sparkContext: SparkContext, filePath: String, delimiter: String) = {
+  def convert(sparkContext: SparkContext, filePath: String, delimiter: String): RDD[Point] = {
     sparkContext.textFile(filePath)
       .map(pointFromTextLine(_, delimiter))
   }
