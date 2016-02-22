@@ -8,21 +8,21 @@ class FlagTest extends FlatSpec {
 
   "A smaller than 0 index" should "throw IndexOutOfBoundsException" in {
     intercept[IndexOutOfBoundsException] {
-      flag.getValueOf(-1)
+      flag.bit(-1)
     }
   }
 
   "A bigger than size index" should "throw IndexOutOfBoundsException" in {
     intercept[IndexOutOfBoundsException] {
-      flag.getValueOf(4)
+      flag.bit(4)
     }
   }
 
   "A 0 index" should "return the first value" in {
-    assertResult(false)(flag.getValueOf(0))
+    assertResult(false)(flag.bit(0))
   }
 
   "A 3 index" should "return the last value" in {
-    assertResult(true)(flag.getValueOf(3))
+    assertResult(true)(flag.bit(3))
   }
 }
