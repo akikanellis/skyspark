@@ -32,6 +32,18 @@ class DividerTest extends FlatSpec with BeforeAndAfter with Matchers {
     }
   }
 
+  "A zero dimension size" should "throw an IllegalStateException" in {
+    divider.numberOfDimensions = 0
+
+    an[IllegalStateException] should be thrownBy divider.divide(null)
+  }
+
+  "A negative dimension size" should "throw an IllegalStateException" in {
+    divider.numberOfDimensions = -1
+
+    an[IllegalStateException] should be thrownBy divider.divide(null)
+  }
+
   "A set of points" should "return the local skylines with their flags" in {
     val expectedSkylinesWithFlags = Seq(
       (new Flag(true, true), new Point(5.9, 4.6)),

@@ -6,12 +6,14 @@ import org.apache.spark.rdd.RDD
 
 private[bnl] class Divider {
 
+  private val medianFinder: MedianFinder = new MedianFinder
   private[bnl] var numberOfDimensions = 0
 
   private[bnl] def divide(points: RDD[Point]): RDD[(Flag, Point)] = {
     Preconditions.checkState(numberOfDimensions > 0, "Dimensionality can't be less than 1.", null)
 
-    val median = MedianFinder.getMedian(points, numberOfDimensions)
+    medianFinder.numberOfDimensions = numberOfDimensions
+    val median = medianFinder.getMedian(points)
     val flagProducer = new FlagProducer(median)
 
     val flagPoints = points.map(p => (flagProducer.calculateFlag(p), p))
