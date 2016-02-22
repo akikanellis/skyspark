@@ -3,9 +3,9 @@ package com.github.dkanellis.skyspark.scala.api.algorithms.bnl
 import com.github.dkanellis.skyspark.scala.api.algorithms.Point
 import org.apache.spark.rdd.RDD
 
-object MedianFinder {
+private[bnl] object MedianFinder {
 
-  def getMedian(points: RDD[Point], numOfDimensions: Int) = {
+  private[bnl] def getMedian(points: RDD[Point], numOfDimensions: Int) = {
     val medianDimensionValues = new Array[Double](numOfDimensions)
     for (i <- 0 until numOfDimensions) {
       medianDimensionValues(i) = getMaxValueOfDimension(points, i) / 2

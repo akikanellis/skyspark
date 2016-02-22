@@ -3,9 +3,9 @@ package com.github.dkanellis.skyspark.scala.api.algorithms.bnl
 import com.github.dkanellis.skyspark.scala.api.algorithms.Point
 import org.apache.spark.rdd.RDD
 
-object Merger {
+private[bnl] object Merger {
 
-  def merge(flagsWithPoints: RDD[(Flag, Point)]): RDD[Point] = {
+  private[bnl] def merge(flagsWithPoints: RDD[(Flag, Point)]): RDD[Point] = {
     val inSinglePartition = flagsWithPoints
       .coalesce(1)
       .glom()

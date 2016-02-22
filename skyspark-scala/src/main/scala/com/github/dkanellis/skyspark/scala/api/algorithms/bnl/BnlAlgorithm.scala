@@ -5,9 +5,9 @@ import com.github.dkanellis.skyspark.scala.api.helpers.Points
 
 import scala.collection.mutable.ListBuffer
 
-object BnlAlgorithm {
+private[bnl] object BnlAlgorithm {
 
-  def computeSkylinesWithPreComparison(flagsWithPoints: Iterable[(Flag, Point)]): Iterable[Point] = {
+  private[bnl] def computeSkylinesWithPreComparison(flagsWithPoints: Iterable[(Flag, Point)]): Iterable[Point] = {
     val localSkylines = ListBuffer[Point]()
     flagsWithPoints
       .filter(fp => passesPreComparison(fp._1))
@@ -26,15 +26,6 @@ object BnlAlgorithm {
     !passes
   }
 
-  def computeSkylinesWithoutPreComparison(pointIterable: Iterable[Point]) = {
-    val localSkylines = ListBuffer[Point]()
-    for (candidateSkyline <- pointIterable) {
-      addDiscardOrDominate(localSkylines, candidateSkyline)
-    }
-
-    localSkylines
-  }
-
   private def addDiscardOrDominate(localSkylines: ListBuffer[Point], candidateSkyline: Point) {
     for (pointToCheckAgainst <- localSkylines) {
       if (Points.dominates(pointToCheckAgainst, candidateSkyline)) {
@@ -45,5 +36,14 @@ object BnlAlgorithm {
     }
 
     localSkylines += candidateSkyline
+  }
+
+  private[bnl] def computeSkylinesWithoutPreComparison(pointIterable: Iterable[Point]) = {
+    val localSkylines = ListBuffer[Point]()
+    for (candidateSkyline <- pointIterable) {
+      addDiscardOrDominate(localSkylines, candidateSkyline)
+    }
+
+    localSkylines
   }
 }
