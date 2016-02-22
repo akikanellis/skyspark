@@ -16,7 +16,7 @@ private[bnl] class MedianFinder extends Serializable {
       medianDimensionValues(i) = getMaxValueOfDimension(points, i) / 2
     }
 
-    new Point(medianDimensionValues: _*)
+    Point(medianDimensionValues: _*)
   }
 
   private def getMaxValueOfDimension(points: RDD[Point], dimensionIndex: Int) = {
