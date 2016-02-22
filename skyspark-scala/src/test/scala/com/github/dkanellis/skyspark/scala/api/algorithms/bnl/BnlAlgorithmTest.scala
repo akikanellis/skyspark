@@ -1,9 +1,15 @@
 package com.github.dkanellis.skyspark.scala.api.algorithms.bnl
 
 import com.github.dkanellis.skyspark.scala.api.algorithms.Point
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 
-class BnlAlgorithmTest extends FlatSpec with Matchers {
+class BnlAlgorithmTest extends FlatSpec with BeforeAndAfter with Matchers {
+
+  private var bnlAlgorithm: BnlAlgorithm = _
+
+  before {
+    bnlAlgorithm = new BnlAlgorithm
+  }
 
   "Without pre-comparisson a set of points" should "compute the skylines" in {
     val points = Seq(
@@ -14,7 +20,7 @@ class BnlAlgorithmTest extends FlatSpec with Matchers {
       new Point(5.0, 4.1), new Point(5.9, 4.0), new Point(2.5, 7.3), new Point(6.7, 3.3),
       new Point(6.1, 3.4))
 
-    val actualSkylines = BnlAlgorithm.computeSkylinesWithoutPreComparison(points)
+    val actualSkylines = bnlAlgorithm.computeSkylinesWithoutPreComparison(points)
 
     actualSkylines should contain theSameElementsAs expectedSkylines
   }
@@ -24,7 +30,7 @@ class BnlAlgorithmTest extends FlatSpec with Matchers {
       new Point(5.0, 4.1), new Point(5.9, 4.0), new Point(2.5, 7.3), new Point(6.7, 3.3),
       new Point(6.1, 3.4))
 
-    val actualSkylines = BnlAlgorithm.computeSkylinesWithoutPreComparison(points)
+    val actualSkylines = bnlAlgorithm.computeSkylinesWithoutPreComparison(points)
 
     actualSkylines should contain theSameElementsAs points
   }
@@ -39,7 +45,7 @@ class BnlAlgorithmTest extends FlatSpec with Matchers {
       new Point(5.0, 4.1), new Point(5.9, 4.0), new Point(2.5, 7.3), new Point(6.7, 3.3),
       new Point(6.1, 3.4))
 
-    val actualSkylines = BnlAlgorithm.computeSkylinesWithPreComparison(flagsPoints)
+    val actualSkylines = bnlAlgorithm.computeSkylinesWithPreComparison(flagsPoints)
 
     actualSkylines should contain theSameElementsAs expectedSkylines
   }
@@ -54,7 +60,7 @@ class BnlAlgorithmTest extends FlatSpec with Matchers {
       new Point(6.7, 3.3), new Point(6.1, 3.4),
       new Point(2.5, 7.3))
 
-    val actualSkylines = BnlAlgorithm.computeSkylinesWithPreComparison(flagsPoints)
+    val actualSkylines = bnlAlgorithm.computeSkylinesWithPreComparison(flagsPoints)
 
     actualSkylines should contain theSameElementsAs expectedSkylines
   }

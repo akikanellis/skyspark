@@ -5,7 +5,7 @@ import com.github.dkanellis.skyspark.scala.api.helpers.Points
 
 import scala.collection.mutable.ListBuffer
 
-private[bnl] object BnlAlgorithm {
+private[bnl] class BnlAlgorithm extends Serializable {
 
   private[bnl] def computeSkylinesWithPreComparison(flagsWithPoints: Iterable[(Flag, Point)]): Iterable[Point] = {
     val localSkylines = ListBuffer[Point]()
