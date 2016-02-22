@@ -14,12 +14,12 @@ object MedianFinder {
     new Point(medianDimensionValues: _*)
   }
 
-  private def getMaxValueOfDimension(points: RDD[Point], i: Int) = {
+  private def getMaxValueOfDimension(points: RDD[Point], dimensionIndex: Int) = {
     val biggestPointByDimension = points.max()(new Ordering[Point]() {
       override def compare(first: Point, second: Point): Int =
-        Ordering[Double].compare(first.getValueOf(i), second.getValueOf(i))
+        Ordering[Double].compare(first.dimension(dimensionIndex), second.dimension(dimensionIndex))
     })
 
-    biggestPointByDimension.getValueOf(i)
+    biggestPointByDimension.dimension(dimensionIndex)
   }
 }
