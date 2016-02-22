@@ -4,7 +4,7 @@ import com.github.dkanellis.skyspark.scala.api.algorithms.Point
 import com.google.common.base.Preconditions
 import org.apache.spark.rdd.RDD
 
-private[bnl] class MedianFinder {
+private[bnl] class MedianFinder extends Serializable {
 
   private[bnl] var numberOfDimensions = 0
 
