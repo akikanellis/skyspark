@@ -9,6 +9,7 @@ class DividerTest extends FlatSpec with BeforeAndAfter with Matchers {
 
   private var points: RDD[Point] = _
   private var sc: SparkContext = _
+  private var divider: Divider = _
 
   before {
     val pointsSeq = Seq(
@@ -20,6 +21,9 @@ class DividerTest extends FlatSpec with BeforeAndAfter with Matchers {
     sc = new SparkContext(sparkConf)
 
     points = sc.parallelize(pointsSeq)
+
+    divider = new Divider
+    divider.numberOfDimensions = pointsSeq.head.size()
   }
 
   after {
@@ -36,7 +40,7 @@ class DividerTest extends FlatSpec with BeforeAndAfter with Matchers {
       (new Flag(false, true), new Point(2.5, 7.3)))
 
 
-    val actualSkylinesWithFlags = Divider.divide(points)
+    val actualSkylinesWithFlags = divider.divide(points)
 
     actualSkylinesWithFlags.collect() should contain theSameElementsAs expectedSkylinesWithFlags
   }

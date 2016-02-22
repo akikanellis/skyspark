@@ -5,9 +5,9 @@ import org.apache.spark.rdd.RDD
 
 private[bnl] object MedianFinder {
 
-  private[bnl] def getMedian(points: RDD[Point], numOfDimensions: Int): Point = {
-    val medianDimensionValues = new Array[Double](numOfDimensions)
-    for (i <- 0 until numOfDimensions) {
+  private[bnl] def getMedian(points: RDD[Point], numberOfDimensions: Int): Point = {
+    val medianDimensionValues = new Array[Double](numberOfDimensions)
+    for (i <- 0 until numberOfDimensions) {
       medianDimensionValues(i) = getMaxValueOfDimension(points, i) / 2
     }
 

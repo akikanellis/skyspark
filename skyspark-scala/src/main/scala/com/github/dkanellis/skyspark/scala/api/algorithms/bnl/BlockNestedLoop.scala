@@ -5,8 +5,12 @@ import org.apache.spark.rdd.RDD
 
 class BlockNestedLoop extends SkylineAlgorithm {
 
+  val divider = new Divider
+
   override def computeSkylinePoints(points: RDD[Point]): RDD[Point] = {
-    val localSkylinesWithFlags = Divider.divide(points)
+    divider.numberOfDimensions = points.first().size()
+
+    val localSkylinesWithFlags = divider.divide(points)
 
     Merger.merge(localSkylinesWithFlags)
   }
