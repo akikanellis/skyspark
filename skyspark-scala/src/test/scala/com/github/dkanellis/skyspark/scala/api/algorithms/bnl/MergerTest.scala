@@ -9,6 +9,7 @@ class MergerTest extends FlatSpec with BeforeAndAfter with Matchers {
 
   private var flagPoints: RDD[(Flag, Point)] = _
   private var sc: SparkContext = _
+  private var merger: Merger = _
 
   before {
     val flagPointsSeq = Seq(
@@ -21,6 +22,8 @@ class MergerTest extends FlatSpec with BeforeAndAfter with Matchers {
     sc = new SparkContext(sparkConf)
 
     flagPoints = sc.parallelize(flagPointsSeq)
+
+    merger = new Merger
   }
 
   after {
@@ -28,12 +31,13 @@ class MergerTest extends FlatSpec with BeforeAndAfter with Matchers {
       sc.stop()
     }
   }
+
   "A set of flag-points" should "keep only the skylines and be merged" in {
     val expectedSkylines = Seq(
       new Point(5.0, 4.1), new Point(5.9, 4.0), new Point(2.5, 7.3), new Point(6.7, 3.3),
       new Point(6.1, 3.4))
 
-    val actualSkylines = Merger.merge(flagPoints)
+    val actualSkylines = merger.merge(flagPoints)
 
     actualSkylines.collect() should contain theSameElementsAs expectedSkylines
   }
