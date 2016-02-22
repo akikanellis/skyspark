@@ -46,10 +46,10 @@ class DividerTest extends FlatSpec with BeforeAndAfter with Matchers {
 
   "A set of points" should "return the local skylines with their flags" in {
     val expectedSkylinesWithFlags = Seq(
-      (new Flag(true, true), Point(5.9, 4.6)),
-      (new Flag(true, false), Point(5.0, 4.1)), (new Flag(true, false), Point(5.9, 4.0)),
-      (new Flag(true, false), Point(6.7, 3.3)), (new Flag(true, false), Point(6.1, 3.4)),
-      (new Flag(false, true), Point(2.5, 7.3)))
+      (Flag(true, true), Point(5.9, 4.6)),
+      (Flag(true, false), Point(5.0, 4.1)), (Flag(true, false), Point(5.9, 4.0)),
+      (Flag(true, false), Point(6.7, 3.3)), (Flag(true, false), Point(6.1, 3.4)),
+      (Flag(false, true), Point(2.5, 7.3)))
 
 
     val actualSkylinesWithFlags = divider.divide(points)

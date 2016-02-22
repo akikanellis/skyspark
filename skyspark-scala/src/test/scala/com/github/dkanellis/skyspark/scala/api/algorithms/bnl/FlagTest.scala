@@ -4,7 +4,7 @@ import org.scalatest.FlatSpec
 
 class FlagTest extends FlatSpec {
 
-  val flag = new Flag(false, true, false, true) // 0101
+  val flag = Flag(false, true, false, true) // 0101
 
   "A smaller than 0 index" should "throw IndexOutOfBoundsException" in {
     intercept[IndexOutOfBoundsException] {

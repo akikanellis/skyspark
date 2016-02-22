@@ -37,10 +37,10 @@ class BnlAlgorithmTest extends FlatSpec with BeforeAndAfter with Matchers {
 
   "With pre-comparisson a set of points with their flags" should "compute the skylines" in {
     val flagsPoints = Seq(
-      (new Flag(true, true), Point(5.9, 4.6)),
-      (new Flag(true, false), Point(5.0, 4.1)), (new Flag(true, false), Point(5.9, 4.0)),
-      (new Flag(true, false), Point(6.7, 3.3)), (new Flag(true, false), Point(6.1, 3.4)),
-      (new Flag(false, true), Point(2.5, 7.3)))
+      (Flag(true, true), Point(5.9, 4.6)),
+      (Flag(true, false), Point(5.0, 4.1)), (Flag(true, false), Point(5.9, 4.0)),
+      (Flag(true, false), Point(6.7, 3.3)), (Flag(true, false), Point(6.1, 3.4)),
+      (Flag(false, true), Point(2.5, 7.3)))
     val expectedSkylines = Seq(
       Point(5.0, 4.1), Point(5.9, 4.0), Point(2.5, 7.3), Point(6.7, 3.3),
       Point(6.1, 3.4))
@@ -52,9 +52,9 @@ class BnlAlgorithmTest extends FlatSpec with BeforeAndAfter with Matchers {
 
   "With pre-comparisson a set of only skylines with their flags" should "have nothing changed" in {
     val flagsPoints = Seq(
-      (new Flag(true, false), Point(5.0, 4.1)), (new Flag(true, false), Point(5.9, 4.0)),
-      (new Flag(true, false), Point(6.7, 3.3)), (new Flag(true, false), Point(6.1, 3.4)),
-      (new Flag(false, true), Point(2.5, 7.3)))
+      (Flag(true, false), Point(5.0, 4.1)), (Flag(true, false), Point(5.9, 4.0)),
+      (Flag(true, false), Point(6.7, 3.3)), (Flag(true, false), Point(6.1, 3.4)),
+      (Flag(false, true), Point(2.5, 7.3)))
     val expectedSkylines = Seq(
       Point(5.0, 4.1), Point(5.9, 4.0),
       Point(6.7, 3.3), Point(6.1, 3.4),

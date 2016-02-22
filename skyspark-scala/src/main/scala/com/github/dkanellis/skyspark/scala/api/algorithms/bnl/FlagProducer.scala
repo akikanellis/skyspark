@@ -12,6 +12,6 @@ private[bnl] class FlagProducer(medianPointC: Point) extends Serializable {
       bits(i) = point.dimension(i) >= medianPoint.dimension(i)
     }
 
-    new Flag(bits: _*)
+    Flag(bits: _*)
   }
 }
