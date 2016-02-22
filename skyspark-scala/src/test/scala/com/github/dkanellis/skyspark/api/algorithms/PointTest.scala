@@ -12,18 +12,18 @@ class PointTest extends FlatSpec with BeforeAndAfter with Matchers {
   }
 
   "A smaller than 0 index" should "throw IndexOutOfBoundsException" in {
-    an[IndexOutOfBoundsException] should be thrownBy point.getValueOf(-1)
+    an[IndexOutOfBoundsException] should be thrownBy point.dimension(-1)
   }
 
   "A bigger than size index" should "throw IndexOutOfBoundsException" in {
-    an[IndexOutOfBoundsException] should be thrownBy point.getValueOf(4)
+    an[IndexOutOfBoundsException] should be thrownBy point.dimension(4)
   }
 
   "A 0 index" should "return the first value" in {
-    assertResult(5)(point.getValueOf(0))
+    assertResult(5)(point.dimension(0))
   }
 
   "A 3 index" should "return the last value" in {
-    assertResult(1)(point.getValueOf(3))
+    assertResult(1)(point.dimension(3))
   }
 }

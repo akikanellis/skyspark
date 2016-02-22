@@ -7,11 +7,11 @@ object Points {
   def dominates(first: Point, second: Point): Boolean = {
     var atLeastOneSmaller = false
     for (i <- 0 until first.size()) {
-      if (first.getValueOf(i) > second.getValueOf(i)) {
+      if (first.dimension(i) > second.dimension(i)) {
         return false
       }
 
-      if (first.getValueOf(i) < second.getValueOf(i)) {
+      if (first.dimension(i) < second.dimension(i)) {
         atLeastOneSmaller = true
       }
     }
