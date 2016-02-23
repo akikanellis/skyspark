@@ -5,7 +5,7 @@ import org.scalatest.{FlatSpec, Matchers, PrivateMethodTester}
 
 class TextFileToPointRddTest extends FlatSpec with PrivateMethodTester with Matchers {
 
-  val decoratePointFromTextLine = PrivateMethod[Point]('pointFromTextLine)
+  private val decoratePointFromTextLine = PrivateMethod[Point]('pointFromTextLine)
 
   "An empty line" should "throw an IllegalArgumentException" in {
     an[IllegalArgumentException] should be thrownBy (TextFileToPointRdd invokePrivate decoratePointFromTextLine("", " "))
