@@ -21,15 +21,17 @@ class TextFileToPointRddTest extends FlatSpec with PrivateMethodTester with Matc
 
   "A 1 number line" should "return a 1-dimensional point" in {
     val expected = Point(1)
+
     val actual = TextFileToPointRdd invokePrivate decoratePointFromTextLine("1", " ")
 
-    assertResult(expected)(actual)
+    expected shouldBe actual
   }
 
   "A 2 number line" should "return a 2-dimensional point" in {
     val expected = Point(1, 5)
+
     val actual = TextFileToPointRdd invokePrivate decoratePointFromTextLine("1 5", " ")
 
-    assertResult(expected)(actual)
+    expected shouldBe actual
   }
 }
