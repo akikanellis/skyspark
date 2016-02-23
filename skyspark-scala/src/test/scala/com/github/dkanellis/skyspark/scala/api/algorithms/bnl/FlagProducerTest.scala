@@ -1,12 +1,17 @@
 package com.github.dkanellis.skyspark.scala.api.algorithms.bnl
 
 import com.github.dkanellis.skyspark.scala.api.algorithms.Point
-import org.scalatest.{BeforeAndAfterEach, FlatSpec}
+import org.scalatest.{BeforeAndAfter, FlatSpec}
 
-class FlagProducerTest extends FlatSpec with BeforeAndAfterEach {
+class FlagProducerTest extends FlatSpec with BeforeAndAfter {
 
-  val median = Point(5, 5)
-  val flagProducer = new FlagProducer(median)
+  private var median: Point = _
+  private var flagProducer: FlagProducer = _
+
+  before {
+    median = Point(5, 5)
+    flagProducer = new FlagProducer(median)
+  }
 
   "A point with x and y smaller than median" should "produce flag 00" in {
     val point = Point(4, 4)
