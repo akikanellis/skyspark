@@ -24,6 +24,6 @@ class PointTest extends FlatSpec with BeforeAndAfter with Matchers {
   }
 
   "A 3 index" should "return the last value" in {
-    point.dimension(3) shouldBe 3
+    point.dimension(3) shouldBe 1
   }
 }
