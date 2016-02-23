@@ -32,7 +32,7 @@ class MedianFinderTest extends FlatSpec with PrivateMethodTester with BeforeAndA
 
     val actualMedian = medianFinder.getMedian(points)
 
-    assertResult(expectedMedian)(actualMedian)
+    expectedMedian shouldBe actualMedian
   }
 
   "3D points" should "produce correct median" in withSpark { sc =>
@@ -43,6 +43,6 @@ class MedianFinderTest extends FlatSpec with PrivateMethodTester with BeforeAndA
 
     val actualMedian = medianFinder.getMedian(points)
 
-    assertResult(expectedMedian)(actualMedian)
+    expectedMedian shouldBe actualMedian
   }
 }
