@@ -1,10 +1,14 @@
 package com.github.dkanellis.skyspark.scala.api.algorithms.bnl
 
-import org.scalatest.FlatSpec
+import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 
-class FlagTest extends FlatSpec {
+class FlagTest extends FlatSpec with BeforeAndAfter with Matchers {
 
-  val flag = Flag(false, true, false, true) // 0101
+  private var flag: Flag = _
+
+  before {
+    flag = Flag(false, true, false, true) // 0101
+  }
 
   "A smaller than 0 index" should "throw IndexOutOfBoundsException" in {
     intercept[IndexOutOfBoundsException] {
@@ -19,10 +23,10 @@ class FlagTest extends FlatSpec {
   }
 
   "A 0 index" should "return the first value" in {
-    assertResult(false)(flag.bit(0))
+    flag.bit(0) shouldBe false
   }
 
   "A 3 index" should "return the last value" in {
-    assertResult(true)(flag.bit(3))
+    flag.bit(3) shouldBe true
   }
 }
