@@ -1,9 +1,9 @@
 package com.github.dkanellis.skyspark.scala.api.algorithms.bnl
 
 import com.github.dkanellis.skyspark.scala.api.algorithms.Point
-import org.scalatest.{BeforeAndAfter, FlatSpec}
+import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 
-class FlagProducerTest extends FlatSpec with BeforeAndAfter {
+class FlagProducerTest extends FlatSpec with BeforeAndAfter with Matchers {
 
   private var median: Point = _
   private var flagProducer: FlagProducer = _
@@ -19,7 +19,7 @@ class FlagProducerTest extends FlatSpec with BeforeAndAfter {
 
     val actualFlag = flagProducer.calculateFlag(point)
 
-    assertResult(expectedFlag)(actualFlag)
+    expectedFlag shouldBe actualFlag
   }
 
   "A point with x and y bigger than median" should "produce flag 11" in {
@@ -28,7 +28,7 @@ class FlagProducerTest extends FlatSpec with BeforeAndAfter {
 
     val actualFlag = flagProducer.calculateFlag(point)
 
-    assertResult(expectedFlag)(actualFlag)
+    expectedFlag shouldBe actualFlag
   }
 
   "A point with x and y equal to median" should "produce flag 11" in {
@@ -37,7 +37,7 @@ class FlagProducerTest extends FlatSpec with BeforeAndAfter {
 
     val actualFlag = flagProducer.calculateFlag(point)
 
-    assertResult(expectedFlag)(actualFlag)
+    expectedFlag shouldBe actualFlag
   }
 
   "A point with x bigger and y smaller than median" should "produce flag 10" in {
@@ -46,7 +46,7 @@ class FlagProducerTest extends FlatSpec with BeforeAndAfter {
 
     val actualFlag = flagProducer.calculateFlag(point)
 
-    assertResult(expectedFlag)(actualFlag)
+    expectedFlag shouldBe actualFlag
   }
 
   "A point with x smaller and y bigger than median" should "produce flag 01" in {
@@ -55,6 +55,6 @@ class FlagProducerTest extends FlatSpec with BeforeAndAfter {
 
     val actualFlag = flagProducer.calculateFlag(point)
 
-    assertResult(expectedFlag)(actualFlag)
+    expectedFlag shouldBe actualFlag
   }
 }
