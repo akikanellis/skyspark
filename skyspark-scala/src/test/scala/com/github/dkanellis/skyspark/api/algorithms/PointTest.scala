@@ -20,10 +20,10 @@ class PointTest extends FlatSpec with BeforeAndAfter with Matchers {
   }
 
   "A 0 index" should "return the first value" in {
-    assertResult(5)(point.dimension(0))
+    point.dimension(0) shouldBe 5
   }
 
   "A 3 index" should "return the last value" in {
-    assertResult(1)(point.dimension(3))
+    point.dimension(3) shouldBe 3
   }
 }
