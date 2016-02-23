@@ -5,7 +5,7 @@ import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 
 class PointTest extends FlatSpec with BeforeAndAfter with Matchers {
 
-  var point: Point = _
+  private var point: Point = _
 
   before {
     point = Point(5, 2, 7, 1)
