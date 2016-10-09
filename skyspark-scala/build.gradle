@@ -2,6 +2,8 @@ group 'com.github.dkanellis.skyspark'
 version '1.0'
 
 apply plugin: 'scala'
+apply from: rootProject.file('scripts/scala/utils.gradle')
+
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
