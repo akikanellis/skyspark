@@ -1,0 +1,2 @@
+# The resources folder needs to exist in order for the Gradle Scala plugin to not complain about it missing. Please
+# remove this file if any other file is to be added in this resources folder.
