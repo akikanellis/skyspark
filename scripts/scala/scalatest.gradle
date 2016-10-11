@@ -18,7 +18,7 @@ task scalaIntegrationTest(dependsOn: ['testClasses'], type: JavaExec) {
 
     main = 'org.scalatest.tools.Runner'
     args = ['-R', 'build/classes/integrationTest', '-o']
-    classpath = sourceSets.test.runtimeClasspath
+    classpath = sourceSets.integrationTest.runtimeClasspath
 }
 
 test.dependsOn scalaTest
