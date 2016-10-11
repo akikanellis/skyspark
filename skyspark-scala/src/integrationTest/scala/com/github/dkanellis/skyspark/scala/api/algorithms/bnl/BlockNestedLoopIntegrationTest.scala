@@ -5,7 +5,8 @@ import com.github.dkanellis.skyspark.scala.api.helpers.TextFileToPointRdd
 import org.scalatest.prop.TableDrivenPropertyChecks
 import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 
-class BlockNestedLoopTest extends FlatSpec with BeforeAndAfter with Matchers with TableDrivenPropertyChecks with SparkAddOn {
+class BlockNestedLoopIntegrationTest extends FlatSpec with BeforeAndAfter with Matchers with TableDrivenPropertyChecks
+  with SparkAddOn {
 
   val pointFiles =
     Table(
