@@ -14,3 +14,10 @@ task integrationTest(type: Test) {
     testClassesDir = project.sourceSets.integrationTest.output.classesDir
     classpath = project.sourceSets.integrationTest.runtimeClasspath
 }
+
+tasks.withType(Test) {
+    reports.html.destination = file("${reporting.baseDir}/${name}")
+}
+
+check.dependsOn integrationTest
+integrationTest.mustRunAfter test
