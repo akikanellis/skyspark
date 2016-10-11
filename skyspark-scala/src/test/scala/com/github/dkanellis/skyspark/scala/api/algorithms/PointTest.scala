@@ -1,6 +1,5 @@
-package com.github.dkanellis.skyspark.api.algorithms
+package com.github.dkanellis.skyspark.scala.api.algorithms
 
-import com.github.dkanellis.skyspark.scala.api.algorithms.Point
 import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 
 class PointTest extends FlatSpec with BeforeAndAfter with Matchers {
