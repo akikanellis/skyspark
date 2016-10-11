@@ -2,7 +2,7 @@ group 'com.github.dkanellis.skyspark'
 version '1.0'
 
 apply plugin: 'scala'
-apply from: rootProject.file('scripts/scala/utils.gradle')
+apply from: rootProject.file('scripts/scala/scalatest.gradle')
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7

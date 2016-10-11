@@ -1,0 +1,25 @@
+// Makes tasks for running tests with the ScalaTest Runner as well as creates a dependency of them on the general test
+// tasks.
+
+apply from: rootProject.file('scripts/java/integration_tests.gradle')
+
+task scalaTest(dependsOn: ['testClasses'], type: JavaExec) {
+    group 'verification'
+    description 'Runs the ScalaTest unit tests.'
+
+    main = 'org.scalatest.tools.Runner'
+    args = ['-R', 'build/classes/test', '-o']
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+task scalaIntegrationTest(dependsOn: ['testClasses'], type: JavaExec) {
+    group 'verification'
+    description 'Runs the ScalaTest integration tests.'
+
+    main = 'org.scalatest.tools.Runner'
+    args = ['-R', 'build/classes/integrationTest', '-o']
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+test.dependsOn scalaTest
+integrationTest.dependsOn scalaIntegrationTest
