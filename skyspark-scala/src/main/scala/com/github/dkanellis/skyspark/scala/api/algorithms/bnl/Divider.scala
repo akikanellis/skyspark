@@ -13,7 +13,6 @@ private[bnl] class Divider extends Serializable {
   private[bnl] def divide(points: RDD[Point]): RDD[(Flag, Point)] = {
     Preconditions.checkState(numberOfDimensions > 0, "Dimensionality can't be less than 1.", null)
 
-    medianFinder.numberOfDimensions = numberOfDimensions
     val median = medianFinder.getMedian(points)
     val flagProducer = new FlagProducer(median)
 
