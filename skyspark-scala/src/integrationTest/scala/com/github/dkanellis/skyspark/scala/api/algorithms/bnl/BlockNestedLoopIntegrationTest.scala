@@ -16,7 +16,7 @@ class BlockNestedLoopIntegrationTest extends FlatSpec with BeforeAndAfter with M
       ("/ANTICOR_2_10000.txt", "/ANTICOR_2_10000_SKYLINES.txt")
     )
 
-  withSpark { sc =>
+  "All point types" should "produce correct skylines" in withSpark { sc =>
     forAll(pointFiles) { (pointsFile: String, skylinesFile: String) =>
 
       val pointsFilePath = getClass.getResource(pointsFile).getFile
