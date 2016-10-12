@@ -1,9 +1,8 @@
 package com.github.dkanellis.skyspark.scala.api.helpers
 
-import com.github.dkanellis.skyspark.scala.api.SparkAddOn
 import com.github.dkanellis.skyspark.scala.api.algorithms.Point
 import com.github.dkanellis.skyspark.scala.api.helpers.DataValidator.InvalidDataException
-import com.github.dkanellis.skyspark.scala.test_utils.UnitSpec
+import com.github.dkanellis.skyspark.scala.test_utils.{SparkAddOn, UnitSpec}
 
 class DataValidatorTest extends UnitSpec with SparkAddOn {
 
