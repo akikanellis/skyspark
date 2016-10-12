@@ -20,22 +20,22 @@ class FlagAdderTest extends FlatSpec with BeforeAndAfter with Matchers with Mock
   }
 
   "A set of points" should "be returned with their respective flags" in withSpark { sc =>
-    val pointsSeq = Seq(Point(5.4, 4.4), Point(5.0, 4.1), Point(3.6, 9.0))
-    val points = sc.parallelize(pointsSeq)
-    when(flagProducer.calculateFlag(Point(5.4, 4.4))).thenReturn(Flag(true, false))
-    when(flagProducer.calculateFlag(Point(5.0, 4.1))).thenReturn(Flag(true, false))
-    when(flagProducer.calculateFlag(Point(3.6, 9.0))).thenReturn(Flag(true, true))
-    when(medianFinder.getMedian(points)).thenReturn(Point(2.7, 4.5))
     val expectedFlagPointPairs = Seq[(Flag, Point)](
       (Flag(true, false), Point(5.4, 4.4)),
       (Flag(true, false), Point(5.0, 4.1)),
       (Flag(true, true), Point(3.6, 9.0))
     )
+    val pointsSeq = expectedFlagPointPairs.map(_._2)
+    val points = sc.parallelize(pointsSeq)
+    whenFlagIsRequestedForPointReturnIt(expectedFlagPointPairs)
+    when(medianFinder.getMedian(points)).thenReturn(Point(2.7, 4.5))
 
     val actualFlagPointPairs = flagAdder.addFlags(points).collect
 
     actualFlagPointPairs should contain theSameElementsAs expectedFlagPointPairs
   }
 
-  //  def private combine(points: Seq[Point])
+  def whenFlagIsRequestedForPointReturnIt(flagPoints: Seq[(Flag, Point)]) = {
+    flagPoints.foreach { case (f, p) => when(flagProducer.calculateFlag(p)).thenReturn(f) }
+  }
 }
