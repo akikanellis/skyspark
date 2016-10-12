@@ -2,11 +2,10 @@ package com.github.dkanellis.skyspark.scala.api.algorithms.bnl
 
 import com.github.dkanellis.skyspark.scala.api.SparkAddOn
 import com.github.dkanellis.skyspark.scala.api.algorithms.Point
+import com.github.dkanellis.skyspark.scala.test_utils.UnitSpec
 import org.mockito.Mockito._
-import org.scalatest.mock.MockitoSugar
-import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 
-class FlagAdderTest extends FlatSpec with BeforeAndAfter with Matchers with MockitoSugar with SparkAddOn {
+class FlagAdderTest extends UnitSpec with SparkAddOn {
   var medianFinder: MedianFinder = _
   var flagProducer: FlagProducer = _
   var flagAdder: FlagAdder = _

@@ -3,9 +3,9 @@ package com.github.dkanellis.skyspark.scala.api.helpers
 import com.github.dkanellis.skyspark.scala.api.SparkAddOn
 import com.github.dkanellis.skyspark.scala.api.algorithms.Point
 import com.github.dkanellis.skyspark.scala.api.helpers.DataValidator.InvalidDataException
-import org.scalatest.{FlatSpec, Matchers}
+import com.github.dkanellis.skyspark.scala.test_utils.UnitSpec
 
-class DataValidatorTest extends FlatSpec with Matchers with SparkAddOn {
+class DataValidatorTest extends UnitSpec with SparkAddOn {
 
   "Points with different dimensions" should "throw InvalidDataException" in withSpark { sc =>
     val pointsArray = Seq(Point(1, 1), Point(3, 2, 1))

@@ -1,8 +1,8 @@
 package com.github.dkanellis.skyspark.scala.api.algorithms.bnl
 
-import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
+import com.github.dkanellis.skyspark.scala.test_utils.UnitSpec
 
-class FlagTest extends FlatSpec with BeforeAndAfter with Matchers {
+class FlagTest extends UnitSpec {
 
   private var flag: Flag = _
 

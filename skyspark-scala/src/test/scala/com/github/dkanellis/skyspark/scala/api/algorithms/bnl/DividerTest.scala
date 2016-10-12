@@ -2,11 +2,10 @@ package com.github.dkanellis.skyspark.scala.api.algorithms.bnl
 
 import com.github.dkanellis.skyspark.scala.api.SparkAddOn
 import com.github.dkanellis.skyspark.scala.api.algorithms.Point
+import com.github.dkanellis.skyspark.scala.test_utils.UnitSpec
 import org.mockito.Mockito._
-import org.scalatest.mock.MockitoSugar
-import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 
-class DividerTest extends FlatSpec with BeforeAndAfter with Matchers with MockitoSugar with SparkAddOn {
+class DividerTest extends UnitSpec with SparkAddOn {
   private var flagAdder: FlagAdder = _
   private var skylineComputer: SkylineComputer = _
   private var divider: Divider = _

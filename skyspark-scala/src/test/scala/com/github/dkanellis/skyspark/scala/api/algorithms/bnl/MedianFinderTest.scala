@@ -2,10 +2,10 @@ package com.github.dkanellis.skyspark.scala.api.algorithms.bnl
 
 import com.github.dkanellis.skyspark.scala.api.SparkAddOn
 import com.github.dkanellis.skyspark.scala.api.algorithms.Point
+import com.github.dkanellis.skyspark.scala.test_utils.UnitSpec
 import org.apache.spark.SparkContext
-import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers, PrivateMethodTester}
 
-class MedianFinderTest extends FlatSpec with PrivateMethodTester with BeforeAndAfter with Matchers with SparkAddOn {
+class MedianFinderTest extends UnitSpec with SparkAddOn {
 
   private var medianFinder: MedianFinder = _
 

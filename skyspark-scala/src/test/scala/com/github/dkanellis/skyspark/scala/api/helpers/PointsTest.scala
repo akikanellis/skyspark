@@ -1,9 +1,9 @@
 package com.github.dkanellis.skyspark.scala.api.helpers
 
 import com.github.dkanellis.skyspark.scala.api.algorithms.Point
-import org.scalatest.{FlatSpec, Matchers}
+import com.github.dkanellis.skyspark.scala.test_utils.UnitSpec
 
-class PointsTest extends FlatSpec with Matchers {
+class PointsTest extends UnitSpec {
 
   "A point with one dimension smaller" should "dominate when the rest dimensions are smaller or equal" in {
     val first = Point(2, 5, 1)
