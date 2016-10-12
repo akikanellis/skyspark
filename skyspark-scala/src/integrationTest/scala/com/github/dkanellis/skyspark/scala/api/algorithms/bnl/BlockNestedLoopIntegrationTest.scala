@@ -1,6 +1,7 @@
 package com.github.dkanellis.skyspark.scala.api.algorithms.bnl
 
 import com.github.dkanellis.skyspark.scala.api.SparkAddOn
+import com.github.dkanellis.skyspark.scala.api.algorithms.Point
 import com.github.dkanellis.skyspark.scala.api.helpers.TextFileToPointRdd
 import org.scalatest.prop.TableDrivenPropertyChecks
 import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
@@ -30,5 +31,13 @@ class BlockNestedLoopIntegrationTest extends FlatSpec with BeforeAndAfter with M
 
       actualSkylines.collect() should contain theSameElementsAs expectedSkylines.collect()
     }
+  }
+
+  "No points" should "throw IllegalArgumentException" in withSpark { sc =>
+    val points = sc.parallelize(Seq[Point]())
+
+    val bnl = new BlockNestedLoop
+
+    an[IllegalArgumentException] should be thrownBy bnl.computeSkylinePoints(points)
   }
 }
