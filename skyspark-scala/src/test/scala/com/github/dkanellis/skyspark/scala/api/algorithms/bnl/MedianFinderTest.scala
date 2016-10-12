@@ -12,18 +12,6 @@ class MedianFinderTest extends FlatSpec with PrivateMethodTester with BeforeAndA
     medianFinder = new MedianFinder
   }
 
-  "A zero dimension size" should "throw an IllegalStateException" in {
-    medianFinder.numberOfDimensions = 0
-
-    an[IllegalStateException] should be thrownBy medianFinder.getMedian(null)
-  }
-
-  "A negative dimension size" should "throw an IllegalStateException" in {
-    medianFinder.numberOfDimensions = -1
-
-    an[IllegalStateException] should be thrownBy medianFinder.getMedian(null)
-  }
-
   "2D points" should "produce correct median" in withSpark { sc =>
     val pointsArray = Seq[Point](Point(1, 1), Point(3, 2), Point(4, 7), Point(9, 5))
     val points = sc.parallelize(pointsArray)
