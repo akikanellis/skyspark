@@ -2,9 +2,9 @@ package com.github.dkanellis.skyspark.scala.api.algorithms.bnl
 
 import com.github.dkanellis.skyspark.scala.api.SparkAddOn
 import com.github.dkanellis.skyspark.scala.api.algorithms.Point
-import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
+import com.github.dkanellis.skyspark.scala.test_utils.UnitSpec
 
-class MergerTest extends FlatSpec with BeforeAndAfter with Matchers with SparkAddOn {
+class MergerTest extends UnitSpec with SparkAddOn {
 
   private var merger: Merger = _
 

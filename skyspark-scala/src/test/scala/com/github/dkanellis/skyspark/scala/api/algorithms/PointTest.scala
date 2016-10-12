@@ -1,8 +1,8 @@
 package com.github.dkanellis.skyspark.scala.api.algorithms
 
-import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
+import com.github.dkanellis.skyspark.scala.test_utils.UnitSpec
 
-class PointTest extends FlatSpec with BeforeAndAfter with Matchers {
+class PointTest extends UnitSpec {
 
   private var point: Point = _
 

@@ -1,9 +1,9 @@
 package com.github.dkanellis.skyspark.scala.api.algorithms.bnl
 
 import com.github.dkanellis.skyspark.scala.api.algorithms.Point
-import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
+import com.github.dkanellis.skyspark.scala.test_utils.UnitSpec
 
-class FlagProducerTest extends FlatSpec with BeforeAndAfter with Matchers {
+class FlagProducerTest extends UnitSpec {
 
   private var median: Point = _
   private var flagProducer: FlagProducer = _

@@ -1,9 +1,10 @@
 package com.github.dkanellis.skyspark.scala.api.helpers
 
 import com.github.dkanellis.skyspark.scala.api.algorithms.Point
-import org.scalatest.{FlatSpec, Matchers, PrivateMethodTester}
+import com.github.dkanellis.skyspark.scala.test_utils.UnitSpec
+import org.scalatest.PrivateMethodTester
 
-class TextFileToPointRddTest extends FlatSpec with PrivateMethodTester with Matchers {
+class TextFileToPointRddTest extends UnitSpec with PrivateMethodTester {
 
   private val decoratePointFromTextLine = PrivateMethod[Point]('pointFromTextLine)
 
