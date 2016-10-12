@@ -6,7 +6,7 @@ import org.apache.spark.rdd.RDD
 class BlockNestedLoop(divider: Divider, merger: Merger) extends SkylineAlgorithm {
 
   def this() = {
-    this(new Divider, new Merger)
+    this(new Divider(new BnlAlgorithm), new Merger)
   }
 
   override def computeSkylinePoints(points: RDD[Point]): RDD[Point] = {
