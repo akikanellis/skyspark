@@ -1,8 +1,8 @@
 package com.github.dkanellis.skyspark.scala.api.algorithms.bnl
 
-import com.github.dkanellis.skyspark.scala.api.SparkAddOn
 import com.github.dkanellis.skyspark.scala.api.algorithms.Point
 import com.github.dkanellis.skyspark.scala.api.helpers.TextFileToPointRdd
+import com.github.dkanellis.skyspark.scala.test_utils.SparkAddOn
 import org.scalatest.prop.TableDrivenPropertyChecks
 import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 

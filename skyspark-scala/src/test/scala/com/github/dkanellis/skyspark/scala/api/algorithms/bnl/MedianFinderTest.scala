@@ -1,8 +1,7 @@
 package com.github.dkanellis.skyspark.scala.api.algorithms.bnl
 
-import com.github.dkanellis.skyspark.scala.api.SparkAddOn
 import com.github.dkanellis.skyspark.scala.api.algorithms.Point
-import com.github.dkanellis.skyspark.scala.test_utils.UnitSpec
+import com.github.dkanellis.skyspark.scala.test_utils.{SparkAddOn, UnitSpec}
 import org.apache.spark.SparkContext
 
 class MedianFinderTest extends UnitSpec with SparkAddOn {
