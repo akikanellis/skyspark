@@ -13,10 +13,7 @@ private[bnl] class FlagAdder(medianFinder: MedianFinder) extends Serializable {
     val median = medianFinder.getMedian(points)
     val flagProducer = createFlagProducer(median)
 
-    points.map(p => {
-      val flag: Flag = flagProducer.calculateFlag(p)
-      (flag, p)
-    })
+    points.map(p => (flagProducer.calculateFlag(p), p))
   }
 
   protected def createFlagProducer(median: Point): FlagProducer = {
