@@ -10,7 +10,7 @@ class BlockNestedLoop(divider: Divider, merger: Merger) extends SkylineAlgorithm
   }
 
   override def computeSkylinePoints(points: RDD[Point]): RDD[Point] = {
-    // TODO: check for empty points
+    require(!points.isEmpty)
 
     val localSkylinesWithFlags = divider.divide(points)
 
