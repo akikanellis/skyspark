@@ -3,6 +3,7 @@ package com.github.dkanellis.skyspark.scala.api.algorithms.bnl
 import com.github.dkanellis.skyspark.scala.api.algorithms.Point
 import com.github.dkanellis.skyspark.scala.test_utils.{SparkAddOn, UnitSpec}
 import org.mockito.Mockito._
+import org.mockito.mock.SerializableMode
 
 class FlagAdderTest extends UnitSpec with SparkAddOn {
   var medianFinder: MedianFinder = _
@@ -11,7 +12,7 @@ class FlagAdderTest extends UnitSpec with SparkAddOn {
 
   before {
     medianFinder = mock[MedianFinder]
-    flagProducer = mock[FlagProducer](withSettings().serializable())
+    flagProducer = mock[FlagProducer](withSettings().serializable(SerializableMode.ACROSS_CLASSLOADERS))
     flagAdder = new FlagAdder(medianFinder) {
       override protected def createFlagProducer(median: Point): FlagProducer = flagProducer
     }

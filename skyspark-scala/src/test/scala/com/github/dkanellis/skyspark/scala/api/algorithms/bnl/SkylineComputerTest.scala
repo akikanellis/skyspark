@@ -2,17 +2,15 @@ package com.github.dkanellis.skyspark.scala.api.algorithms.bnl
 
 import com.github.dkanellis.skyspark.scala.api.algorithms.Point
 import com.github.dkanellis.skyspark.scala.test_utils.{SparkAddOn, UnitSpec}
-import org.junit.runner.RunWith
 import org.mockito.Mockito._
-import org.mockito.runners.MockitoJUnitRunner
+import org.mockito.mock.SerializableMode
 
-@RunWith(classOf[MockitoJUnitRunner])
 class SkylineComputerTest extends UnitSpec with SparkAddOn {
   var bnlAlgorithm: BnlAlgorithm = _
   var skylineComputer: SkylineComputer = _
 
   before {
-    bnlAlgorithm = mock[BnlAlgorithm](withSettings().serializable())
+    bnlAlgorithm = mock[BnlAlgorithm](withSettings().serializable(SerializableMode.ACROSS_CLASSLOADERS))
     skylineComputer = new SkylineComputer(bnlAlgorithm)
   }
 
