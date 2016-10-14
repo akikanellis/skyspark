@@ -2,37 +2,50 @@ package com.github.dkanellis.skyspark.scala.api.helpers
 
 import com.github.dkanellis.skyspark.scala.api.algorithms.Point
 import com.github.dkanellis.skyspark.scala.test_utils.UnitSpec
-import org.scalatest.PrivateMethodTester
 
-class TextFileToPointRddTest extends UnitSpec with PrivateMethodTester {
-
-  private val decoratePointFromTextLine = PrivateMethod[Point]('pointFromTextLine)
+class TextFileToPointRddTest extends UnitSpec {
 
   "An empty line" should "throw an IllegalArgumentException" in {
-    an[IllegalArgumentException] should be thrownBy (TextFileToPointRdd invokePrivate decoratePointFromTextLine("", " "))
+    an[IllegalArgumentException] should be thrownBy TextFileToPointRdd.pointFromTextLine("", " ")
   }
 
   "A non-number character in the line" should "throw an IllegalArgumentException" in {
-    an[IllegalArgumentException] should be thrownBy (TextFileToPointRdd invokePrivate decoratePointFromTextLine("1 3 a", " "))
+    an[IllegalArgumentException] should be thrownBy TextFileToPointRdd.pointFromTextLine("1 3 a", " ")
   }
 
   "A wrong delimiter" should "throw an IllegalArgumentException" in {
-    an[IllegalArgumentException] should be thrownBy (TextFileToPointRdd invokePrivate decoratePointFromTextLine("1 5", ","))
+    an[IllegalArgumentException] should be thrownBy TextFileToPointRdd.pointFromTextLine("1 5", ",")
   }
 
   "A 1 number line" should "return a 1-dimensional point" in {
-    val expected = Point(1)
+    val expectedPoint = Point(1)
 
-    val actual = TextFileToPointRdd invokePrivate decoratePointFromTextLine("1", " ")
+    val actualPoint = TextFileToPointRdd.pointFromTextLine("1", " ")
 
-    expected shouldBe actual
+    actualPoint shouldBe expectedPoint
   }
 
   "A 2 number line" should "return a 2-dimensional point" in {
-    val expected = Point(1, 5)
+    val expectedPoint = Point(1, 5)
 
-    val actual = TextFileToPointRdd invokePrivate decoratePointFromTextLine("1 5", " ")
+    val actualPoint = TextFileToPointRdd.pointFromTextLine("1 5", " ")
 
-    expected shouldBe actual
+    actualPoint shouldBe expectedPoint
+  }
+
+  "A floating point number line" should "return a floating point" in {
+    val expectedPoint = Point(1.425214, 5.672734)
+
+    val actualPoint = TextFileToPointRdd.pointFromTextLine("1.425214 5.672734", " ")
+
+    actualPoint shouldBe expectedPoint
+  }
+
+  "A delimiter other than space" should "return the points" in {
+    val expectedPoint = Point(5, 1)
+
+    val actualPoint = TextFileToPointRdd.pointFromTextLine("5,1", ",")
+
+    actualPoint shouldBe expectedPoint
   }
 }
