@@ -5,9 +5,9 @@ import com.github.dkanellis.skyspark.scala.test_utils.{SparkAddOn, UnitSpec}
 import org.mockito.Mockito._
 
 class DividerTest extends UnitSpec with SparkAddOn {
-  private var flagAdder: FlagAdder = _
-  private var skylineComputer: SkylineComputer = _
-  private var divider: Divider = _
+  var flagAdder: FlagAdder = _
+  var skylineComputer: SkylineComputer = _
+  var divider: Divider = _
 
   before {
     flagAdder = mock[FlagAdder]
