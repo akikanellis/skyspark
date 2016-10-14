@@ -1,8 +1,6 @@
-package com.github.dkanellis.skyspark.scala.api.helpers
+package com.github.dkanellis.skyspark.scala.api.algorithms
 
-import com.github.dkanellis.skyspark.scala.api.algorithms.Point
-
-object Points {
+object DominatingAlgorithm {
 
   def dominates(first: Point, second: Point): Boolean = {
     var atLeastOneSmaller = false

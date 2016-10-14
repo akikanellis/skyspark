@@ -1,7 +1,6 @@
 package com.github.dkanellis.skyspark.scala.api.algorithms.bnl
 
-import com.github.dkanellis.skyspark.scala.api.algorithms.Point
-import com.github.dkanellis.skyspark.scala.api.helpers.Points
+import com.github.dkanellis.skyspark.scala.api.algorithms.{DominatingAlgorithm, Point}
 
 import scala.collection.mutable.ListBuffer
 
@@ -26,18 +25,6 @@ private[bnl] class BnlAlgorithm extends Serializable {
     !passes
   }
 
-  private def addDiscardOrDominate(localSkylines: ListBuffer[Point], candidateSkyline: Point) {
-    for (pointToCheckAgainst <- localSkylines) {
-      if (Points.dominates(pointToCheckAgainst, candidateSkyline)) {
-        return
-      } else if (Points.dominates(candidateSkyline, pointToCheckAgainst)) {
-        localSkylines -= pointToCheckAgainst
-      }
-    }
-
-    localSkylines += candidateSkyline
-  }
-
   private[bnl] def computeSkylinesWithoutPreComparison(pointIterable: Iterable[Point]): Iterable[Point] = {
     val localSkylines = ListBuffer[Point]()
     for (candidateSkyline <- pointIterable) {
@@ -45,5 +32,17 @@ private[bnl] class BnlAlgorithm extends Serializable {
     }
 
     localSkylines
+  }
+
+  private def addDiscardOrDominate(localSkylines: ListBuffer[Point], candidateSkyline: Point) {
+    for (pointToCheckAgainst <- localSkylines) {
+      if (DominatingAlgorithm.dominates(pointToCheckAgainst, candidateSkyline)) {
+        return
+      } else if (DominatingAlgorithm.dominates(candidateSkyline, pointToCheckAgainst)) {
+        localSkylines -= pointToCheckAgainst
+      }
+    }
+
+    localSkylines += candidateSkyline
   }
 }

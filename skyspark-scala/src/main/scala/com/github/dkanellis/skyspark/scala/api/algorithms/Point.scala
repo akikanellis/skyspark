@@ -5,4 +5,6 @@ case class Point(private val dimensions: Double*) extends Serializable {
   def size() = dimensions.length
 
   def dimension(i: Int) = dimensions(i)
+
+  def dominates(other: Point): Boolean = DominatingAlgorithm.dominates(this, other)
 }
