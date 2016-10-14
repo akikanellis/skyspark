@@ -1,8 +1,8 @@
 package com.github.dkanellis.skyspark.scala.api.algorithms
 
-object DominatingAlgorithm {
+private[algorithms] object DominatingAlgorithm {
 
-  def dominates(first: Point, second: Point): Boolean = {
+  private[algorithms] def dominates(first: Point, second: Point): Boolean = {
     var atLeastOneSmaller = false
     for (i <- 0 until first.size()) {
       if (first.dimension(i) > second.dimension(i)) {
