@@ -4,45 +4,44 @@ import com.github.dkanellis.skyspark.scala.api.algorithms.Point
 
 import scala.collection.mutable.ListBuffer
 
+/**
+  * The BNL algorithm for computing the skylines out of a set of points. Computing with pre-comparison will first check
+  * if any point needs to be removed by using the pre-comparison algorithm. For details check the article mentioned in
+  * [[com.github.dkanellis.skyspark.scala.api.algorithms.bnl.BlockNestedLoop]]
+  */
 private[bnl] class BnlAlgorithm extends Serializable {
 
-  private[bnl] def computeSkylinesWithPreComparison(flagsWithPoints: Iterable[(Flag, Point)]): Iterable[Point] = {
-    val localSkylines = ListBuffer[Point]()
+  private[bnl] def computeSkylinesWithPreComparison(flagsWithPoints: Traversable[(Flag, Point)]): Traversable[Point] = {
+    val skylines = ListBuffer[Point]()
+
     flagsWithPoints
       .filter(fp => passesPreComparison(fp._1))
       .map(_._2)
-      .foreach(addDiscardOrDominate(localSkylines, _))
+      .foreach(addDiscardOrDominate(skylines, _))
 
-    localSkylines
+    skylines
   }
 
-  private def passesPreComparison(flag: Flag) = {
-    var passes = true
-    for (i <- 0 until flag.size) {
-      passes &= flag.bit(i)
-    }
-
-    !passes
+  private def passesPreComparison(flag: Flag): Boolean = {
+    val anyBitIsFalse = flag.bits.contains(false)
+    anyBitIsFalse
   }
 
-  private def addDiscardOrDominate(localSkylines: ListBuffer[Point], candidateSkyline: Point) {
-    for (pointToCheckAgainst <- localSkylines) {
-      if (pointToCheckAgainst.dominates(candidateSkyline)) {
-        return
-      } else if (candidateSkyline.dominates(pointToCheckAgainst)) {
-        localSkylines -= pointToCheckAgainst
-      }
-    }
+  private[bnl] def computeSkylinesWithoutPreComparison(points: Traversable[Point]): Traversable[Point] = {
+    val skylines = ListBuffer[Point]()
 
-    localSkylines += candidateSkyline
+    points.foreach(addDiscardOrDominate(skylines, _))
+
+    skylines
   }
 
-  private[bnl] def computeSkylinesWithoutPreComparison(pointIterable: Iterable[Point]): Iterable[Point] = {
-    val localSkylines = ListBuffer[Point]()
-    for (candidateSkyline <- pointIterable) {
-      addDiscardOrDominate(localSkylines, candidateSkyline)
+  private def addDiscardOrDominate(currentSkylines: ListBuffer[Point], candidateSkyline: Point) {
+    currentSkylines.foreach { pointToCheckAgainst =>
+      if (pointToCheckAgainst.dominates(candidateSkyline)) return
+
+      if (candidateSkyline.dominates(pointToCheckAgainst)) currentSkylines -= pointToCheckAgainst
     }
 
-    localSkylines
+    currentSkylines += candidateSkyline
   }
 }
