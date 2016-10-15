@@ -6,12 +6,12 @@ import org.mockito.Mockito._
 
 class DividerTest extends UnitSpec with SparkAddOn {
   var flagAdder: FlagAdder = _
-  var skylineComputer: SkylineComputer = _
+  var skylineComputer: LocalSkylineCalculator = _
   var divider: Divider = _
 
   before {
     flagAdder = mock[FlagAdder]
-    skylineComputer = mock[SkylineComputer]
+    skylineComputer = mock[LocalSkylineCalculator]
     divider = new Divider(flagAdder, skylineComputer)
   }
 
