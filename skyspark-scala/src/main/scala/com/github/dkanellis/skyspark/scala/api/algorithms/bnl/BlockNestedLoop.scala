@@ -20,6 +20,8 @@ import org.apache.spark.rdd.RDD
 @ThreadSafe
 class BlockNestedLoop private[bnl](private val divider: Divider, private val merger: Merger) extends SkylineAlgorithm {
 
+  private def this(bnlAlgorithm: BnlAlgorithm) = this(new Divider(bnlAlgorithm), new Merger(bnlAlgorithm))
+
   def this() = this(new BnlAlgorithm)
 
   override def computeSkylinePoints(points: RDD[Point]): RDD[Point] = {
@@ -29,6 +31,4 @@ class BlockNestedLoop private[bnl](private val divider: Divider, private val mer
 
     merger.merge(localSkylinesWithFlags)
   }
-
-  private def this(bnlAlgorithm: BnlAlgorithm) = this(new Divider(bnlAlgorithm), new Merger(bnlAlgorithm))
 }
