@@ -3,6 +3,7 @@ version '1.0'
 
 apply plugin: 'java'
 apply plugin: 'com.github.johnrengelman.shadow'
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -17,7 +18,7 @@ jar {
 }
 
 dependencies {
-    compile project(':skyspark')
+    compile project(':skyspark-java')
     compile 'com.beust:jcommander:1.48'
     compile 'org.apache.poi:poi:3.9'
 
