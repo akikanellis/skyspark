@@ -1,4 +1,4 @@
-group 'com.github.dkanellis.skyspark.examples'
+group 'com.akikanellis.skyspark.examples'
 version '1.0'
 
 apply plugin: 'java'
@@ -12,7 +12,7 @@ repositories {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'com.github.dkanellis.skyspark.examples.Main'
+        attributes 'Main-Class': 'com.akikanellis.skyspark.examples.Main'
     }
 }
 
