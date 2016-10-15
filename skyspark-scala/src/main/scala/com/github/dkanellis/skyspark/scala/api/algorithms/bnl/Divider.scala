@@ -4,6 +4,8 @@ import com.github.dkanellis.skyspark.scala.api.algorithms.Point
 import org.apache.spark.rdd.RDD
 
 /**
+  * The Division part of the MR-BNL algorithm.
+  * <p>
   * Divides the data into appropriate partitions by using their flags and computes the local skylines for each
   * partition using the skyline computer.
   *

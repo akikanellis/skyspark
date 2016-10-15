@@ -16,7 +16,7 @@ class BlockNestedLoopTest extends UnitSpec with SparkAddOn {
   }
 
   "An RDD with no points" should "throw IllegalArgumentException" in withSpark { sc =>
-    val points = sc.parallelize(Seq[Point]())
+    val points = sc.parallelize(Seq.empty[Point])
 
     an[IllegalArgumentException] should be thrownBy blockNestedLoop.computeSkylinePoints(points)
   }

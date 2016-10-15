@@ -4,7 +4,7 @@ import com.github.dkanellis.skyspark.scala.api.algorithms.Point
 import org.apache.spark.rdd.RDD
 
 /**
-  * This is responsible for the Merging part of the MapReduce based BNL.
+  * This is responsible for the Merging part of the MR-BNL algorithm.
   *
   * @param bnlAlgorithm The core BNL algorithm
   */

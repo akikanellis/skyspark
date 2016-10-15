@@ -9,7 +9,7 @@ import org.apache.spark.rdd.RDD
 private[bnl] class MedianFinder extends Serializable {
 
   private[bnl] def getMedian(points: RDD[Point]): Point = {
-    val numberOfDimensions = points.first.size()
+    val numberOfDimensions = points.first.size
 
     val medianDimensionValues = new Array[Double](numberOfDimensions)
     for (i <- 0 until numberOfDimensions) {
