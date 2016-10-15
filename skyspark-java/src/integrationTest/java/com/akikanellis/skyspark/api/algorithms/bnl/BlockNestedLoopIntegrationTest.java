@@ -1,7 +1,7 @@
-package com.akikanellis.skyspark.api.test_utils.integration_tests;
+package com.akikanellis.skyspark.api.algorithms.bnl;
 
 import com.akikanellis.skyspark.api.algorithms.SkylineAlgorithm;
-import com.akikanellis.skyspark.api.algorithms.bnl.BlockNestedLoop;
+import com.akikanellis.skyspark.api.test_utils.BaseSkylineAlgorithmIntegrationTest;
 import com.akikanellis.skyspark.api.test_utils.categories.algorithms.BlockNestedLoopTests;
 import com.akikanellis.skyspark.api.test_utils.categories.combinations.BlockNestedLoopBigSizeTests;
 import com.akikanellis.skyspark.api.test_utils.categories.combinations.BlockNestedLoopMediumSizeTests;

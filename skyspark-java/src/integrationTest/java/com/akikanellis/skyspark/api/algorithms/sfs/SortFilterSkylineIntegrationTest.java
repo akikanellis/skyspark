@@ -1,7 +1,7 @@
-package com.akikanellis.skyspark.api.test_utils.integration_tests;
+package com.akikanellis.skyspark.api.algorithms.sfs;
 
 import com.akikanellis.skyspark.api.algorithms.SkylineAlgorithm;
-import com.akikanellis.skyspark.api.algorithms.sfs.SortFilterSkyline;
+import com.akikanellis.skyspark.api.test_utils.BaseSkylineAlgorithmIntegrationTest;
 import com.akikanellis.skyspark.api.test_utils.categories.algorithms.SortFilterSkylineTests;
 import com.akikanellis.skyspark.api.test_utils.categories.combinations.SortFilterSkylineBigSizeTests;
 import com.akikanellis.skyspark.api.test_utils.categories.combinations.SortFilterSkylineMediumSizeTests;

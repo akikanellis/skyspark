@@ -1,8 +1,7 @@
-package com.akikanellis.skyspark.api.test_utils.integration_tests;
+package com.akikanellis.skyspark.api.test_utils;
 
 import com.akikanellis.skyspark.api.algorithms.SkylineAlgorithm;
 import com.akikanellis.skyspark.api.helpers.TextFileToPointRDD;
-import com.akikanellis.skyspark.api.test_utils.DatasetFiles;
 import com.akikanellis.skyspark.api.test_utils.base.BaseSparkTest;
 import org.apache.spark.api.java.JavaRDD;
 import org.junit.Before;
@@ -12,7 +11,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-abstract class BaseSkylineAlgorithmIntegrationTest extends BaseSparkTest {
+public abstract class BaseSkylineAlgorithmIntegrationTest extends BaseSparkTest {
 
     private SkylineAlgorithm skylineAlgorithm;
     private TextFileToPointRDD textFileToPointRDD;

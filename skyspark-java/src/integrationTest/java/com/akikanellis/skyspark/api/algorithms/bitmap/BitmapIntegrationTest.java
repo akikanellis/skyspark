@@ -1,7 +1,7 @@
-package com.akikanellis.skyspark.api.test_utils.integration_tests;
+package com.akikanellis.skyspark.api.algorithms.bitmap;
 
 import com.akikanellis.skyspark.api.algorithms.SkylineAlgorithm;
-import com.akikanellis.skyspark.api.algorithms.bitmap.Bitmap;
+import com.akikanellis.skyspark.api.test_utils.BaseSkylineAlgorithmIntegrationTest;
 import com.akikanellis.skyspark.api.test_utils.categories.algorithms.BitmapTests;
 import com.akikanellis.skyspark.api.test_utils.categories.combinations.BitmapBigSizeTests;
 import com.akikanellis.skyspark.api.test_utils.categories.combinations.BitmapMediumSizeTests;
