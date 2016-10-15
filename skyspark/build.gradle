@@ -1,4 +1,4 @@
-group 'com.github.dkanellis.skyspark'
+group 'com.akikanellis.skyspark'
 version '1.0'
 
 apply plugin: 'java'
