@@ -1,1 +1,1 @@
-include ':skyspark', ':skyspark-scala', ':performance', ':examples'
+include ':skyspark-java', ':skyspark-scala', ':performance', ':examples'
