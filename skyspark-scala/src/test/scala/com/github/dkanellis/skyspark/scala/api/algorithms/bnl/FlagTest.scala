@@ -3,23 +3,18 @@ package com.github.dkanellis.skyspark.scala.api.algorithms.bnl
 import com.github.dkanellis.skyspark.scala.test_utils.UnitSpec
 
 class FlagTest extends UnitSpec {
-
-  private var flag: Flag = _
+  var flag: Flag = _
 
   before {
-    flag = Flag(false, true, false, true) // 0101
+    flag = Flag(false, true, false, true) /* 0101 */
   }
 
   "A smaller than 0 index" should "throw IndexOutOfBoundsException" in {
-    intercept[IndexOutOfBoundsException] {
-      flag.bit(-1)
-    }
+    an[IndexOutOfBoundsException] should be thrownBy flag.bit(-1)
   }
 
   "A bigger than size index" should "throw IndexOutOfBoundsException" in {
-    intercept[IndexOutOfBoundsException] {
-      flag.bit(4)
-    }
+    an[IndexOutOfBoundsException] should be thrownBy flag.bit(4)
   }
 
   "A 0 index" should "return the first value" in {
