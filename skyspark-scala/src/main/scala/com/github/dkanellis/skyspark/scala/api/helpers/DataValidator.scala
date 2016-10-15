@@ -18,7 +18,7 @@ object DataValidator {
     * @throws InvalidDataException if there are different number of dimensions present
     */
   @throws(classOf[InvalidDataException]) def validate(points: RDD[Point]) {
-    val numberOfDifferentDimensions = points.map(_.size())
+    val numberOfDifferentDimensions = points.map(_.size)
       .distinct
       .count
 

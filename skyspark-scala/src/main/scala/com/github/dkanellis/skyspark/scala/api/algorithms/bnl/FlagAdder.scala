@@ -4,11 +4,13 @@ import com.github.dkanellis.skyspark.scala.api.algorithms.Point
 import org.apache.spark.rdd.RDD
 
 /**
+  * The Map task of the Division part of the MR-BNL algorithm.
+  * <p>
   * Adds the corresponding flags to the points.
   *
   * @param medianFinder The median of the points
   */
-private[bnl] class FlagAdder(private[bnl] val medianFinder: MedianFinder) extends Serializable {
+private[bnl] class FlagAdder(private val medianFinder: MedianFinder) extends Serializable {
 
   private[bnl] def this() = this(new MedianFinder)
 
@@ -19,5 +21,5 @@ private[bnl] class FlagAdder(private[bnl] val medianFinder: MedianFinder) extend
     points.map(p => (flagProducer.calculateFlag(p), p))
   }
 
-  protected[bnl] def createFlagProducer(median: Point): FlagProducer = new FlagProducer(median)
+  private[bnl] def createFlagProducer(median: Point): FlagProducer = new FlagProducer(median)
 }

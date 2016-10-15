@@ -1,7 +1,7 @@
 package com.github.dkanellis.skyspark.scala.api.algorithms
 
 /**
-  * An algorithm for determining if a point can dominate another.
+  * An algorithm for determining if a point dominates another.
   */
 private[algorithms] object DominatingAlgorithm {
 

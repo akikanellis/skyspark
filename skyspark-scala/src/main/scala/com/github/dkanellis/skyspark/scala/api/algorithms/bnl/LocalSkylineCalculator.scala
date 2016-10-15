@@ -4,7 +4,7 @@ import com.github.dkanellis.skyspark.scala.api.algorithms.Point
 import org.apache.spark.rdd.RDD
 
 /**
-  * This is responsible for the Reduce task of the Division part of the MapReduce based BNL algorithm.
+  * This is responsible for the Reduce task of the Division part of the MR-BNL algorithm.
   *
   * @param bnlAlgorithm The core BNL algorithm
   */
