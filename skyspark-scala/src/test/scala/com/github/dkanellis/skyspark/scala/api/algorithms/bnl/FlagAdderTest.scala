@@ -13,7 +13,7 @@ class FlagAdderTest extends UnitSpec with SparkAddOn {
     medianFinder = mock[MedianFinder]
     flagProducer = mockForSpark[FlagProducer]
     flagAdder = new FlagAdder(medianFinder) {
-      override protected def createFlagProducer(median: Point): FlagProducer = flagProducer
+      override protected[bnl] def createFlagProducer(median: Point): FlagProducer = flagProducer
     }
   }
 
@@ -21,8 +21,7 @@ class FlagAdderTest extends UnitSpec with SparkAddOn {
     val expectedFlagPointPairs = Seq[(Flag, Point)](
       (Flag(true, false), Point(5.4, 4.4)),
       (Flag(true, false), Point(5.0, 4.1)),
-      (Flag(true, true), Point(3.6, 9.0))
-    )
+      (Flag(true, true), Point(3.6, 9.0)))
     val pointsSeq = expectedFlagPointPairs.map(_._2)
     val points = sc.parallelize(pointsSeq)
     whenFlagIsRequestedForPointReturnIt(expectedFlagPointPairs)
@@ -33,7 +32,6 @@ class FlagAdderTest extends UnitSpec with SparkAddOn {
     actualFlagPointPairs should contain theSameElementsAs expectedFlagPointPairs
   }
 
-  def whenFlagIsRequestedForPointReturnIt(flagPoints: Seq[(Flag, Point)]) = {
+  def whenFlagIsRequestedForPointReturnIt(flagPoints: Seq[(Flag, Point)]) =
     flagPoints.foreach { case (f, p) => when(flagProducer.calculateFlag(p)).thenReturn(f) }
-  }
 }
