@@ -4,9 +4,8 @@ import com.github.dkanellis.skyspark.scala.api.algorithms.Point
 import com.github.dkanellis.skyspark.scala.test_utils.UnitSpec
 
 class FlagProducerTest extends UnitSpec {
-
-  private var median: Point = _
-  private var flagProducer: FlagProducer = _
+  var median: Point = _
+  var flagProducer: FlagProducer = _
 
   before {
     median = Point(5, 5)
@@ -19,7 +18,7 @@ class FlagProducerTest extends UnitSpec {
 
     val actualFlag = flagProducer.calculateFlag(point)
 
-    expectedFlag shouldBe actualFlag
+    actualFlag shouldBe expectedFlag
   }
 
   "A point with x and y bigger than median" should "produce flag 11" in {
@@ -28,7 +27,7 @@ class FlagProducerTest extends UnitSpec {
 
     val actualFlag = flagProducer.calculateFlag(point)
 
-    expectedFlag shouldBe actualFlag
+    actualFlag shouldBe expectedFlag
   }
 
   "A point with x and y equal to median" should "produce flag 11" in {
@@ -37,7 +36,7 @@ class FlagProducerTest extends UnitSpec {
 
     val actualFlag = flagProducer.calculateFlag(point)
 
-    expectedFlag shouldBe actualFlag
+    actualFlag shouldBe expectedFlag
   }
 
   "A point with x bigger and y smaller than median" should "produce flag 10" in {
@@ -46,7 +45,7 @@ class FlagProducerTest extends UnitSpec {
 
     val actualFlag = flagProducer.calculateFlag(point)
 
-    expectedFlag shouldBe actualFlag
+    actualFlag shouldBe expectedFlag
   }
 
   "A point with x smaller and y bigger than median" should "produce flag 01" in {
@@ -55,6 +54,6 @@ class FlagProducerTest extends UnitSpec {
 
     val actualFlag = flagProducer.calculateFlag(point)
 
-    expectedFlag shouldBe actualFlag
+    actualFlag shouldBe expectedFlag
   }
 }
