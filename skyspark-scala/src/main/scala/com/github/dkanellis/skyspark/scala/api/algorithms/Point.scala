@@ -4,7 +4,7 @@ package com.github.dkanellis.skyspark.scala.api.algorithms
   * Defines a point representing a location in a coordinate space whose size is defined by the number of dimensions
   * provided.
   */
-case class Point(private val dimensions: Double*) extends Serializable {
+case class Point(dimensions: Double*) extends Serializable {
 
   def size() = dimensions.length
 
