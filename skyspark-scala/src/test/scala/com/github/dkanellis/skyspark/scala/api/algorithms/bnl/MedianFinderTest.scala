@@ -5,7 +5,6 @@ import com.github.dkanellis.skyspark.scala.test_utils.{SparkAddOn, UnitSpec}
 import org.apache.spark.SparkContext
 
 class MedianFinderTest extends UnitSpec with SparkAddOn {
-
   private var medianFinder: MedianFinder = _
 
   before {
@@ -13,38 +12,38 @@ class MedianFinderTest extends UnitSpec with SparkAddOn {
   }
 
   "A single point" should "produce correct median" in withSpark { sc =>
-    val pointsArray = Seq[Point](Point(1))
+    val points = Seq(Point(1))
     val expectedMedian = Point(0.5)
 
-    assertMedianIsCorrect(sc, pointsArray, expectedMedian)
+    assertMedianIsCorrect(sc, points, expectedMedian)
   }
 
   "1D points" should "produce correct median" in withSpark { sc =>
-    val pointsArray = Seq[Point](Point(1), Point(3), Point(4), Point(9))
+    val points = Seq(Point(1), Point(3), Point(4), Point(9))
     val expectedMedian = Point(4.5)
 
-    assertMedianIsCorrect(sc, pointsArray, expectedMedian)
+    assertMedianIsCorrect(sc, points, expectedMedian)
   }
 
   "2D points" should "produce correct median" in withSpark { sc =>
-    val pointsArray = Seq[Point](Point(1, 1), Point(3, 2), Point(4, 7), Point(9, 5))
+    val points = Seq(Point(1, 1), Point(3, 2), Point(4, 7), Point(9, 5))
     val expectedMedian = Point(4.5, 3.5)
 
-    assertMedianIsCorrect(sc, pointsArray, expectedMedian)
+    assertMedianIsCorrect(sc, points, expectedMedian)
   }
 
   "3D points" should "produce correct median" in withSpark { sc =>
-    val pointsArray = Seq[Point](Point(1, 1, 5), Point(3, 2, 3), Point(4, 7, 1), Point(9, 5, 8))
+    val points = Seq(Point(1, 1, 5), Point(3, 2, 3), Point(4, 7, 1), Point(9, 5, 8))
     val expectedMedian = Point(4.5, 3.5, 4)
 
-    assertMedianIsCorrect(sc, pointsArray, expectedMedian)
+    assertMedianIsCorrect(sc, points, expectedMedian)
   }
 
-  private def assertMedianIsCorrect(sc: SparkContext, pointsArray: Seq[Point], expectedMedian: Point): Unit = {
-    val points = sc.parallelize(pointsArray)
+  private def assertMedianIsCorrect(sc: SparkContext, pointsSeq: Seq[Point], expectedMedian: Point) {
+    val points = sc.parallelize(pointsSeq)
 
     val actualMedian = medianFinder.getMedian(points)
 
-    expectedMedian shouldBe actualMedian
+    expectedMedian shouldEqual actualMedian
   }
 }
