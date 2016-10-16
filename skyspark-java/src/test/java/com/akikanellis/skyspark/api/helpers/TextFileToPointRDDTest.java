@@ -1,5 +1,6 @@
 package com.akikanellis.skyspark.api.helpers;
 
+import com.akikanellis.skyspark.api.test_utils.DatasetFiles;
 import com.akikanellis.skyspark.api.test_utils.SparkContextRule;
 import com.akikanellis.skyspark.api.test_utils.data_mocks.PointsMock;
 import org.apache.spark.api.java.JavaRDD;
@@ -15,7 +16,7 @@ public class TextFileToPointRDDTest {
 
     @Test
     public void getPointRDDFromTextFile() {
-        String filePath = getClass().getResource("/UNIFORM_2_10.txt").getFile();
+        String filePath = DatasetFiles.UNIFORM_2_10.pointsPath();
         String delimiter = " ";
         TextFileToPointRDD instance = new TextFileToPointRDD(sc.get());
 
