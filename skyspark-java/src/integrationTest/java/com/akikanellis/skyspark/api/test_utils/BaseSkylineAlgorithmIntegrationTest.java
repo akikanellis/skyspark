@@ -2,16 +2,17 @@ package com.akikanellis.skyspark.api.test_utils;
 
 import com.akikanellis.skyspark.api.algorithms.SkylineAlgorithm;
 import com.akikanellis.skyspark.api.helpers.TextFileToPointRDD;
-import com.akikanellis.skyspark.api.test_utils.base.BaseSparkTest;
 import org.apache.spark.api.java.JavaRDD;
 import org.junit.Before;
+import org.junit.Rule;
 
 import java.awt.geom.Point2D;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public abstract class BaseSkylineAlgorithmIntegrationTest extends BaseSparkTest {
+public abstract class BaseSkylineAlgorithmIntegrationTest {
+    @Rule public SparkContextRule sc = new SparkContextRule();
 
     private SkylineAlgorithm skylineAlgorithm;
     private TextFileToPointRDD textFileToPointRDD;
@@ -19,7 +20,7 @@ public abstract class BaseSkylineAlgorithmIntegrationTest extends BaseSparkTest 
     @Before
     public void setUp() {
         skylineAlgorithm = getSkylineAlgorithm();
-        textFileToPointRDD = new TextFileToPointRDD(getSparkContext());
+        textFileToPointRDD = new TextFileToPointRDD(sc.get());
     }
 
     protected abstract SkylineAlgorithm getSkylineAlgorithm();

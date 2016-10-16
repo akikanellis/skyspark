@@ -1,10 +1,11 @@
 package com.akikanellis.skyspark.api.algorithms.sfs;
 
 import com.akikanellis.skyspark.api.algorithms.bnl.PointFlag;
-import com.akikanellis.skyspark.api.test_utils.base.BaseSparkTest;
+import com.akikanellis.skyspark.api.test_utils.SparkContextRule;
 import com.akikanellis.skyspark.api.test_utils.categories.types.SparkTests;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import scala.Tuple2;
@@ -16,7 +17,8 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 @Category(SparkTests.class)
-public class SortFilterSkylineTest extends BaseSparkTest {
+public class SortFilterSkylineTest {
+    @Rule public SparkContextRule sc = new SparkContextRule();
 
     private SortFilterSkyline sortFilterSkyline;
 
@@ -27,11 +29,8 @@ public class SortFilterSkylineTest extends BaseSparkTest {
 
     @Test
     public void returnTheRddSorted() {
-        JavaPairRDD<PointFlag, Point2D> expectedRdd
-                = getSparkContext().parallelizePairs(getSortedFlagPointPairsByTotals());
-
-        JavaPairRDD<PointFlag, Point2D> unsortedFlagPointRdd
-                = getSparkContext().parallelizePairs(getUnsortedFlagPointPairs());
+        JavaPairRDD<PointFlag, Point2D> expectedRdd = sc.parallelizePairs(getSortedFlagPointPairsByTotals());
+        JavaPairRDD<PointFlag, Point2D> unsortedFlagPointRdd = sc.parallelizePairs(getUnsortedFlagPointPairs());
         JavaPairRDD<PointFlag, Point2D> actualRdd = sortFilterSkyline.sortRdd(unsortedFlagPointRdd);
 
         assertEquals(expectedRdd.collect(), actualRdd.collect());

@@ -1,10 +1,11 @@
 package com.akikanellis.skyspark.api.algorithms.bnl;
 
-import com.akikanellis.skyspark.api.test_utils.base.BaseSparkTest;
+import com.akikanellis.skyspark.api.test_utils.SparkContextRule;
 import com.akikanellis.skyspark.api.test_utils.categories.types.SparkTests;
 import com.akikanellis.skyspark.api.test_utils.data_mocks.FlagPointPairsMock;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -15,7 +16,8 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 @Category(SparkTests.class)
-public class BlockNestedLoopTest extends BaseSparkTest {
+public class BlockNestedLoopTest {
+    @Rule public SparkContextRule sc = new SparkContextRule();
 
     private BlockNestedLoop blockNestedLoop;
 
@@ -26,7 +28,7 @@ public class BlockNestedLoopTest extends BaseSparkTest {
 
     @Test
     public void returnTheSameRddUnsorted() {
-        JavaPairRDD<PointFlag, Point2D> expectedRdd = getSparkContext().parallelizePairs(FlagPointPairsMock.getFlagPointPairsUnsorted());
+        JavaPairRDD<PointFlag, Point2D> expectedRdd = sc.parallelizePairs(FlagPointPairsMock.getFlagPointPairsUnsorted());
 
         JavaPairRDD<PointFlag, Point2D> actualRdd = blockNestedLoop.sortRdd(expectedRdd);
 
