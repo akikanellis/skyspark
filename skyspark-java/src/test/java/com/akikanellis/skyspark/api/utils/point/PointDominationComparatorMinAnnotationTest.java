@@ -1,15 +1,12 @@
 package com.akikanellis.skyspark.api.utils.point;
 
-import com.akikanellis.skyspark.api.test_utils.categories.types.UnitTests;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 import java.awt.geom.Point2D;
 
 import static org.junit.Assert.assertTrue;
 
-@Category(UnitTests.class)
 public class PointDominationComparatorMinAnnotationTest {
 
     private PointDominationComparatorMinAnnotation comparator;
