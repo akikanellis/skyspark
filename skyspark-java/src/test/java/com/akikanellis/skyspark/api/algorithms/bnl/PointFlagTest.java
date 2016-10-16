@@ -1,13 +1,10 @@
 package com.akikanellis.skyspark.api.algorithms.bnl;
 
-import com.akikanellis.skyspark.api.test_utils.categories.types.UnitTests;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-@Category(UnitTests.class)
 public class PointFlagTest {
 
     @Test

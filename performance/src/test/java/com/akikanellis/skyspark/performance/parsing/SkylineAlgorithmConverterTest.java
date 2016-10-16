@@ -4,16 +4,13 @@ import com.akikanellis.skyspark.api.algorithms.SkylineAlgorithm;
 import com.akikanellis.skyspark.api.algorithms.bitmap.Bitmap;
 import com.akikanellis.skyspark.api.algorithms.bnl.BlockNestedLoop;
 import com.akikanellis.skyspark.api.algorithms.sfs.SortFilterSkyline;
-import com.akikanellis.skyspark.api.test_utils.categories.types.UnitTests;
 import com.beust.jcommander.ParameterException;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.assertThat;
 
-@Category(UnitTests.class)
 public class SkylineAlgorithmConverterTest {
 
     SkylineAlgorithmConverter skylineAlgorithmConverter;

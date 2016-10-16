@@ -2,12 +2,10 @@ package com.akikanellis.skyspark.api.algorithms.sfs;
 
 import com.akikanellis.skyspark.api.algorithms.bnl.PointFlag;
 import com.akikanellis.skyspark.api.test_utils.SparkContextRule;
-import com.akikanellis.skyspark.api.test_utils.categories.types.SparkTests;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import scala.Tuple2;
 
 import java.awt.geom.Point2D;
@@ -16,7 +14,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-@Category(SparkTests.class)
 public class SortFilterSkylineTest {
     @Rule public SparkContextRule sc = new SparkContextRule();
 
