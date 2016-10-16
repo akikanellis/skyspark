@@ -9,18 +9,5 @@ repositories {
     mavenCentral()
 }
 
-configurations {
-    foo
-}
-
-task testJar(type: Jar) {
-    classifier 'resources'
-    from sourceSets.main.resources
-}
-
-artifacts {
-    foo testJar
-}
-
 dependencies {
 }

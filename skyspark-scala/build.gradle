@@ -11,6 +11,12 @@ repositories {
     mavenCentral()
 }
 
+sourceSets {
+    integrationTest {
+        resources.srcDir '../data/src/main/resources'
+    }
+}
+
 dependencies {
     compile 'org.scala-lang:scala-library:2.10.6'
     compile 'org.apache.spark:spark-core_2.10:1.3.1'
