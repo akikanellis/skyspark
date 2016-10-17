@@ -2,6 +2,7 @@ package com.akikanellis.skyspark.api.test_utils;
 
 import com.akikanellis.skyspark.api.algorithms.SkylineAlgorithm;
 import com.akikanellis.skyspark.api.helpers.TextFileToPointRDD;
+import com.akikanellis.skyspark.data.DatasetFiles;
 import org.apache.spark.api.java.JavaRDD;
 import org.junit.Before;
 import org.junit.Rule;
@@ -62,8 +63,8 @@ public abstract class BaseSkylineAlgorithmIntegrationTest {
     }
 
     private void findCorrectSkylines(DatasetFiles dataset) {
-        JavaRDD<Point2D> expectedSkylinesRdd = dataset.skylinesRdd(textFileToPointRDD);
-        JavaRDD<Point2D> points = dataset.pointsRdd(textFileToPointRDD);
+        JavaRDD<Point2D> expectedSkylinesRdd = textFileToPointRDD.getPointRddFromTextFile(dataset.skylinesPath(), " ");
+        JavaRDD<Point2D> points = textFileToPointRDD.getPointRddFromTextFile(dataset.pointsPath(), " ");
 
         JavaRDD<Point2D> actualSkylinesRdd = skylineAlgorithm.computeSkylinePoints(points);
 

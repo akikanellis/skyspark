@@ -1,8 +1,8 @@
 package com.akikanellis.skyspark.api.helpers;
 
-import com.akikanellis.skyspark.api.test_utils.DatasetFiles;
 import com.akikanellis.skyspark.api.test_utils.SparkContextRule;
 import com.akikanellis.skyspark.api.test_utils.data_mocks.PointsMock;
+import com.akikanellis.skyspark.data.DatasetFiles;
 import org.apache.spark.api.java.JavaRDD;
 import org.junit.Rule;
 import org.junit.Test;
