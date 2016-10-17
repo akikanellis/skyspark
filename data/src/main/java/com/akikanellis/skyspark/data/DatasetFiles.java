@@ -1,9 +1,4 @@
-package com.akikanellis.skyspark.api.test_utils;
-
-import com.akikanellis.skyspark.api.helpers.TextFileToPointRDD;
-import org.apache.spark.api.java.JavaRDD;
-
-import java.awt.geom.Point2D;
+package com.akikanellis.skyspark.data;
 
 public enum DatasetFiles {
     ANTICOR_2_10000,
@@ -32,12 +27,4 @@ public enum DatasetFiles {
     public String pointsPath() { return pointsResourcesPath; }
 
     public String skylinesPath() { return skylinesResourcesPath; }
-
-    public JavaRDD<Point2D> pointsRdd(TextFileToPointRDD textFileToPointRDD) {
-        return textFileToPointRDD.getPointRddFromTextFile(pointsResourcesPath, " ");
-    }
-
-    public JavaRDD<Point2D> skylinesRdd(TextFileToPointRDD textFileToPointRDD) {
-        return textFileToPointRDD.getPointRddFromTextFile(skylinesResourcesPath, " ");
-    }
 }
