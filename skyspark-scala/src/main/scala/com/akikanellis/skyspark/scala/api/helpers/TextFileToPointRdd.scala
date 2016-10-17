@@ -17,7 +17,7 @@ object TextFileToPointRdd {
     * @param delimiter    Any single character except a period
     * @return The constructed point RDD
     */
-  def convert(sparkContext: SparkContext, filePath: String, delimiter: String): RDD[Point] = {
+  def convert(sparkContext: SparkContext, filePath: String, delimiter: String = " "): RDD[Point] = {
     sparkContext.textFile(filePath)
       .map(pointFromTextLine(_, delimiter))
   }

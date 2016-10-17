@@ -13,7 +13,7 @@ class TextFileToPointRddIntegrationTest extends IntegrationSpec {
       Point(7.4, 6.4), Point(5.2, 1.0), Point(4.3, 8.9), Point(6.7, 3.8), Point(7.3, 2.5), Point(7.6, 9.3),
       Point(4.0, 1.5), Point(1.7, 5.6), Point(6.4, 3.7), Point(2.9, 8.4))
 
-    val actualPoints = TextFileToPointRdd.convert(sc, pointsFilePath, " ").collect
+    val actualPoints = TextFileToPointRdd.convert(sc, pointsFilePath).collect
 
     actualPoints should contain theSameElementsAs expectedPoints
   }
@@ -21,6 +21,6 @@ class TextFileToPointRddIntegrationTest extends IntegrationSpec {
   "A missing file" should "throw an InvalidInputException" in withSpark {sc =>
     val pointsFilePath = "/this_is_not_an_existing_file.txt"
 
-    an[InvalidInputException] should be thrownBy TextFileToPointRdd.convert(sc, pointsFilePath, " ").collect
+    an[InvalidInputException] should be thrownBy TextFileToPointRdd.convert(sc, pointsFilePath).collect
   }
 }

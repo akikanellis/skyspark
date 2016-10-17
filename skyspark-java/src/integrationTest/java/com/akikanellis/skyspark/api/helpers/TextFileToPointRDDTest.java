@@ -17,11 +17,10 @@ public class TextFileToPointRDDTest {
     @Test
     public void getPointRDDFromTextFile() {
         String filePath = DatasetFiles.UNIFORM_2_10.pointsPath();
-        String delimiter = " ";
         TextFileToPointRDD instance = new TextFileToPointRDD(sc.get());
         JavaRDD<Point2D> expResult = sc.parallelize(PointsMock.getUniform210());
 
-        JavaRDD<Point2D> actualResult = instance.getPointRddFromTextFile(filePath, delimiter);
+        JavaRDD<Point2D> actualResult = instance.getPointRddFromTextFile(filePath);
 
         assertEquals(expResult.collect(), actualResult.collect());
     }

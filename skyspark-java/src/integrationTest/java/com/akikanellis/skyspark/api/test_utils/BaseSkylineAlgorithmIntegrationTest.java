@@ -63,8 +63,8 @@ public abstract class BaseSkylineAlgorithmIntegrationTest {
     }
 
     private void findCorrectSkylines(DatasetFiles dataset) {
-        JavaRDD<Point2D> expectedSkylinesRdd = textFileToPointRDD.getPointRddFromTextFile(dataset.skylinesPath(), " ");
-        JavaRDD<Point2D> points = textFileToPointRDD.getPointRddFromTextFile(dataset.pointsPath(), " ");
+        JavaRDD<Point2D> expectedSkylinesRdd = textFileToPointRDD.getPointRddFromTextFile(dataset.skylinesPath());
+        JavaRDD<Point2D> points = textFileToPointRDD.getPointRddFromTextFile(dataset.pointsPath());
 
         JavaRDD<Point2D> actualSkylinesRdd = skylineAlgorithm.computeSkylinePoints(points);
 

@@ -42,7 +42,7 @@ public class Main {
         SparkConf sparkConf = new SparkConf().setAppName("Performance evaluation for Skyline computing");
         JavaSparkContext sparkContext = new JavaSparkContext(sparkConf);
         TextFileToPointRDD textFileToPointRDD = new TextFileToPointRDD(sparkContext);
-        JavaRDD<Point2D> points = textFileToPointRDD.getPointRddFromTextFile(pointDataFile.getFilePath(), " ");
+        JavaRDD<Point2D> points = textFileToPointRDD.getPointRddFromTextFile(pointDataFile.getFilePath());
         JavaRDD<Point2D> skylines = skylineAlgorithm.computeSkylinePoints(points);
         final long numberOfSkylines = skylines.count();
         stopwatch.stop();

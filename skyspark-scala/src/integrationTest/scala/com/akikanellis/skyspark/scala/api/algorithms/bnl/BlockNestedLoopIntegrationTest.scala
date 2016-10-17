@@ -20,8 +20,8 @@ class BlockNestedLoopIntegrationTest extends IntegrationSpec with TableDrivenPro
 
       val pointsFilePath = dataset.pointsPath
       val expectedSkylinesFilePath = dataset.skylinesPath
-      val points = TextFileToPointRdd.convert(sc, pointsFilePath, " ")
-      val expectedSkylines = TextFileToPointRdd.convert(sc, expectedSkylinesFilePath, " ")
+      val points = TextFileToPointRdd.convert(sc, pointsFilePath)
+      val expectedSkylines = TextFileToPointRdd.convert(sc, expectedSkylinesFilePath)
 
       val bnl = new BlockNestedLoop
 
