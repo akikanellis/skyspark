@@ -28,6 +28,7 @@ dependencies {
     compile libraries.beanValidationApi
 
     testCompile libraries.jUnit
+    testCompile libraries.assertJ
     testCompile libraries.mockito
 
     integrationTestCompile project(':data')
