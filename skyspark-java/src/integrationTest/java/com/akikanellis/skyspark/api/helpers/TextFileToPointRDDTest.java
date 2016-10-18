@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import java.awt.geom.Point2D;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.akikanellis.skyspark.api.test_utils.assertions.MoreAssertions.assertThat;
 
 public class TextFileToPointRDDTest {
     @Rule public SparkContextRule sc = new SparkContextRule();
@@ -22,6 +22,6 @@ public class TextFileToPointRDDTest {
 
         JavaRDD<Point2D> actualResult = instance.getPointRddFromTextFile(filePath);
 
-        assertThat(actualResult.collect()).isEqualTo(expResult.collect());
+        assertThat(actualResult).containsOnlyElementsOf(expResult);
     }
 }
