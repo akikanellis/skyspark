@@ -3,7 +3,7 @@ package com.akikanellis.skyspark.api.algorithms.bitmap;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class BitmapTest {
 
@@ -20,6 +20,6 @@ public class BitmapTest {
 
         String actualName = bitmap.toString();
 
-        assertEquals(expectedName, actualName);
+        assertThat(actualName).isEqualTo(expectedName);
     }
 }

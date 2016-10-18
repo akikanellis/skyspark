@@ -4,7 +4,8 @@ import org.junit.Test;
 
 import java.awt.geom.Point2D;
 
-import static org.junit.Assert.*;
+import static com.akikanellis.skyspark.api.utils.point.Points.dominates;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class PointsTest {
 
@@ -13,7 +14,7 @@ public class PointsTest {
         Point2D first = new Point2D.Double(2080.877494624074, 2302.0770958188664);
         Point2D second = new Point2D.Double(5756.202069941658, 4418.941667115589);
 
-        assertTrue(Points.dominates(first, second));
+        assertThat(dominates(first, second)).isTrue();
     }
 
     @Test
@@ -21,7 +22,7 @@ public class PointsTest {
         Point2D first = new Point2D.Double(6803.314583926934, 2266.355737840431);
         Point2D second = new Point2D.Double(5756.202069941658, 4418.941667115589);
 
-        assertFalse(Points.dominates(first, second));
+        assertThat(dominates(first, second)).isFalse();
     }
 
     @Test
@@ -31,7 +32,7 @@ public class PointsTest {
 
         Point2D expectedPoint = Points.getBiggestPointByXDimension(first, second);
 
-        assertEquals(expectedPoint, first);
+        assertThat(first).isEqualTo(expectedPoint);
     }
 
     @Test
@@ -41,7 +42,7 @@ public class PointsTest {
 
         Point2D expectedPoint = Points.getBiggestPointByYDimension(first, second);
 
-        assertEquals(expectedPoint, second);
+        assertThat(second).isEqualTo(expectedPoint);
     }
 
     @Test
@@ -52,6 +53,6 @@ public class PointsTest {
 
         Point2D result = Points.pointFromTextLine(textLine, delimiter);
 
-        assertEquals(expectedResult, result);
+        assertThat(result).isEqualTo(expectedResult);
     }
 }

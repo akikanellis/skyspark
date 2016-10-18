@@ -3,18 +3,19 @@ package com.akikanellis.skyspark.api.utils;
 import org.junit.Test;
 
 import static com.akikanellis.skyspark.api.utils.Preconditions.checkNotEmpty;
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class PreconditionsTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void checkNotEmpty_whenNull_throwException() {
-        checkNotEmpty(null);
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> checkNotEmpty(null));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void checkNotEmpty_whenEmptyString_throwException() {
-        checkNotEmpty("");
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> checkNotEmpty(""));
     }
 
     @Test
@@ -22,6 +23,6 @@ public class PreconditionsTest {
         String expectedString = "A string";
         String actualString = checkNotEmpty(expectedString);
 
-        assertEquals(expectedString, actualString);
+        assertThat(actualString).isEqualTo(expectedString);
     }
 }

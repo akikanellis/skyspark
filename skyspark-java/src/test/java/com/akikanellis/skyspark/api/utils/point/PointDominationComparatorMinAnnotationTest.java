@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.awt.geom.Point2D;
 
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class PointDominationComparatorMinAnnotationTest {
 
@@ -23,7 +23,7 @@ public class PointDominationComparatorMinAnnotationTest {
 
         final int result = comparator.compare(first, second);
 
-        assertTrue(result == 0);
+        assertThat(result).isEqualTo(0);
     }
 
     @Test
@@ -33,7 +33,7 @@ public class PointDominationComparatorMinAnnotationTest {
 
         final int result = comparator.compare(first, second);
 
-        assertTrue(result <= -1);
+        assertThat(result).isLessThanOrEqualTo(-1);
     }
 
     @Test
@@ -43,7 +43,7 @@ public class PointDominationComparatorMinAnnotationTest {
 
         final int result = comparator.compare(first, second);
 
-        assertTrue(result >= 1);
+        assertThat(result).isGreaterThanOrEqualTo(1);
     }
 
     @Test
@@ -53,6 +53,6 @@ public class PointDominationComparatorMinAnnotationTest {
 
         final int result = comparator.compare(first, second);
 
-        assertTrue(result == 0);
+        assertThat(result).isEqualTo(0);
     }
 }

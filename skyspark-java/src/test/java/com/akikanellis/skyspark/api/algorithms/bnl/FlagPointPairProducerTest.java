@@ -6,7 +6,7 @@ import scala.Tuple2;
 
 import java.awt.geom.Point2D;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class FlagPointPairProducerTest {
 
@@ -26,6 +26,6 @@ public class FlagPointPairProducerTest {
 
         Tuple2<PointFlag, Point2D> actualResult = producer.getFlagPointPair(expectedPoint);
 
-        assertEquals(expectedResult, actualResult);
+        assertThat(actualResult).isEqualTo(expectedResult);
     }
 }

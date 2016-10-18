@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import java.util.BitSet;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class BitSetsTest {
 
@@ -15,6 +15,6 @@ public class BitSetsTest {
 
         BitSet actualBitSet = BitSets.bitSetFromIndexes(2, 8);
 
-        assertEquals(expectedBitSet, actualBitSet);
+        assertThat(actualBitSet).isEqualTo(expectedBitSet);
     }
 }

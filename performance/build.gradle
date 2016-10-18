@@ -24,4 +24,5 @@ dependencies {
     compile libraries.apachePoi
 
     testCompile libraries.jUnit
+    testCompile libraries.assertJ
 }
