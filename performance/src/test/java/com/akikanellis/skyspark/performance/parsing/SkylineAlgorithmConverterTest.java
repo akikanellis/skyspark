@@ -8,8 +8,7 @@ import com.beust.jcommander.ParameterException;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class SkylineAlgorithmConverterTest {
 
@@ -24,21 +23,21 @@ public class SkylineAlgorithmConverterTest {
     public void bnl_returnBlockNestedLoop() {
         SkylineAlgorithm skylineAlgorithm = skylineAlgorithmConverter.convert(SkylineAlgorithmConverter.ALIAS_BLOCK_NESTED_LOOP);
 
-        assertThat(skylineAlgorithm, instanceOf(BlockNestedLoop.class));
+        assertThat(skylineAlgorithm).isExactlyInstanceOf(BlockNestedLoop.class);
     }
 
     @Test
     public void sfs_returnSortFilterSkyline() {
         SkylineAlgorithm skylineAlgorithm = skylineAlgorithmConverter.convert(SkylineAlgorithmConverter.ALIAS_SORT_FILTER_SKYLINE);
 
-        assertThat(skylineAlgorithm, instanceOf(SortFilterSkyline.class));
+        assertThat(skylineAlgorithm).isExactlyInstanceOf(SortFilterSkyline.class);
     }
 
     @Test
     public void bitmap_returnBitmap() {
         SkylineAlgorithm skylineAlgorithm = skylineAlgorithmConverter.convert(SkylineAlgorithmConverter.ALIAS_BITMAP);
 
-        assertThat(skylineAlgorithm, instanceOf(Bitmap.class));
+        assertThat(skylineAlgorithm).isExactlyInstanceOf(Bitmap.class);
     }
 
     @Test(expected = ParameterException.class)

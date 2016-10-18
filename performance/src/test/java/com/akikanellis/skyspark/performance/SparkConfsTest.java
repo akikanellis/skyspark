@@ -3,7 +3,6 @@ package com.akikanellis.skyspark.performance;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.within;
 
 public class SparkConfsTest {
 
@@ -14,7 +13,7 @@ public class SparkConfsTest {
 
         double actualAmount = SparkConfs.memoryStringToGigabytes(memoryString);
 
-        assertThat(actualAmount).isCloseTo(expectedAmount, within(2.0));
+        assertThat(actualAmount).isEqualTo(expectedAmount);
     }
 
 
@@ -25,6 +24,6 @@ public class SparkConfsTest {
 
         double actualAmount = SparkConfs.memoryStringToGigabytes(memoryString);
 
-        assertThat(actualAmount).isCloseTo(expectedAmount, within(2.0));
+        assertThat(actualAmount).isEqualTo(expectedAmount);
     }
 }
