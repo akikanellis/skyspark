@@ -11,7 +11,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class BlockNestedLoopTest {
     @Rule public SparkContextRule sc = new SparkContextRule();
@@ -29,7 +29,7 @@ public class BlockNestedLoopTest {
 
         JavaPairRDD<PointFlag, Point2D> actualRdd = blockNestedLoop.sortRdd(expectedRdd);
 
-        assertEquals(expectedRdd.collect(), actualRdd.collect());
+        assertThat(actualRdd.collect()).isEqualTo(expectedRdd.collect());
     }
 
     @Test
@@ -41,7 +41,7 @@ public class BlockNestedLoopTest {
         List<Point2D> actualSkylines = getGlobalSkylines();
         blockNestedLoop.globalAddDiscardOrDominate(actualSkylines, candidateGlobalSkylinePoint);
 
-        assertEquals(expectedSkylines, actualSkylines);
+        assertThat(actualSkylines).isEqualTo(expectedSkylines);
     }
 
     @Test
@@ -52,7 +52,7 @@ public class BlockNestedLoopTest {
         List<Point2D> actualSkylines = getGlobalSkylines();
         blockNestedLoop.globalAddDiscardOrDominate(actualSkylines, candidateGlobalSkylinePoint);
 
-        assertEquals(expectedSkylines, actualSkylines);
+        assertThat(actualSkylines).isEqualTo(expectedSkylines);
     }
 
     @Test
@@ -66,7 +66,7 @@ public class BlockNestedLoopTest {
         List<Point2D> actualSkylines = getGlobalSkylines();
         blockNestedLoop.globalAddDiscardOrDominate(actualSkylines, candidateGlobalSkylinePoint);
 
-        assertEquals(expectedSkylines, actualSkylines);
+        assertThat(actualSkylines).isEqualTo(expectedSkylines);
     }
 
     @Test
@@ -78,7 +78,7 @@ public class BlockNestedLoopTest {
         List<Point2D> actualSkylines = getGlobalSkylines();
         blockNestedLoop.globalAddDiscardOrDominate(actualSkylines, candidateGlobalSkylinePoint);
 
-        assertEquals(expectedSkylines, actualSkylines);
+        assertThat(actualSkylines).isEqualTo(expectedSkylines);
     }
 
     private List<Point2D> getGlobalSkylines() {
@@ -98,6 +98,6 @@ public class BlockNestedLoopTest {
 
         String actualName = blockNestedLoop.toString();
 
-        assertEquals(expectedName, actualName);
+        assertThat(actualName).isEqualTo(expectedName);
     }
 }

@@ -3,7 +3,7 @@ package com.akikanellis.skyspark.api.utils;
 import org.junit.Test;
 
 import static com.akikanellis.skyspark.api.utils.Preconditions.checkNotEmpty;
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class PreconditionsTest {
 
@@ -22,6 +22,6 @@ public class PreconditionsTest {
         String expectedString = "A string";
         String actualString = checkNotEmpty(expectedString);
 
-        assertEquals(expectedString, actualString);
+        assertThat(actualString).isEqualTo(expectedString);
     }
 }

@@ -10,7 +10,7 @@ import org.junit.Rule;
 import java.awt.geom.Point2D;
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public abstract class BaseSkylineAlgorithmIntegrationTest {
     @Rule public SparkContextRule sc = new SparkContextRule();
@@ -71,6 +71,6 @@ public abstract class BaseSkylineAlgorithmIntegrationTest {
         List<Point2D> expectedSkylinesList = expectedSkylinesRdd.collect();
         List<Point2D> actualSkylinesList = actualSkylinesRdd.collect();
 
-        assertTrue(expectedSkylinesList.containsAll(actualSkylinesList) && actualSkylinesList.containsAll(expectedSkylinesList));
+        assertThat(expectedSkylinesList.containsAll(actualSkylinesList) && actualSkylinesList.containsAll(expectedSkylinesList)).isTrue();
     }
 }

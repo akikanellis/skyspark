@@ -2,8 +2,7 @@ package com.akikanellis.skyspark.api.algorithms.bnl;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class PointFlagTest {
 
@@ -12,8 +11,8 @@ public class PointFlagTest {
         PointFlag first = new PointFlag(1, 1);
         PointFlag second = new PointFlag(1, 1);
 
-        assertTrue(first.equals(second) && second.equals(first));
-        assertTrue(first.hashCode() == second.hashCode());
+        assertThat(first.equals(second) && second.equals(first)).isTrue();
+        assertThat(first.hashCode() == second.hashCode()).isTrue();
     }
 
     @Test
@@ -22,6 +21,6 @@ public class PointFlagTest {
 
         String actualName = new PointFlag(1, 0).toString();
 
-        assertEquals(expectedName, actualName);
+        assertThat(actualName).isEqualTo(expectedName);
     }
 }
