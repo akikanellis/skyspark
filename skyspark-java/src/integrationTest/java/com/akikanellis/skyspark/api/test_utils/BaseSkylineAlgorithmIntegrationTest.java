@@ -8,9 +8,8 @@ import org.junit.Before;
 import org.junit.Rule;
 
 import java.awt.geom.Point2D;
-import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.akikanellis.skyspark.api.test_utils.assertions.MoreAssertions.assertThat;
 
 public abstract class BaseSkylineAlgorithmIntegrationTest {
     @Rule public SparkContextRule sc = new SparkContextRule();
@@ -63,14 +62,11 @@ public abstract class BaseSkylineAlgorithmIntegrationTest {
     }
 
     private void findCorrectSkylines(DatasetFiles dataset) {
-        JavaRDD<Point2D> expectedSkylinesRdd = textFileToPointRDD.getPointRddFromTextFile(dataset.skylinesPath());
+        JavaRDD<Point2D> expectedSkylines = textFileToPointRDD.getPointRddFromTextFile(dataset.skylinesPath());
         JavaRDD<Point2D> points = textFileToPointRDD.getPointRddFromTextFile(dataset.pointsPath());
 
-        JavaRDD<Point2D> actualSkylinesRdd = skylineAlgorithm.computeSkylinePoints(points);
+        JavaRDD<Point2D> actualSkylines = skylineAlgorithm.computeSkylinePoints(points);
 
-        List<Point2D> expectedSkylinesList = expectedSkylinesRdd.collect();
-        List<Point2D> actualSkylinesList = actualSkylinesRdd.collect();
-
-        assertThat(expectedSkylinesList.containsAll(actualSkylinesList) && actualSkylinesList.containsAll(expectedSkylinesList)).isTrue();
+        assertThat(actualSkylines).containsOnlyElementsOf(expectedSkylines);
     }
 }
