@@ -1,6 +1,10 @@
+apply from: 'scripts/common/dependencies.gradle'
+
 buildscript {
+    apply from: 'scripts/common/dependencies.gradle'
+
     repositories { jcenter() }
     dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.2'
+        classpath gradlePlugins.shadowJar
     }
 }
