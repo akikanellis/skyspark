@@ -11,8 +11,9 @@ public class PointFlagTest {
         PointFlag first = new PointFlag(1, 1);
         PointFlag second = new PointFlag(1, 1);
 
-        assertThat(first.equals(second) && second.equals(first)).isTrue();
-        assertThat(first.hashCode() == second.hashCode()).isTrue();
+        assertThat(first).isEqualTo(second);
+        assertThat(second).isEqualTo(first);
+        assertThat(first.hashCode()).isEqualTo(second.hashCode());
     }
 
     @Test

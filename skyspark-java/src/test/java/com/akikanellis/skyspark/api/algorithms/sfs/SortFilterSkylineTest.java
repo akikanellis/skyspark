@@ -12,7 +12,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.akikanellis.skyspark.api.test_utils.assertions.MoreAssertions.assertThat;
 
 public class SortFilterSkylineTest {
     @Rule public SparkContextRule sc = new SparkContextRule();
@@ -30,7 +30,7 @@ public class SortFilterSkylineTest {
         JavaPairRDD<PointFlag, Point2D> unsortedFlagPointRdd = sc.parallelizePairs(getUnsortedFlagPointPairs());
         JavaPairRDD<PointFlag, Point2D> actualRdd = sortFilterSkyline.sortRdd(unsortedFlagPointRdd);
 
-        assertThat(actualRdd.collect()).isEqualTo(expectedRdd.collect());
+        assertThat(actualRdd).containsExactlyElementsOf(expectedRdd);
     }
 
     private List<Tuple2<PointFlag, Point2D>> getUnsortedFlagPointPairs() {
@@ -64,7 +64,7 @@ public class SortFilterSkylineTest {
         List<Point2D> actualSkylines = getSortedGlobalSkylines();
         sortFilterSkyline.globalAddDiscardOrDominate(actualSkylines, candidateGlobalSkylinePoint);
 
-        assertThat(actualSkylines).isEqualTo(expectedSkylines);
+        assertThat(actualSkylines).containsOnlyElementsOf(expectedSkylines);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class SortFilterSkylineTest {
         List<Point2D> globalSkylines = getSortedGlobalSkylines();
         sortFilterSkyline.globalAddDiscardOrDominate(globalSkylines, candidateGlobalSkylinePoint);
 
-        assertThat(globalSkylines).isEqualTo(expectedSkylines);
+        assertThat(globalSkylines).containsOnlyElementsOf(expectedSkylines);
     }
 
     private List<Point2D> getSortedGlobalSkylines() {

@@ -23,7 +23,7 @@ public class PointDominationComparatorMinAnnotationTest {
 
         final int result = comparator.compare(first, second);
 
-        assertThat(result == 0).isTrue();
+        assertThat(result).isEqualTo(0);
     }
 
     @Test
@@ -33,7 +33,7 @@ public class PointDominationComparatorMinAnnotationTest {
 
         final int result = comparator.compare(first, second);
 
-        assertThat(result <= -1).isTrue();
+        assertThat(result).isLessThanOrEqualTo(-1);
     }
 
     @Test
@@ -43,7 +43,7 @@ public class PointDominationComparatorMinAnnotationTest {
 
         final int result = comparator.compare(first, second);
 
-        assertThat(result >= 1).isTrue();
+        assertThat(result).isGreaterThanOrEqualTo(1);
     }
 
     @Test
@@ -53,6 +53,6 @@ public class PointDominationComparatorMinAnnotationTest {
 
         final int result = comparator.compare(first, second);
 
-        assertThat(result == 0).isTrue();
+        assertThat(result).isEqualTo(0);
     }
 }

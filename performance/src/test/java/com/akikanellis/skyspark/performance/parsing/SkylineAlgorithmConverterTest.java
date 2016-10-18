@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class SkylineAlgorithmConverterTest {
 
@@ -40,8 +41,9 @@ public class SkylineAlgorithmConverterTest {
         assertThat(skylineAlgorithm).isExactlyInstanceOf(Bitmap.class);
     }
 
-    @Test(expected = ParameterException.class)
+    @Test
     public void unknown_throwException() {
-        skylineAlgorithmConverter.convert("random string");
+        assertThatExceptionOfType(ParameterException.class)
+                .isThrownBy(() -> skylineAlgorithmConverter.convert("random string"));
     }
 }

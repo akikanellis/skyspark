@@ -11,7 +11,8 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.akikanellis.skyspark.api.test_utils.assertions.MoreAssertions.assertThat;
+
 
 public class BlockNestedLoopTest {
     @Rule public SparkContextRule sc = new SparkContextRule();
@@ -29,7 +30,7 @@ public class BlockNestedLoopTest {
 
         JavaPairRDD<PointFlag, Point2D> actualRdd = blockNestedLoop.sortRdd(expectedRdd);
 
-        assertThat(actualRdd.collect()).isEqualTo(expectedRdd.collect());
+        assertThat(actualRdd).containsOnlyElementsOf(expectedRdd);
     }
 
     @Test
@@ -41,7 +42,7 @@ public class BlockNestedLoopTest {
         List<Point2D> actualSkylines = getGlobalSkylines();
         blockNestedLoop.globalAddDiscardOrDominate(actualSkylines, candidateGlobalSkylinePoint);
 
-        assertThat(actualSkylines).isEqualTo(expectedSkylines);
+        assertThat(actualSkylines).containsOnlyElementsOf(expectedSkylines);
     }
 
     @Test
@@ -52,7 +53,7 @@ public class BlockNestedLoopTest {
         List<Point2D> actualSkylines = getGlobalSkylines();
         blockNestedLoop.globalAddDiscardOrDominate(actualSkylines, candidateGlobalSkylinePoint);
 
-        assertThat(actualSkylines).isEqualTo(expectedSkylines);
+        assertThat(actualSkylines).containsOnlyElementsOf(expectedSkylines);
     }
 
     @Test
@@ -66,7 +67,7 @@ public class BlockNestedLoopTest {
         List<Point2D> actualSkylines = getGlobalSkylines();
         blockNestedLoop.globalAddDiscardOrDominate(actualSkylines, candidateGlobalSkylinePoint);
 
-        assertThat(actualSkylines).isEqualTo(expectedSkylines);
+        assertThat(actualSkylines).containsOnlyElementsOf(expectedSkylines);
     }
 
     @Test
@@ -78,7 +79,7 @@ public class BlockNestedLoopTest {
         List<Point2D> actualSkylines = getGlobalSkylines();
         blockNestedLoop.globalAddDiscardOrDominate(actualSkylines, candidateGlobalSkylinePoint);
 
-        assertThat(actualSkylines).isEqualTo(expectedSkylines);
+        assertThat(actualSkylines).containsOnlyElementsOf(expectedSkylines);
     }
 
     private List<Point2D> getGlobalSkylines() {
