@@ -40,10 +40,12 @@ public class SparkContextRule implements TestRule {
                 setLogLevels(Level.WARN);
                 sparkContext = new JavaSparkContext("local[*]", "Tests");
 
-                base.evaluate();
-
-                sparkContext.stop();
-                sparkContext = null;
+                try {
+                    base.evaluate();
+                } finally {
+                    sparkContext.stop();
+                    sparkContext = null;
+                }
             }
         };
     }
