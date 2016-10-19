@@ -24,10 +24,14 @@ public class SparkContextRule implements TestRule {
 
     public <T> JavaRDD<T> parallelize(List<T> list) { return sparkContext.parallelize(list); }
 
-    public <T> JavaRDD<T> parallelize(T... items) { return sparkContext.parallelize(Arrays.asList(items)); }
+    public <T> JavaRDD<T> parallelize(T... items) { return parallelize(Arrays.asList(items)); }
 
     public <K, V> JavaPairRDD<K, V> parallelizePairs(List<Tuple2<K, V>> list) {
         return sparkContext.parallelizePairs(list);
+    }
+
+    @SafeVarargs public final <T1, T2> JavaPairRDD<T1, T2> parallelizePairs(Tuple2<T1, T2>... items) {
+        return parallelizePairs(Arrays.asList(items));
     }
 
     @Override public Statement apply(Statement base, Description description) {
