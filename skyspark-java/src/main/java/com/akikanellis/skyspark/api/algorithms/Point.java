@@ -2,11 +2,14 @@ package com.akikanellis.skyspark.api.algorithms;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.stream.DoubleStream;
 
 public final class Point implements Serializable {
     private final double[] dimensions;
 
     public Point(double... dimensions) { this.dimensions = dimensions; }
+
+    public DoubleStream stream() { return Arrays.stream(dimensions); }
 
     /**
      * The number of dimensions in this point.
