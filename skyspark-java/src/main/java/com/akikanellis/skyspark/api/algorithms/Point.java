@@ -1,8 +1,9 @@
 package com.akikanellis.skyspark.api.algorithms;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public final class Point {
+public final class Point implements Serializable {
     private final double[] dimensions;
 
     public Point(double... dimensions) { this.dimensions = dimensions; }
