@@ -50,4 +50,9 @@ public final class Point implements Serializable {
     }
 
     @Override public int hashCode() { return Arrays.hashCode(dimensions); }
+
+    @Override public String toString() {
+        String values = Arrays.toString(dimensions).replace('[', '(').replace(']', ')');
+        return "Point" + values;
+    }
 }
