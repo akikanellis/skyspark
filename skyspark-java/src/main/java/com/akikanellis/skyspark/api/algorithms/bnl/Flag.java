@@ -20,4 +20,14 @@ final class Flag {
     }
 
     @Override public int hashCode() { return Arrays.hashCode(bits); }
+
+    @Override public String toString() {
+        String values = Arrays.toString(bits)
+                .replace('[', '(')
+                .replace(']', ')')
+                .replace("true", "1")
+                .replace("false", "0")
+                .replace(", ", "");
+        return "Flag" + values;
+    }
 }
