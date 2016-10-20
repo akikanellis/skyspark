@@ -1,9 +1,10 @@
 package com.akikanellis.skyspark.api.algorithms.bnl;
 
 import com.akikanellis.skyspark.api.algorithms.Point;
-import com.akikanellis.skyspark.api.test_utils.assertions.MoreAssertions;
 import org.junit.Before;
 import org.junit.Test;
+
+import static com.akikanellis.skyspark.api.test_utils.assertions.MoreAssertions.assertThat;
 
 public class FlagProducerTest {
     private FlagProducer flagProducer;
@@ -51,6 +52,6 @@ public class FlagProducerTest {
     private void assertFlagIsAsExpected(Point point, Flag expectedFlag) {
         Flag actualFlag = flagProducer.calculateFlag(point);
 
-        MoreAssertions.assertThat(actualFlag).isEqualTo(expectedFlag);
+        assertThat(actualFlag).isEqualTo(expectedFlag);
     }
 }

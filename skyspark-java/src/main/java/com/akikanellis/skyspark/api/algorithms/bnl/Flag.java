@@ -2,14 +2,14 @@ package com.akikanellis.skyspark.api.algorithms.bnl;
 
 import java.util.Arrays;
 
-final class Flag {
+public final class Flag {
     private final boolean[] bits;
 
-    Flag(boolean... bits) { this.bits = bits; }
+    public Flag(boolean... bits) { this.bits = bits; }
 
-    int size() { return bits.length; }
+    public int size() { return bits.length; }
 
-    boolean bit(int i) { return bits[i]; }
+    public boolean bit(int i) { return bits[i]; }
 
     @Override public boolean equals(Object o) {
         if (this == o) return true;
