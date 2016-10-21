@@ -15,12 +15,21 @@ public class NewBlockNestedLoop implements Serializable {
         this.merger = merger;
     }
 
+    public NewBlockNestedLoop() {
+        MedianFinder medianFinder = new MedianFinder();
+        FlagAdder flagAdder = new FlagAdder(medianFinder);
+        BnlAlgorithm bnlAlgorithm = new BnlAlgorithm();
+        LocalSkylineCalculator localSkylineCalculator = new LocalSkylineCalculator(bnlAlgorithm);
+
+        this.divider = new Divider(flagAdder, localSkylineCalculator);
+        this.merger = new Merger(bnlAlgorithm);
+    }
+
     public JavaRDD<Point> computeSkylinePoints(JavaRDD<Point> points) {
         if (points.isEmpty()) throw new IllegalArgumentException("Points can't be empty.");
 
         JavaPairRDD<Flag, Point> localSkylinesWithFlags = divider.divide(points);
-        JavaRDD<Point> skylines = merger.merge(localSkylinesWithFlags);
 
-        return skylines;
+        return merger.merge(localSkylinesWithFlags);
     }
 }
