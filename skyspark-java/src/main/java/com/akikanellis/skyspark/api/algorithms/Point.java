@@ -42,7 +42,7 @@ public final class Point implements Serializable {
      * @param other The point to check against
      * @return True if this point dominates the other, false if not
      */
-    public boolean dominates(Point other) { throw new UnsupportedOperationException("To be implemented."); }
+    public boolean dominates(Point other) { return DominatingAlgorithm.dominates(this, other); }
 
     @Override public boolean equals(Object o) {
         if (this == o) return true;
