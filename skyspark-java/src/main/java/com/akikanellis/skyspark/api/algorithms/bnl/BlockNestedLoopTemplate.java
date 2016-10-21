@@ -1,6 +1,6 @@
 package com.akikanellis.skyspark.api.algorithms.bnl;
 
-import com.akikanellis.skyspark.api.algorithms.SkylineAlgorithm;
+import com.akikanellis.skyspark.api.algorithms.OldSkylineAlgorithm;
 import com.akikanellis.skyspark.api.utils.point.Points;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -12,16 +12,16 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * The BlockNestedLoopTemplate is used by {@link BlockNestedLoop} and {@link com.akikanellis.skyspark.api.algorithms.sfs.SortFilterSkyline}
+ * The BlockNestedLoopTemplate is used by {@link OldBlockNestedLoop} and {@link com.akikanellis.skyspark.api.algorithms.sfs.SortFilterSkyline}
  * and it contains the main functionality of the BlockNestedLoopAlgorithm. First we do the division job of the algorithm
  * to <PointWithFlag, LocalSkylines> and then we merge the skylines together and calculate the total skyline set.
  */
-public abstract class BlockNestedLoopTemplate implements SkylineAlgorithm {
+public abstract class BlockNestedLoopTemplate implements OldSkylineAlgorithm {
 
     /**
      * Given a point and a median this produces a flag-point pair for the given point.
      */
-    private FlagPointPairProducer flagPointPairProducer;
+    private OlgFlagPointPairProducer flagPointPairProducer;
 
     private static Point2D getMedianPointFromRDD(JavaRDD<Point2D> points) {
         Point2D biggestPointByXDimension = points.reduce(Points::getBiggestPointByXDimension);
@@ -37,21 +37,21 @@ public abstract class BlockNestedLoopTemplate implements SkylineAlgorithm {
     public final JavaRDD<Point2D> computeSkylinePoints(JavaRDD<Point2D> points) {
         flagPointPairProducer = createFlagPointPairProducer(points);
 
-        JavaPairRDD<PointFlag, Iterable<Point2D>> localSkylinePointsByFlag = divide(points);
+        JavaPairRDD<OldPointFlag, Iterable<Point2D>> localSkylinePointsByFlag = divide(points);
         JavaRDD<Point2D> skylines = merge(localSkylinePointsByFlag);
 
         return skylines;
     }
 
-    private FlagPointPairProducer createFlagPointPairProducer(JavaRDD<Point2D> points) {
+    private OlgFlagPointPairProducer createFlagPointPairProducer(JavaRDD<Point2D> points) {
         Point2D medianPoint = getMedianPointFromRDD(points);
-        return new FlagPointPairProducer(medianPoint);
+        return new OlgFlagPointPairProducer(medianPoint);
     }
 
-    private JavaPairRDD<PointFlag, Iterable<Point2D>> divide(JavaRDD<Point2D> points) {
-        JavaPairRDD<PointFlag, Point2D> flagPointPairs = points.mapToPair(p -> flagPointPairProducer.getFlagPointPair(p));
-        JavaPairRDD<PointFlag, Iterable<Point2D>> pointsGroupedByFlag = flagPointPairs.groupByKey();
-        JavaPairRDD<PointFlag, Iterable<Point2D>> flagsWithLocalSkylines
+    private JavaPairRDD<OldPointFlag, Iterable<Point2D>> divide(JavaRDD<Point2D> points) {
+        JavaPairRDD<OldPointFlag, Point2D> flagPointPairs = points.mapToPair(p -> flagPointPairProducer.getFlagPointPair(p));
+        JavaPairRDD<OldPointFlag, Iterable<Point2D>> pointsGroupedByFlag = flagPointPairs.groupByKey();
+        JavaPairRDD<OldPointFlag, Iterable<Point2D>> flagsWithLocalSkylines
                 = pointsGroupedByFlag.mapToPair(fp -> new Tuple2<>(fp._1(), getLocalSkylinesWithBnl(fp._2())));
 
         return flagsWithLocalSkylines;
@@ -77,28 +77,28 @@ public abstract class BlockNestedLoopTemplate implements SkylineAlgorithm {
         localSkylines.add(candidateSkylinePoint);
     }
 
-    protected JavaRDD<Point2D> merge(JavaPairRDD<PointFlag, Iterable<Point2D>> localSkylinesGroupedByFlag) {
-        JavaPairRDD<PointFlag, Point2D> ungroupedLocalSkylines = localSkylinesGroupedByFlag.flatMapValues(point -> point);
-        JavaPairRDD<PointFlag, Point2D> sortedLocalSkylines = sortRdd(ungroupedLocalSkylines);
+    protected JavaRDD<Point2D> merge(JavaPairRDD<OldPointFlag, Iterable<Point2D>> localSkylinesGroupedByFlag) {
+        JavaPairRDD<OldPointFlag, Point2D> ungroupedLocalSkylines = localSkylinesGroupedByFlag.flatMapValues(point -> point);
+        JavaPairRDD<OldPointFlag, Point2D> sortedLocalSkylines = sortRdd(ungroupedLocalSkylines);
 
-        JavaRDD<List<Tuple2<PointFlag, Point2D>>> groupedByTheSameId = groupByTheSameId(sortedLocalSkylines);
+        JavaRDD<List<Tuple2<OldPointFlag, Point2D>>> groupedByTheSameId = groupByTheSameId(sortedLocalSkylines);
         JavaRDD<Point2D> globalSkylinePoints = groupedByTheSameId.flatMap(this::getGlobalSkylineWithBNLAndPrecomparisson);
 
         return globalSkylinePoints;
     }
 
-    protected abstract JavaPairRDD<PointFlag, Point2D> sortRdd(JavaPairRDD<PointFlag, Point2D> flagPointPairs);
+    protected abstract JavaPairRDD<OldPointFlag, Point2D> sortRdd(JavaPairRDD<OldPointFlag, Point2D> flagPointPairs);
 
-    private JavaRDD<List<Tuple2<PointFlag, Point2D>>> groupByTheSameId(JavaPairRDD<PointFlag, Point2D> ungroupedLocalSkylines) {
-        JavaPairRDD<PointFlag, Point2D> mergedInOnePartition = ungroupedLocalSkylines.coalesce(1);
-        JavaRDD<List<Tuple2<PointFlag, Point2D>>> groupedByTheSameId = mergedInOnePartition.glom();
+    private JavaRDD<List<Tuple2<OldPointFlag, Point2D>>> groupByTheSameId(JavaPairRDD<OldPointFlag, Point2D> ungroupedLocalSkylines) {
+        JavaPairRDD<OldPointFlag, Point2D> mergedInOnePartition = ungroupedLocalSkylines.coalesce(1);
+        JavaRDD<List<Tuple2<OldPointFlag, Point2D>>> groupedByTheSameId = mergedInOnePartition.glom();
         return groupedByTheSameId;
     }
 
-    private List<Point2D> getGlobalSkylineWithBNLAndPrecomparisson(List<Tuple2<PointFlag, Point2D>> flagPointPairs) {
+    private List<Point2D> getGlobalSkylineWithBNLAndPrecomparisson(List<Tuple2<OldPointFlag, Point2D>> flagPointPairs) {
         List<Point2D> globalSkylines = new ArrayList<>();
-        for (Tuple2<PointFlag, Point2D> flagPointPair : flagPointPairs) {
-            PointFlag flag = flagPointPair._1();
+        for (Tuple2<OldPointFlag, Point2D> flagPointPair : flagPointPairs) {
+            OldPointFlag flag = flagPointPair._1();
             if (!passesPreComparisson(flag)) {
                 continue;
             }
@@ -109,8 +109,8 @@ public abstract class BlockNestedLoopTemplate implements SkylineAlgorithm {
         return globalSkylines;
     }
 
-    private boolean passesPreComparisson(PointFlag flagToCheck) {
-        PointFlag rejectedFlag = new PointFlag(1, 1);
+    private boolean passesPreComparisson(OldPointFlag flagToCheck) {
+        OldPointFlag rejectedFlag = new OldPointFlag(1, 1);
         return !flagToCheck.equals(rejectedFlag);
     }
 

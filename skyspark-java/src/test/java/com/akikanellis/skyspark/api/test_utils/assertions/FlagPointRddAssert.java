@@ -1,19 +1,19 @@
 package com.akikanellis.skyspark.api.test_utils.assertions;
 
-import com.akikanellis.skyspark.api.algorithms.bnl.PointFlag;
+import com.akikanellis.skyspark.api.algorithms.Point;
+import com.akikanellis.skyspark.api.algorithms.bnl.Flag;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.api.Assertions;
 import scala.Tuple2;
 
-import java.awt.geom.Point2D;
 import java.util.List;
 
-public class FlagPointRddAssert extends AbstractAssert<FlagPointRddAssert, JavaPairRDD<PointFlag, Point2D>> {
+public class FlagPointRddAssert extends AbstractAssert<FlagPointRddAssert, JavaPairRDD<Flag, Point>> {
 
-    FlagPointRddAssert(JavaPairRDD<PointFlag, Point2D> actual) { super(actual, FlagPointRddAssert.class); }
+    FlagPointRddAssert(JavaPairRDD<Flag, Point> actual) { super(actual, FlagPointRddAssert.class); }
 
-    static FlagPointRddAssert assertThat(JavaPairRDD<PointFlag, Point2D> actual) {
+    static FlagPointRddAssert assertThat(JavaPairRDD<Flag, Point> actual) {
         return new FlagPointRddAssert(actual);
     }
 
@@ -30,10 +30,10 @@ public class FlagPointRddAssert extends AbstractAssert<FlagPointRddAssert, JavaP
      *                                  values than the given ones.
      * @see org.assertj.core.api.AbstractIterableAssert#containsOnly(Object[])
      */
-    public FlagPointRddAssert containsOnly(Tuple2<PointFlag, Point2D>... values) {
+    public FlagPointRddAssert containsOnly(Tuple2<Flag, Point>... values) {
         isNotNull();
 
-        List<Tuple2<PointFlag, Point2D>> actualList = actual.collect();
+        List<Tuple2<Flag, Point>> actualList = actual.collect();
 
         Assertions.assertThat(actualList).containsOnly(values);
 
@@ -44,14 +44,14 @@ public class FlagPointRddAssert extends AbstractAssert<FlagPointRddAssert, JavaP
      * Same semantic as {@link #containsOnly(Tuple2[])} : verifies that actual contains all the elements of the given
      * RDD and nothing else, <b>in any order</b>.
      *
-     * @param expected the given {@code JavaPairRDD<PointFlag, Point2D>} we will get elements from.
+     * @param expected the given {@code JavaPairRDD<OldPointFlag, Point2D>} we will get elements from.
      * @see org.assertj.core.api.AbstractIterableAssert#containsOnlyElementsOf(Iterable)
      */
-    public FlagPointRddAssert containsOnlyElementsOf(JavaPairRDD<PointFlag, Point2D> expected) {
+    public FlagPointRddAssert containsOnlyElementsOf(JavaPairRDD<Flag, Point> expected) {
         isNotNull();
 
-        List<Tuple2<PointFlag, Point2D>> actualList = actual.collect();
-        List<Tuple2<PointFlag, Point2D>> expectedList = expected.collect();
+        List<Tuple2<Flag, Point>> actualList = actual.collect();
+        List<Tuple2<Flag, Point>> expectedList = expected.collect();
 
         Assertions.assertThat(actualList).containsOnlyElementsOf(expectedList);
 
@@ -72,10 +72,10 @@ public class FlagPointRddAssert extends AbstractAssert<FlagPointRddAssert, JavaP
      *                              values than the given ones or values are the same but the order is not.
      * @see org.assertj.core.api.AbstractIterableAssert#containsExactly(Object[])
      */
-    public FlagPointRddAssert containsExactly(@SuppressWarnings("unchecked") Tuple2<PointFlag, Point2D>... values) {
+    public FlagPointRddAssert containsExactly(@SuppressWarnings("unchecked") Tuple2<Flag, Point>... values) {
         isNotNull();
 
-        List<Tuple2<PointFlag, Point2D>> actualList = actual.collect();
+        List<Tuple2<Flag, Point>> actualList = actual.collect();
 
         Assertions.assertThat(actualList).containsExactly(values);
 
@@ -86,14 +86,14 @@ public class FlagPointRddAssert extends AbstractAssert<FlagPointRddAssert, JavaP
      * Same as {@link #containsExactly(Tuple2[])} but handle the {@link Iterable} to array conversion : verifies that
      * actual contains all the elements of the given RDD and nothing else <b>in the same order</b>.
      *
-     * @param expected the given {@code JavaPairRDD<PointFlag, Point2D>} we will get elements from.
+     * @param expected the given {@code JavaPairRDD<OldPointFlag, Point2D>} we will get elements from.
      * @see org.assertj.core.api.AbstractIterableAssert#containsExactlyElementsOf(Iterable)
      */
-    public FlagPointRddAssert containsExactlyElementsOf(JavaPairRDD<PointFlag, Point2D> expected) {
+    public FlagPointRddAssert containsExactlyElementsOf(JavaPairRDD<Flag, Point> expected) {
         isNotNull();
 
-        List<Tuple2<PointFlag, Point2D>> actualList = actual.collect();
-        List<Tuple2<PointFlag, Point2D>> expectedList = expected.collect();
+        List<Tuple2<Flag, Point>> actualList = actual.collect();
+        List<Tuple2<Flag, Point>> expectedList = expected.collect();
 
         Assertions.assertThat(actualList).containsExactlyElementsOf(expectedList);
 

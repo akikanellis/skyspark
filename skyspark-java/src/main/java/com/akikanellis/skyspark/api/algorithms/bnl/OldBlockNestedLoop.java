@@ -10,10 +10,10 @@ import java.util.List;
  * the sort function returns the same data. Also the global skyline computation just uses the same algorithm as the
  * local one.
  */
-public class BlockNestedLoop extends BlockNestedLoopTemplate {
+public class OldBlockNestedLoop extends BlockNestedLoopTemplate {
 
     @Override
-    protected JavaPairRDD<PointFlag, Point2D> sortRdd(JavaPairRDD<PointFlag, Point2D> flagPointPairs) {
+    protected JavaPairRDD<OldPointFlag, Point2D> sortRdd(JavaPairRDD<OldPointFlag, Point2D> flagPointPairs) {
         return flagPointPairs;
     }
 
@@ -24,6 +24,6 @@ public class BlockNestedLoop extends BlockNestedLoopTemplate {
 
     @Override
     public String toString() {
-        return "BlockNestedLoop";
+        return "OldBlockNestedLoop";
     }
 }

@@ -8,8 +8,8 @@ public class PointFlagTest {
 
     @Test
     public void equalsIsSymmetric() {
-        PointFlag first = new PointFlag(1, 1);
-        PointFlag second = new PointFlag(1, 1);
+        OldPointFlag first = new OldPointFlag(1, 1);
+        OldPointFlag second = new OldPointFlag(1, 1);
 
         assertThat(first).isEqualTo(second);
         assertThat(second).isEqualTo(first);
@@ -20,7 +20,7 @@ public class PointFlagTest {
     public void toString_returnData() {
         String expectedName = "[10]";
 
-        String actualName = new PointFlag(1, 0).toString();
+        String actualName = new OldPointFlag(1, 0).toString();
 
         assertThat(actualName).isEqualTo(expectedName);
     }

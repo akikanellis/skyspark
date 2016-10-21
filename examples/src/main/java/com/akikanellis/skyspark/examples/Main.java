@@ -1,7 +1,7 @@
 package com.akikanellis.skyspark.examples;
 
-import com.akikanellis.skyspark.api.algorithms.SkylineAlgorithm;
-import com.akikanellis.skyspark.api.algorithms.bnl.BlockNestedLoop;
+import com.akikanellis.skyspark.api.algorithms.OldSkylineAlgorithm;
+import com.akikanellis.skyspark.api.algorithms.bnl.OldBlockNestedLoop;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -30,9 +30,9 @@ public class Main {
 
         JavaRDD<Point2D> pointRdd = sc.parallelize(pointsList);
 
-        SkylineAlgorithm skylineAlgorithm;
+        OldSkylineAlgorithm skylineAlgorithm;
 
-        skylineAlgorithm = new BlockNestedLoop();
+        skylineAlgorithm = new OldBlockNestedLoop();
         //skylineAlgorithm = new SortFilterSkyline();
         //skylineAlgorithm = new Bitmap();
 

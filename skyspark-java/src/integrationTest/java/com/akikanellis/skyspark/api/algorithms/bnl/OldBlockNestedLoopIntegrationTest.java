@@ -1,14 +1,14 @@
 package com.akikanellis.skyspark.api.algorithms.bnl;
 
-import com.akikanellis.skyspark.api.algorithms.SkylineAlgorithm;
+import com.akikanellis.skyspark.api.algorithms.OldSkylineAlgorithm;
 import com.akikanellis.skyspark.api.test_utils.BaseSkylineAlgorithmIntegrationTest;
 import org.junit.Test;
 
-public class BlockNestedLoopIntegrationTest extends BaseSkylineAlgorithmIntegrationTest {
+public class OldBlockNestedLoopIntegrationTest extends BaseSkylineAlgorithmIntegrationTest {
 
     @Override
-    protected SkylineAlgorithm getSkylineAlgorithm() {
-        return new BlockNestedLoop();
+    protected OldSkylineAlgorithm getSkylineAlgorithm() {
+        return new OldBlockNestedLoop();
     }
 
     @Test

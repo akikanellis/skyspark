@@ -1,6 +1,6 @@
 package com.akikanellis.skyspark.api.algorithms.bitmap;
 
-import com.akikanellis.skyspark.api.algorithms.SkylineAlgorithm;
+import com.akikanellis.skyspark.api.algorithms.OldSkylineAlgorithm;
 import com.akikanellis.skyspark.api.utils.point.DominationComparatorMinAnotation;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -15,7 +15,7 @@ import static org.apache.commons.math3.util.MathUtils.checkNotNull;
  * Bitmap is a skyline algorithm which maps every unique point of each dimension to a bitmap, maps each point with its
  * list of bitmap keys and uses in the end the bitmap algorithm to see if a point is a skyline or not.
  */
-public class Bitmap implements SkylineAlgorithm {
+public class Bitmap implements OldSkylineAlgorithm {
 
     /**
      * Used for mapping each point to it's appropriate keys needed from the bitmap.

@@ -29,6 +29,7 @@ dependencies {
 
     testCompile libraries.jUnit
     testCompile libraries.assertJ
+    testCompile libraries.equalsVerifier
     testCompile libraries.mockito
 
     integrationTestCompile project(':data')

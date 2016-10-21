@@ -1,7 +1,7 @@
 package com.akikanellis.skyspark.api.algorithms.sfs;
 
 import com.akikanellis.skyspark.api.algorithms.bnl.BlockNestedLoopTemplate;
-import com.akikanellis.skyspark.api.algorithms.bnl.PointFlag;
+import com.akikanellis.skyspark.api.algorithms.bnl.OldPointFlag;
 import com.akikanellis.skyspark.api.utils.point.PointDominationComparatorMinAnnotation;
 import com.akikanellis.skyspark.api.utils.point.Points;
 import org.apache.spark.api.java.JavaPairRDD;
@@ -17,10 +17,10 @@ import java.util.List;
 public class SortFilterSkyline extends BlockNestedLoopTemplate {
 
     @Override
-    protected JavaPairRDD<PointFlag, Point2D> sortRdd(JavaPairRDD<PointFlag, Point2D> flagPointPairs) {
-        JavaPairRDD<Point2D, PointFlag> swapped = flagPointPairs.mapToPair(Tuple2::swap);
-        JavaPairRDD<Point2D, PointFlag> sorted = swapped.sortByKey(new PointDominationComparatorMinAnnotation());
-        JavaPairRDD<PointFlag, Point2D> unswapped = sorted.mapToPair(Tuple2::swap);
+    protected JavaPairRDD<OldPointFlag, Point2D> sortRdd(JavaPairRDD<OldPointFlag, Point2D> flagPointPairs) {
+        JavaPairRDD<Point2D, OldPointFlag> swapped = flagPointPairs.mapToPair(Tuple2::swap);
+        JavaPairRDD<Point2D, OldPointFlag> sorted = swapped.sortByKey(new PointDominationComparatorMinAnnotation());
+        JavaPairRDD<OldPointFlag, Point2D> unswapped = sorted.mapToPair(Tuple2::swap);
 
         return unswapped;
     }

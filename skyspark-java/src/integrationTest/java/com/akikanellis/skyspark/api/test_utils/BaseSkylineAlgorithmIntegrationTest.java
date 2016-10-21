@@ -1,6 +1,6 @@
 package com.akikanellis.skyspark.api.test_utils;
 
-import com.akikanellis.skyspark.api.algorithms.SkylineAlgorithm;
+import com.akikanellis.skyspark.api.algorithms.OldSkylineAlgorithm;
 import com.akikanellis.skyspark.api.helpers.TextFileToPointRDD;
 import com.akikanellis.skyspark.data.DatasetFiles;
 import org.apache.spark.api.java.JavaRDD;
@@ -14,7 +14,7 @@ import static com.akikanellis.skyspark.api.test_utils.assertions.MoreAssertions.
 public abstract class BaseSkylineAlgorithmIntegrationTest {
     @Rule public SparkContextRule sc = new SparkContextRule();
 
-    private SkylineAlgorithm skylineAlgorithm;
+    private OldSkylineAlgorithm skylineAlgorithm;
     private TextFileToPointRDD textFileToPointRDD;
 
     @Before
@@ -23,7 +23,7 @@ public abstract class BaseSkylineAlgorithmIntegrationTest {
         textFileToPointRDD = new TextFileToPointRDD(sc.get());
     }
 
-    protected abstract SkylineAlgorithm getSkylineAlgorithm();
+    protected abstract OldSkylineAlgorithm getSkylineAlgorithm();
 
     protected void smallAnticorrelated() {
         findCorrectSkylines(DatasetFiles.ANTICOR_2_10000);
