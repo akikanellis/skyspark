@@ -1,6 +1,6 @@
 package com.akikanellis.skyspark.performance.parsing;
 
-import com.akikanellis.skyspark.api.algorithms.SkylineAlgorithm;
+import com.akikanellis.skyspark.api.algorithms.OldSkylineAlgorithm;
 import com.akikanellis.skyspark.performance.Dates;
 import com.akikanellis.skyspark.performance.result.PointDataFile;
 import com.beust.jcommander.JCommander;
@@ -12,7 +12,7 @@ public class Settings {
 
     @Parameter(names = {"-a", "-algorithm"}, description = "The algorithm(s) to use", required = true,
             converter = SkylineAlgorithmConverter.class)
-    private List<SkylineAlgorithm> algorithms;
+    private List<OldSkylineAlgorithm> algorithms;
 
     @Parameter(names = {"-f", "-file"}, description = "The filepath(s) of the points", required = true,
             validateWith = PointDataFileValidator.class, converter = PointDataFileConverter.class)
@@ -44,7 +44,7 @@ public class Settings {
         return settings;
     }
 
-    public List<SkylineAlgorithm> getAlgorithms() {
+    public List<OldSkylineAlgorithm> getAlgorithms() {
         return algorithms;
     }
 

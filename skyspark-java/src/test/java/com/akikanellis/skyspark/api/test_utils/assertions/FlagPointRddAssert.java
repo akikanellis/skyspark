@@ -44,7 +44,7 @@ public class FlagPointRddAssert extends AbstractAssert<FlagPointRddAssert, JavaP
      * Same semantic as {@link #containsOnly(Tuple2[])} : verifies that actual contains all the elements of the given
      * RDD and nothing else, <b>in any order</b>.
      *
-     * @param expected the given {@code JavaPairRDD<PointFlag, Point2D>} we will get elements from.
+     * @param expected the given {@code JavaPairRDD<OldPointFlag, Point2D>} we will get elements from.
      * @see org.assertj.core.api.AbstractIterableAssert#containsOnlyElementsOf(Iterable)
      */
     public FlagPointRddAssert containsOnlyElementsOf(JavaPairRDD<Flag, Point> expected) {
@@ -86,7 +86,7 @@ public class FlagPointRddAssert extends AbstractAssert<FlagPointRddAssert, JavaP
      * Same as {@link #containsExactly(Tuple2[])} but handle the {@link Iterable} to array conversion : verifies that
      * actual contains all the elements of the given RDD and nothing else <b>in the same order</b>.
      *
-     * @param expected the given {@code JavaPairRDD<PointFlag, Point2D>} we will get elements from.
+     * @param expected the given {@code JavaPairRDD<OldPointFlag, Point2D>} we will get elements from.
      * @see org.assertj.core.api.AbstractIterableAssert#containsExactlyElementsOf(Iterable)
      */
     public FlagPointRddAssert containsExactlyElementsOf(JavaPairRDD<Flag, Point> expected) {

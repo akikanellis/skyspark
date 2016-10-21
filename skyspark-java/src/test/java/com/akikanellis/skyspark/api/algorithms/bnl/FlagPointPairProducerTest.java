@@ -10,21 +10,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class FlagPointPairProducerTest {
 
-    private FlagPointPairProducer producer;
+    private OlgFlagPointPairProducer producer;
 
     @Before
     public void setUp() {
         Point2D medianPoint = new Point2D.Double(5, 5);
-        producer = new FlagPointPairProducer(medianPoint);
+        producer = new OlgFlagPointPairProducer(medianPoint);
     }
 
     @Test
     public void shouldReturnSamePair() {
-        PointFlag expectedFlag = new PointFlag(1, 1);
+        OldPointFlag expectedFlag = new OldPointFlag(1, 1);
         Point2D expectedPoint = new Point2D.Double(4610.505826490165, 3570.466435170513);
-        Tuple2<PointFlag, Point2D> expectedResult = new Tuple2<>(expectedFlag, expectedPoint);
+        Tuple2<OldPointFlag, Point2D> expectedResult = new Tuple2<>(expectedFlag, expectedPoint);
 
-        Tuple2<PointFlag, Point2D> actualResult = producer.getFlagPointPair(expectedPoint);
+        Tuple2<OldPointFlag, Point2D> actualResult = producer.getFlagPointPair(expectedPoint);
 
         assertThat(actualResult).isEqualTo(expectedResult);
     }

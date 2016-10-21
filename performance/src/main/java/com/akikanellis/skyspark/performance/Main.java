@@ -1,6 +1,6 @@
 package com.akikanellis.skyspark.performance;
 
-import com.akikanellis.skyspark.api.algorithms.SkylineAlgorithm;
+import com.akikanellis.skyspark.api.algorithms.OldSkylineAlgorithm;
 import com.akikanellis.skyspark.api.helpers.TextFileToPointRDD;
 import com.akikanellis.skyspark.performance.parsing.Settings;
 import com.akikanellis.skyspark.performance.result.PointDataFile;
@@ -37,7 +37,7 @@ public class Main {
                                 .forEach(file -> executeWithFile(algo, file))));
     }
 
-    private static void executeWithFile(SkylineAlgorithm skylineAlgorithm, PointDataFile pointDataFile) {
+    private static void executeWithFile(OldSkylineAlgorithm skylineAlgorithm, PointDataFile pointDataFile) {
         stopwatch.start();
         SparkConf sparkConf = new SparkConf().setAppName("Performance evaluation for Skyline computing");
         JavaSparkContext sparkContext = new JavaSparkContext(sparkConf);

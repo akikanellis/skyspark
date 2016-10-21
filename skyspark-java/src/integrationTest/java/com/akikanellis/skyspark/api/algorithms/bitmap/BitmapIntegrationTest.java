@@ -1,6 +1,6 @@
 package com.akikanellis.skyspark.api.algorithms.bitmap;
 
-import com.akikanellis.skyspark.api.algorithms.SkylineAlgorithm;
+import com.akikanellis.skyspark.api.algorithms.OldSkylineAlgorithm;
 import com.akikanellis.skyspark.api.test_utils.BaseSkylineAlgorithmIntegrationTest;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -8,7 +8,7 @@ import org.junit.Test;
 public class BitmapIntegrationTest extends BaseSkylineAlgorithmIntegrationTest {
 
     @Override
-    protected SkylineAlgorithm getSkylineAlgorithm() {
+    protected OldSkylineAlgorithm getSkylineAlgorithm() {
         return new Bitmap();
     }
 

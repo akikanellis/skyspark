@@ -14,21 +14,21 @@ import java.util.List;
 import static com.akikanellis.skyspark.api.test_utils.assertions.MoreAssertions.assertThat;
 
 
-public class BlockNestedLoopTest {
+public class OldBlockNestedLoopTest {
     @Rule public SparkContextRule sc = new SparkContextRule();
 
-    private BlockNestedLoop blockNestedLoop;
+    private OldBlockNestedLoop oldBlockNestedLoop;
 
     @Before
     public void setUp() {
-        blockNestedLoop = new BlockNestedLoop();
+        oldBlockNestedLoop = new OldBlockNestedLoop();
     }
 
     @Test
     public void returnTheSameRddUnsorted() {
-        JavaPairRDD<PointFlag, Point2D> expectedRdd = sc.parallelizePairs(FlagPointPairsMock.getFlagPointPairsUnsorted());
+        JavaPairRDD<OldPointFlag, Point2D> expectedRdd = sc.parallelizePairs(FlagPointPairsMock.getFlagPointPairsUnsorted());
 
-        JavaPairRDD<PointFlag, Point2D> actualRdd = blockNestedLoop.sortRdd(expectedRdd);
+        JavaPairRDD<OldPointFlag, Point2D> actualRdd = oldBlockNestedLoop.sortRdd(expectedRdd);
 
         assertThat(actualRdd).containsOnlyElementsOf(expectedRdd);
     }
@@ -40,7 +40,7 @@ public class BlockNestedLoopTest {
         expectedSkylines.add(candidateGlobalSkylinePoint);
 
         List<Point2D> actualSkylines = getGlobalSkylines();
-        blockNestedLoop.globalAddDiscardOrDominate(actualSkylines, candidateGlobalSkylinePoint);
+        oldBlockNestedLoop.globalAddDiscardOrDominate(actualSkylines, candidateGlobalSkylinePoint);
 
         assertThat(actualSkylines).containsOnlyElementsOf(expectedSkylines);
     }
@@ -51,7 +51,7 @@ public class BlockNestedLoopTest {
         Point2D candidateGlobalSkylinePoint = new Point2D.Double(5300.723604353442, 6586.544252547646);
 
         List<Point2D> actualSkylines = getGlobalSkylines();
-        blockNestedLoop.globalAddDiscardOrDominate(actualSkylines, candidateGlobalSkylinePoint);
+        oldBlockNestedLoop.globalAddDiscardOrDominate(actualSkylines, candidateGlobalSkylinePoint);
 
         assertThat(actualSkylines).containsOnlyElementsOf(expectedSkylines);
     }
@@ -65,7 +65,7 @@ public class BlockNestedLoopTest {
         expectedSkylines.add(candidateGlobalSkylinePoint);
 
         List<Point2D> actualSkylines = getGlobalSkylines();
-        blockNestedLoop.globalAddDiscardOrDominate(actualSkylines, candidateGlobalSkylinePoint);
+        oldBlockNestedLoop.globalAddDiscardOrDominate(actualSkylines, candidateGlobalSkylinePoint);
 
         assertThat(actualSkylines).containsOnlyElementsOf(expectedSkylines);
     }
@@ -77,7 +77,7 @@ public class BlockNestedLoopTest {
         expectedSkylines.add(candidateGlobalSkylinePoint);
 
         List<Point2D> actualSkylines = getGlobalSkylines();
-        blockNestedLoop.globalAddDiscardOrDominate(actualSkylines, candidateGlobalSkylinePoint);
+        oldBlockNestedLoop.globalAddDiscardOrDominate(actualSkylines, candidateGlobalSkylinePoint);
 
         assertThat(actualSkylines).containsOnlyElementsOf(expectedSkylines);
     }
@@ -95,9 +95,9 @@ public class BlockNestedLoopTest {
 
     @Test
     public void toString_returnName() {
-        String expectedName = "BlockNestedLoop";
+        String expectedName = "OldBlockNestedLoop";
 
-        String actualName = blockNestedLoop.toString();
+        String actualName = oldBlockNestedLoop.toString();
 
         assertThat(actualName).isEqualTo(expectedName);
     }

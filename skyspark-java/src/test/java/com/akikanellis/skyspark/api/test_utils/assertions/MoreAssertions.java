@@ -2,7 +2,7 @@ package com.akikanellis.skyspark.api.test_utils.assertions;
 
 import com.akikanellis.skyspark.api.algorithms.Point;
 import com.akikanellis.skyspark.api.algorithms.bnl.Flag;
-import com.akikanellis.skyspark.api.algorithms.bnl.PointFlag;
+import com.akikanellis.skyspark.api.algorithms.bnl.OldPointFlag;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.assertj.core.api.Assertions;
@@ -19,7 +19,7 @@ public class MoreAssertions extends Assertions {
         return new FlagPointRddAssert(actual);
     }
 
-    public static FlagPoint2DRddAssert assertThat(JavaPairRDD<PointFlag, Point2D> actual) {
+    public static FlagPoint2DRddAssert assertThat(JavaPairRDD<OldPointFlag, Point2D> actual) {
         return new FlagPoint2DRddAssert(actual);
     }
 }
