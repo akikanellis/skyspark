@@ -1,6 +1,7 @@
 package com.akikanellis.skyspark.api.algorithms.bnl;
 
 import com.akikanellis.skyspark.api.algorithms.Point;
+import com.google.common.annotations.VisibleForTesting;
 import scala.Tuple2;
 
 import java.io.Serializable;
@@ -9,9 +10,10 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-class BnlAlgorithm implements Serializable {
+@VisibleForTesting
+public class BnlAlgorithm implements Serializable {
 
-    Iterable<Point> computeSkylinesWithoutPreComparison(Collection<Point> points) {
+    Iterable<Point> computeSkylinesWithoutPreComparison(Iterable<Point> points) {
         List<Point> skylines = new ArrayList<>();
 
         points.forEach(p -> addDiscardOrDominate(skylines, p));
