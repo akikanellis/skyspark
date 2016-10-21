@@ -1,8 +1,9 @@
 package com.akikanellis.skyspark.api.algorithms.bnl;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public final class Flag {
+public final class Flag implements Serializable {
     private final boolean[] bits;
 
     public Flag(boolean... bits) { this.bits = bits; }

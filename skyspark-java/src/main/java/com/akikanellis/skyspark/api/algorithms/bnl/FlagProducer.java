@@ -1,18 +1,21 @@
 package com.akikanellis.skyspark.api.algorithms.bnl;
 
 import com.akikanellis.skyspark.api.algorithms.Point;
+import com.google.common.annotations.VisibleForTesting;
 import scala.Tuple2;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.stream.DoubleStream;
 import java.util.stream.Stream;
 
-class FlagProducer {
+@VisibleForTesting
+public class FlagProducer implements Serializable {
     private final Point median;
 
     FlagProducer(Point median) { this.median = median; }
 
-    Flag calculateFlag(Point point) {
+    public Flag calculateFlag(Point point) {
         Boolean[] bitsBoxed = getBits(point);
         boolean[] bits = unbox(bitsBoxed);
 
